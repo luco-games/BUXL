@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Buchstaben - Suppe</title>
+    <title>Buchstaben - Salat - Spiel</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,17 +17,16 @@
   <body>
 
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-      <h5 class="my-0 mr-md-auto font-weight-normal">Buchstaben - Suppe</h5>
+      <h5 class="my-0 mr-md-auto font-weight-normal">BSS :: Buchstaben - Salat - Spiel</h5>
     </div>
 
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-      <h1 class="display-4">Auf geht's</h1>
       <p class="lead">Finde alle m&ouml;glichen Kombinationen</p>
     </div>
 
     <div class="container">
-        <div id="content">
-        </div>
+      <div id="content">
+      </div>
       <footer class="pt-4 my-md-5 pt-md-5 border-top">
         <div class="row">
           <div class="col-12 col-md">
@@ -46,30 +45,30 @@
     </div>
 
     <script id="tmpl" type="text/x-jsrender">
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-center">
             {{for top}}
-              <div class="col-sm-1">
+              <div class="col-auto space-left">
                 <div class="row  align-items-center rounded-circle letter">
                      <div class="col text-center">
-                          <h3 class="display-4"> {{>}} </h3>
+                          <h3> {{>}} </h3>
                      </div>
                 </div>
               </div>
             {{/for}}
         </div>
-        <div class="row space-1 justify-content-md-center">
+        <div class="row space-1 justify-content-center">
             {{for bottom}}
-              <div class="col-sm-1">
+              <div class="col-auto space-left">
                 <div class="row  align-items-center rounded-circle letter">
                      <div class="col text-center">
-                          <h3 class="display-4"> {{>}} </h3>
+                          <h3> {{>}} </h3>
                      </div>
                 </div>
               </div>
             {{/for}}
         </div>
-        <div class="justify-content-md-center row space-2">
-          <div class="col-sm-auto">
+        <div class="justify-content-center row space-2">
+          <div class="col-auto">
             <p>
               <a class="btn btn-success" data-toggle="collapse" href="#collapseSolution" role="button" aria-expanded="false" aria-controls="collapseSolution">
                 Aufl&ouml;sung
@@ -81,7 +80,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-auto">
+          <div class="col-auto">
               <a class="btn btn-warning" id="reload" href="#" role="button">
                 Neu W&uuml;rfeln
               </a>
