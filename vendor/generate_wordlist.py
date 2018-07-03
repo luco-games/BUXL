@@ -1,5 +1,4 @@
-import findWordPairs
-import json
+import findWordPairs, json, io
 
 wordlist_file = open("wordlist.txt")
 
@@ -17,4 +16,5 @@ for key in result:
     json_arr["solution"] = ", ".join(key)
     data.append(json_arr)
     
-print (json.dumps(data))
+with io.open('../data/combopairs.js', 'w', encoding='utf-8') as f:
+  f.write("var data = %s;" % json.dumps(data))
