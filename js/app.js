@@ -5,7 +5,6 @@ function getFreshData() {
 
     var selecteddata = data[randomvalues%datalength]
     selecteddata["solved"] = [];
-    $(".combilength").text("Es gibt "+selecteddata["solution"].length.toString()+" Möglichkeiten");
     getData(selecteddata);
 }
 
@@ -16,6 +15,11 @@ function getData (selecteddata) {
     var html = myTmpl.render(selecteddata);
 
     $("#content").html(html);
+    var leftSolutions = selecteddata["solution"].length - selecteddata["solved"].length;
+    if (leftSolutions === 1)
+        $(".combilength").text("Es gibt eine Möglichkeit");
+    else
+        $(".combilength").text("Es gibt "+leftSolutions.toString()+" Möglichkeiten");
 
     document.getElementById("reload").addEventListener("click", getFreshData); 
 

@@ -22,7 +22,6 @@
 
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <p class="lead">Finde alle m&ouml;glichen Kombinationen</p>
-      <p class="lead combilength">Es gibt </p>
     </div>
 
     <div class="container">
@@ -70,7 +69,12 @@
                 {{/for}}
             </div>
         </div>
-        <div class="solutionbox justify-content-center row space-2">
+        <div class="justify-content-center row space-1">
+            <div class="col">
+                <p class="lead combilength">Es gibt </p>
+            </div>
+        </div>
+        <div class="solutionbox justify-content-center row">
             <div class="col">
                 <div class="row">
                     <div class="col">
@@ -90,7 +94,7 @@
             </div>
         </div>
         <div class="justify-content-center row space-2">
-          <div class="col-auto">
+          <div class="col">
             <p>
               <a class="btn btn-success" data-toggle="collapse" href="#collapseSolution" role="button" aria-expanded="false" aria-controls="collapseSolution">
                 Aufl&ouml;sung
@@ -102,7 +106,7 @@
               </div>
             </div>
           </div>
-          <div class="col-auto">
+          <div class="col">
               <a class="btn btn-warning" id="reload" href="#" role="button">
                 Neu W&uuml;rfeln
               </a>
