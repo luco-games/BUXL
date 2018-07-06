@@ -5,6 +5,7 @@ function getFreshData() {
 
     var selecteddata = data[randomvalues%datalength]
     selecteddata["solved"] = [];
+    $(".combilength").text("Es gibt "+selecteddata["solution"].length.toString()+" Möglichkeiten");
     getData(selecteddata);
 }
 

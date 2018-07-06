@@ -22,6 +22,7 @@
 
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <p class="lead">Finde alle m&ouml;glichen Kombinationen</p>
+      <p class="lead combilength">Es gibt </p>
     </div>
 
     <div class="container">
@@ -70,11 +71,17 @@
             </div>
         </div>
         <div class="solutionbox justify-content-center row space-2">
-            <div class="col-auto space-left">
-                <h4 class="">&gt;</h4>
-                <h4 class="solution"></h4>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="">&gt;</h4>
+                    </div>
+                    <div class="col">
+                        <h4 class="solution"></h4>
+                    </div>
+                </div>
             </div>
-            <div class="col-auto space-left">
+            <div class="col">
                 <ul class="solved">
                     {{for solved}}
                         <li>{{>}}</li>
