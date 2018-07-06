@@ -45,27 +45,42 @@
     </div>
 
     <script id="tmpl" type="text/x-jsrender">
-        <div class="row justify-content-center">
-            {{for top}}
-              <div class="col-auto space-left">
-                <div class="row  align-items-center rounded-circle letter">
-                     <div class="col text-center">
-                          <h3> {{>}} </h3>
-                     </div>
-                </div>
-              </div>
-            {{/for}}
+        <div class="gamewrap">
+            <div class="row justify-content-center">
+                {{for top}}
+                  <div class="col-auto space-left">
+                    <div class="row align-items-center rounded-circle letter-gray letter-mass" data-game-button-id="{{:#index}}" data-game-button-pressed="false" data-game-choosedbutton="false">
+                         <div class="col text-center">
+                              <h3> {{>}} </h3>
+                         </div>
+                    </div>
+                  </div>
+                {{/for}}
+            </div>
+            <div class="row space-1 justify-content-center">
+                {{for bottom}}
+                  <div class="col-auto space-left">
+                    <div class="row align-items-center rounded-circle letter-mass letter-gray" data-game-button-id="{{:#index}}" data-game-button-pressed="false" data-game-choosedbutton="false">
+                         <div class="col text-center">
+                              <h3> {{>}} </h3>
+                         </div>
+                    </div>
+                  </div>
+                {{/for}}
+            </div>
         </div>
-        <div class="row space-1 justify-content-center">
-            {{for bottom}}
-              <div class="col-auto space-left">
-                <div class="row  align-items-center rounded-circle letter">
-                     <div class="col text-center">
-                          <h3> {{>}} </h3>
-                     </div>
-                </div>
-              </div>
-            {{/for}}
+        <div class="solutionbox justify-content-center row space-2">
+            <div class="col-2 space-left">
+                <h4 class="">&gt;</h4>
+                <h4 class="solution"></h4>
+            </div>
+            <div class="col-3 space-left">
+                <ul class="solved">
+                    {{for solved}}
+                        <li>{{>}}</li>
+                    {{/for}}
+                </ul>
+            </div>
         </div>
         <div class="justify-content-center row space-2">
           <div class="col-auto">
@@ -89,6 +104,7 @@
      </script>
     <script src="data/combopairs.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
     <script src="js/jsrender.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/app.js"></script>

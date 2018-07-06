@@ -13,7 +13,7 @@ for key in result:
     json_arr = {}
     json_arr["bottom"] = result[key][0]
     json_arr["top"] = result[key][1]
-    json_arr["solution"] = ", ".join(key)
+    json_arr["solution"] = list(key)
     data.append(json_arr)
     
 with io.open('../data/combopairs.js', 'w', encoding='utf-8') as f:

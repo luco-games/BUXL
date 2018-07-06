@@ -13,9 +13,23 @@
    margin-left: .5em;
 }
 
-.letter
+.letter-mass
 {
-    background-color: lightgray;
     height: 4em;
     width:  4em;
+}
+
+.letter-gray
+{
+    background-color: lightgray;
+}
+
+.letter-selected
+{
+    background-color: lightgreen;
+}
+
+.letter-notselected
+{
+    background-color: lightblue;
 }
