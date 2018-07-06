@@ -70,11 +70,11 @@ function getData (selecteddata) {
                 });
             } else if (jQuery.inArray(usersolution, selecteddata["solution"]) >= 0
                     && jQuery.inArray(usersolution, selecteddata["solved"]) >= 0) {
-                $(".gamewrap").effect( "pulsate", function() {
+                $(".gamewrap").effect( "pulsate", "slow", function() {
                     getData(selecteddata);
                 });
             } else {
-                $(".gamewrap").effect( "pulsate", function() {
+                $(".gamewrap").effect( "pulsate", 800, function() {
                     $(".solved").append($("<li>").text(usersolution));
                     selecteddata["solved"].push(usersolution);
                     getData(selecteddata);
