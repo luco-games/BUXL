@@ -16,7 +16,7 @@ function getData (selecteddata) {
 
     $("#content").html(html);
 
-    document.getElementById("reload").addEventListener("click", getData); 
+    document.getElementById("reload").addEventListener("click", getFreshData); 
 
     $( "[data-game-button-id]" ).click(function() {
       var id = $(this).attr("data-game-button-id");
