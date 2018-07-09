@@ -48,7 +48,7 @@
         <div class="gamewrap">
             <div class="d-flex justify-content-center">
                 {{for top}}
-                  <div class="p-2" style="background-color:grey" >
+                  <div class="p-2 letter-box" >
                     <div class="d-flex justify-content-center align-items-center rounded-circle letter-inactive letter-mass" data-game-btn-id="{{:#index}}" data-game-btn-enabled="false">
                          <div class="p-2 text-center">
                               <h3> {{>}} </h3>
@@ -59,7 +59,7 @@
             </div>
             <div class="d-flex justify-content-center">
                 {{for bottom}}
-                  <div class="p-2" style="background-color:grey;" >
+                  <div class="p-2 letter-box" >
                     <div class="d-flex justify-content-center align-items-center rounded-circle letter-mass letter-inactive" data-game-btn-id="{{:#index}}" data-game-btn-enabled="false">
                          <div class="p-2 text-center">
                               <h3> {{>}} </h3>
@@ -112,14 +112,6 @@
                 {{/for}}
             </ul>
         </div>
-        <div class="justify-content-center row space-2">
-          <div class="col">
-            <p>
-            </p>
-          </div>
-          <div class="col">
-          </div>
-         </div>
      </script>
     <script src="data/combopairs.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>

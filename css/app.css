@@ -45,3 +45,9 @@
     font-size: 2rem;
     background-color: lightgray;
 }
+
+.letter-box
+{
+    margin-left: .5em;
+    background-color: gray;
+}
