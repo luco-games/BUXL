@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Buchstaben - Salat - Spiel</title>
+    <title>BUXL</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
   <body>
 
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-      <h5 class="my-0 mr-md-auto font-weight-normal">BSS :: Buchstaben - Salat - Spiel</h5>
+      <h5 class="my-0 mr-md-auto font-weight-normal">BUXL</h5>
     </div>
 
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
@@ -46,22 +46,22 @@
 
     <script id="tmpl" type="text/x-jsrender">
         <div class="gamewrap">
-            <div class="row justify-content-center">
+            <div class="d-flex justify-content-center">
                 {{for top}}
-                  <div class="col-auto space-left">
-                    <div class="row align-items-center rounded-circle letter-gray letter-mass" data-game-button-id="{{:#index}}" data-game-button-pressed="false" data-game-choosedbutton="false">
-                         <div class="col text-center">
+                  <div class="p-2" style="background-color:grey" >
+                    <div class="d-flex justify-content-center align-items-center rounded-circle letter-inactive letter-mass" data-game-btn-id="{{:#index}}" data-game-btn-enabled="false">
+                         <div class="p-2 text-center">
                               <h3> {{>}} </h3>
                          </div>
                     </div>
                   </div>
                 {{/for}}
             </div>
-            <div class="row space-1 justify-content-center">
+            <div class="d-flex justify-content-center">
                 {{for bottom}}
-                  <div class="col-auto space-left">
-                    <div class="row align-items-center rounded-circle letter-mass letter-gray" data-game-button-id="{{:#index}}" data-game-button-pressed="false" data-game-choosedbutton="false">
-                         <div class="col text-center">
+                  <div class="p-2" style="background-color:grey;" >
+                    <div class="d-flex justify-content-center align-items-center rounded-circle letter-mass letter-inactive" data-game-btn-id="{{:#index}}" data-game-btn-enabled="false">
+                         <div class="p-2 text-center">
                               <h3> {{>}} </h3>
                          </div>
                     </div>
@@ -69,47 +69,55 @@
                 {{/for}}
             </div>
         </div>
-        <div class="justify-content-center row space-1">
-            <div class="col">
-                <p class="lead combilength">Es gibt </p>
+        <div class="justify-content-center d-flex space-1">
+            <div class="p-2"> 
+                 <a class="btn-sm btn btn-success" data-toggle="collapse" href="#collapseSolution" role="button" aria-expanded="false" aria-controls="collapseSolution">
+                Aufl&ouml;sung
+              </a>
+            </div>
+            <div class="p-2">
+              <a class="btn-sm btn btn-warning" id="reload" href="#" role="button">
+                Neu W&uuml;rfeln
+              </a>
             </div>
         </div>
-        <div class="solutionbox justify-content-center row">
-            <div class="col">
-                <div class="row">
-                    <div class="col">
-                        <h4 class="">&gt;</h4>
-                    </div>
-                    <div class="col">
-                        <h4 class="solution"></h4>
-                    </div>
+        <div class="justify-content-center d-flex">
+            <div class="p-2"> 
+                <div class="collapse" id="collapseSolution">
+                  <div class="card card-body">
+                    {{:solution}}
+                  </div>
                 </div>
             </div>
-            <div class="col">
-                <ul class="solved">
-                    {{for solved}}
-                        <li>{{>}}</li>
-                    {{/for}}
-                </ul>
+        </div>
+        <div class="justify-content-center d-flex">
+            <div class="p-2">
+                <p class="lead combilength"></p>
             </div>
+        </div>
+        <div class="solutionbox justify-content-center d-flex">
+            <div class="p-2">
+                <h4 class="">&gt;</h4>
+            </div>
+            <div class="p-2" data-solution="">
+                {{for top}}
+                    <span class="solution solution-letter" data-solution-index="{{:#index}}" >_</span> 
+                {{/for}}
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <ul class="solved">
+                {{for solved}}
+                    <li>{{>}}</li>
+                {{/for}}
+            </ul>
         </div>
         <div class="justify-content-center row space-2">
           <div class="col">
             <p>
-              <a class="btn btn-success" data-toggle="collapse" href="#collapseSolution" role="button" aria-expanded="false" aria-controls="collapseSolution">
-                Aufl&ouml;sung
-              </a>
             </p>
-            <div class="collapse" id="collapseSolution">
-              <div class="card card-body">
-                {{:solution}}
-              </div>
-            </div>
           </div>
           <div class="col">
-              <a class="btn btn-warning" id="reload" href="#" role="button">
-                Neu W&uuml;rfeln
-              </a>
           </div>
          </div>
      </script>

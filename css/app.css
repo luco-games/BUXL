@@ -19,9 +19,9 @@
     width:  4em;
 }
 
-.letter-gray
+.letter-inactive
 {
-    background-color: lightgray;
+    background-color: lightblue;
 }
 
 .letter-selected
@@ -31,5 +31,17 @@
 
 .letter-notselected
 {
-    background-color: lightblue;
+    background-color: lightgray;
+}
+
+.solution
+{
+    margin-left: .5em; 
+    margin-right: .5em; 
+}
+
+.solution-letter
+{
+    font-size: 2rem;
+    background-color: lightgray;
 }

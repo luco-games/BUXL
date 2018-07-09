@@ -1,90 +1,128 @@
-function getFreshData() {
+function setText(btn, text) {
+    btn.text( text );
+}
+
+function getText(btn) {
+    return btn.text().replace(/[\n ]/g,'');
+}
+
+
+function replaceText(btn,orig, repltxt) {
+    btn.attr("class",btn.attr("class").replace(orig, repltxt));
+}
+
+function shuffleData() {
     var randomvalues = new Uint32Array(1);
     var datalength = data.length + 1;
     window.crypto.getRandomValues(randomvalues);
 
-    var selecteddata = data[randomvalues%datalength]
-    selecteddata["solved"] = [];
-    getData(selecteddata);
+    var shuffledData = data[randomvalues%datalength]
+    shuffledData["solved"] = [];
+    renderData(shuffledData);
 }
 
-function getData (selecteddata) {
+function renderSolution (old_char, new_char) {
+    var solution = $("[data-solution]").attr("data-solution");
+    var foundID = [];
+
+    if (old_char === null) {
+        foundID = solution.match("_");
+        if (foundID === null) {
+            foundID = [];
+            foundID["index"] = solution.length;
+        } 
+    } else {
+        var foundID = solution.match(old_char);
+    }
+
+    var result = solution.substr(0, foundID.index) + new_char + solution.substr(foundID.index + 1);
+
+    $("[data-solution]").attr("data-solution", result );
+    $(".solution[data-solution-index="+foundID.index+"]").text(new_char);
+}
+
+function renderData (shuffledData) {
 
     var myTmpl = $.templates("#tmpl");
-
-    var html = myTmpl.render(selecteddata);
+    var html = myTmpl.render(shuffledData);
 
     $("#content").html(html);
-    var leftSolutions = selecteddata["solution"].length - selecteddata["solved"].length;
-    if (leftSolutions === 1)
+
+    var SolutionsLeft = shuffledData["solution"].length - shuffledData["solved"].length;
+
+    if (SolutionsLeft === 1)
         $(".combilength").text("Es gibt eine Möglichkeit");
     else
-        $(".combilength").text("Es gibt "+leftSolutions.toString()+" Möglichkeiten");
+        $(".combilength").text("Es gibt "+SolutionsLeft.toString()+" Möglichkeiten");
 
-    document.getElementById("reload").addEventListener("click", getFreshData); 
+    if (SolutionsLeft === 0) {
+        $(".gamewrap").effect( "explode", "1000", function() {
+            shuffleData(); 
+        });
+    }
 
-    $( "[data-game-button-id]" ).click(function() {
-      var id = $(this).attr("data-game-button-id");
-      if ($(this).attr("data-game-button-pressed") === "true") {
-        var btn_origin = $(".letter-selected[data-game-button-id=" + id + "]");
-        var btn_target = $(".letter-notselected[data-game-button-id=" + id + "]");
+    document.getElementById("reload").addEventListener("click", shuffleData); 
 
-        if ($(this).attr("data-game-choosedbutton") === "false") {
-              //var usersolution = $(".solution").text().slice(0,-1);
-              var copy_from = btn_origin.text().replace(/[\n ]/g,'');
-              var copy_to = btn_target.text().replace(/[\n ]/g,'');
-              var usersolution = $(".solution").text().replace(copy_from, copy_to);
-              btn_origin.attr("class", btn_origin.attr("class").replace("letter-selected", "letter-notselected"));
-              btn_target.attr("class", btn_target.attr("class").replace("letter-notselected", "letter-selected"));
-              $(this).attr("data-game-choosedbutton","true");
+    $( "[data-game-btn-id]" ).click(function() {
+        var id = $(this).attr("data-game-btn-id");
+        var value = $(this).attr("data-game-btn-enabled");
+        var btn_origin = $(this);
+
+        if ( value === "true") {
+            var btn_target = $(".letter-notselected[data-game-btn-id=" + id + "]");
+            var delete_char = getText(btn_origin);
+
+            replaceText(btn_origin, "letter-selected", "letter-inactive");
+            replaceText(btn_target, "letter-notselected", "letter-inactive");
+            btn_origin.attr("data-game-btn-enabled","false");
+            btn_target.attr("data-game-btn-enabled","false");
+
+            renderSolution (delete_char, "_");
+        } else if ( value === "inactive" ) {
+            var btn_target = $(".letter-selected[data-game-btn-id=" + id + "]");
+            replaceText(btn_origin, "letter-notselected", "letter-selected");
+            replaceText(btn_target, "letter-selected", "letter-notselected");
+            btn_origin.attr("data-game-btn-enabled","true");
+            btn_target.attr("data-game-btn-enabled","inactive");
+
+            var replaceChar = getText(btn_target);
+            var newValue = getText(btn_origin);
+            renderSolution (replaceChar, newValue);
         } else {
-            var delete_char = btn_origin.text().replace(/[\n ]/g,'');
-            var usersolution = $(".solution").text().replace(delete_char,"_");
-            btn_origin.attr("class",btn_origin.attr("class").replace("letter-selected","letter-gray"));
-            btn_target.attr("class",btn_target.attr("class").replace("letter-notselected","letter-gray"));
-            btn_origin.attr("data-game-button-pressed","false");
-            btn_target.attr("data-game-button-pressed","false");
-            $(this).attr("data-game-choosedbutton", "false");
+            replaceText (btn_origin, "letter-inactive", "letter-selected");
+            var btn_target = $(".letter-inactive[data-game-btn-id=" + id + "]");
+            var newValue = getText(btn_origin);
+
+            replaceText(btn_target, "letter-inactive", "letter-notselected");
+            btn_origin.attr("data-game-btn-enabled","true");
+            btn_target.attr("data-game-btn-enabled","inactive");
+
+            renderSolution (null, newValue);
         }
-        $(".solution").text(usersolution);
-      } else {
-          $("[data-game-button-id=" + id + "]").attr("class",$("[data-game-button-id=" + id + "]").attr("class").replace('letter-gray','letter-notselected'));
-          $(this).attr("class",$(this).attr("class").replace('letter-notselected','letter-selected'));
-          $(this).attr("data-game-choosedbutton","true");
-          $("[data-game-button-id=" + id + "]").attr("data-game-button-pressed","true");
-          var usersolution_letter = $(this).text().replace(/[\n ]/g,'');
-          if ($(".solution").text().match("_") === null) {
-              $(".solution").append(usersolution_letter);
-          } else {
-             var res = $(".solution").text().replace('_', usersolution_letter);
-             $(".solution").text(res);
-          }
 
-          if ($("[data-game-button-pressed=false]").length === 0) {
+        if ($("[data-game-btn-enabled=false]").length === 0) {
 
-            var usersolution = $(".solution").text();
+            var usersolution = getText($("[data-solution]"));
 
-            if ((jQuery.inArray(usersolution, selecteddata["solution"]) === -1)) {
+            if ((jQuery.inArray(usersolution, shuffledData["solution"]) === -1)) {
                 $(".gamewrap").effect( "shake", function() {
-                    getData(selecteddata);
+                    renderData(shuffledData);
                 });
-            } else if (jQuery.inArray(usersolution, selecteddata["solution"]) >= 0
-                    && jQuery.inArray(usersolution, selecteddata["solved"]) >= 0) {
-                $(".gamewrap").effect( "pulsate", "slow", function() {
-                    getData(selecteddata);
+            } else if (jQuery.inArray(usersolution, shuffledData["solution"]) >= 0
+                        && jQuery.inArray(usersolution, shuffledData["solved"]) >= 0) {
+                $(".gamewrap").effect( "pulsate", 800, function() {
+                    renderData(shuffledData);
                 });
             } else {
                 $(".gamewrap").effect( "pulsate", 800, function() {
                     $(".solved").append($("<li>").text(usersolution));
-                    selecteddata["solved"].push(usersolution);
-                    getData(selecteddata);
+                    shuffledData["solved"].unshift(usersolution);
+                    renderData(shuffledData);
                 });
             }
-          }
-      }
+        } 
+    
     });
 }
 
-getFreshData();
-
-
+shuffleData();
