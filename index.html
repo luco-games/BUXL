@@ -85,7 +85,11 @@
             <div class="p-2"> 
                 <div class="collapse" id="collapseSolution">
                   <div class="card card-body">
-                    {{:solution}}
+                    <ul>
+                    {{for solution}}
+                      <li>{{>}}</li>
+                    {{/for}}
+                    </ul>
                   </div>
                 </div>
             </div>
