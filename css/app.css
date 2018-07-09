@@ -46,9 +46,18 @@
     background-color: lightgray;
 }
 
-.letter-box
+.letter-box-top
 {
-    margin-left: .25em;
-    background-color: lightgray;
-    border-radius: .5em;
+    margin-left: .1em;
+    background-color: #bdbdbd;
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+
+.letter-box-bottom
+{
+    margin-left: .1em;
+    background-color: #bdbdbd;
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
 }

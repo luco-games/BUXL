@@ -48,7 +48,7 @@
         <div class="gamewrap">
             <div class="d-flex justify-content-center">
                 {{for top}}
-                  <div class="p-2 letter-box" >
+                  <div class="p-2 letter-box-top" >
                     <div class="d-flex justify-content-center align-items-center rounded-circle letter-inactive letter-mass" data-game-btn-id="{{:#index}}" data-game-btn-enabled="false">
                          <div class="p-2 text-center">
                               <h3> {{>}} </h3>
@@ -59,7 +59,7 @@
             </div>
             <div class="d-flex justify-content-center">
                 {{for bottom}}
-                  <div class="p-2 letter-box" >
+                  <div class="p-2 letter-box-bottom" >
                     <div class="d-flex justify-content-center align-items-center rounded-circle letter-mass letter-inactive" data-game-btn-id="{{:#index}}" data-game-btn-enabled="false">
                          <div class="p-2 text-center">
                               <h3> {{>}} </h3>
@@ -121,6 +121,7 @@
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jsrender.min.js"></script>
+    <script src="js/fastclick.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/app.js"></script>
 

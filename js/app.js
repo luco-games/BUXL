@@ -126,4 +126,7 @@ function renderData (shuffledData) {
     });
 }
 
-shuffleData();
+$(function() {
+    FastClick.attach(document.body);
+    shuffleData();
+});
