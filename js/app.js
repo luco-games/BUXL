@@ -55,11 +55,6 @@ function renderData (shuffledData) {
     else
         $(".combilength").text("Es gibt "+SolutionsLeft.toString()+" Möglichkeiten");
 
-    if (SolutionsLeft === 0) {
-        $(".gamewrap").effect( "explode", "1000", function() {
-            shuffleData(); 
-        });
-    }
 
     document.getElementById("reload").addEventListener("click", shuffleData); 
 
@@ -114,11 +109,17 @@ function renderData (shuffledData) {
                     renderData(shuffledData);
                 });
             } else {
-                $(".gamewrap").effect( "pulsate", 800, function() {
-                    $(".solved").append($("<li>").text(usersolution));
-                    shuffledData["solved"].unshift(usersolution);
-                    renderData(shuffledData);
-                });
+                if (SolutionsLeft === 1) {
+                    $(".letter-mass").effect( "explode", 1000, function() {
+                        shuffleData(); 
+                    });
+                } else {
+                    $(".gamewrap").effect( "pulsate", 800, function() {
+                        $(".solved").append($("<li>").text(usersolution));
+                        shuffledData["solved"].unshift(usersolution);
+                        renderData(shuffledData);
+                    });
+                }
             }
         } 
     
