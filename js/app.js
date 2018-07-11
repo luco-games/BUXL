@@ -48,6 +48,10 @@ function renderData (shuffledData) {
 
     $("#content").html(html);
 
+    $(function() {
+        FastClick.attach(document.body);
+    });
+
     var SolutionsLeft = shuffledData["solution"].length - shuffledData["solved"].length;
 
     if (SolutionsLeft === 1)
@@ -127,6 +131,5 @@ function renderData (shuffledData) {
 }
 
 $(function() {
-    FastClick.attach(document.body);
     shuffleData();
 });
