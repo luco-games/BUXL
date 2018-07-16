@@ -191,7 +191,7 @@ function renderData () {
         $(".combilength").text("Es gibt "+SolutionsLeft.toString()+" Möglichkeiten");
 
     $( "#reload" ).click(shuffleData);
-    $( "#help" ).click(shuffledData, help);
+    $( "#help" ).click(help);
 
     $( "[data-game-btn-id]").on("click touchend", function(e) { 
         e.stopPropagation();
