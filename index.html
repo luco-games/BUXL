@@ -49,7 +49,7 @@
             <div class="d-flex justify-content-center">
                 {{for top}}
                   <div class="p-2 letter-box-top" >
-                    <div class="d-flex justify-content-center align-items-center rounded-circle letter-inactive letter-mass" data-game-btn-id="{{:#index}}" data-game-btn-enabled="false">
+                    <div class="d-flex justify-content-center align-items-center rounded-circle letter-inactive letter-mass" data-game-btn-id="{{:#index}}" data-game-btn-enabled="false" data-game-btn-letter="{{>}}">
                          <div class="p-2 text-center">
                               <h3> {{>}} </h3>
                          </div>
@@ -60,7 +60,7 @@
             <div class="d-flex justify-content-center">
                 {{for bottom}}
                   <div class="p-2 letter-box-bottom" >
-                    <div class="d-flex justify-content-center align-items-center rounded-circle letter-mass letter-inactive" data-game-btn-id="{{:#index}}" data-game-btn-enabled="false">
+                    <div class="d-flex justify-content-center align-items-center rounded-circle letter-mass letter-inactive" data-game-btn-id="{{:#index}}" data-game-btn-enabled="false" data-game-btn-letter="{{>}}">
                          <div class="p-2 text-center">
                               <h3> {{>}} </h3>
                          </div>
@@ -71,8 +71,13 @@
         </div>
         <div class="justify-content-center d-flex space-1">
             <div class="p-2"> 
-                 <a class="btn-sm btn btn-success" data-toggle="collapse" href="#collapseSolution" role="button" aria-expanded="false" aria-controls="collapseSolution">
+              <a class="btn-sm btn btn-success" data-toggle="collapse" href="#collapseSolution" role="button" aria-expanded="false" aria-controls="collapseSolution">
                 Aufl&ouml;sung
+              </a>
+            </div>
+            <div class="p-2"> 
+              <a class="btn-sm btn btn-success" id="help" href="#" role="button">
+                Hilfe
               </a>
             </div>
             <div class="p-2">
