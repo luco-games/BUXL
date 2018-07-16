@@ -183,10 +183,6 @@ function renderData () {
 
     $("#content").html(html);
 
-    $(function() {
-        FastClick.attach(document.body);
-    });
-    
     SolutionsLeft = shuffledData["solution"].length - shuffledData["solved"].length
 
     if (SolutionsLeft === 1)
@@ -197,9 +193,11 @@ function renderData () {
     $( "#reload" ).click(shuffleData);
     $( "#help" ).click(shuffledData, help);
 
-    $( "[data-game-btn-id]" ).click(function(){
+    $( "[data-game-btn-id]").on("click touchend", function(e) { 
+        e.stopPropagation();
+        e.preventDefault();
         selectLetter($(this), shuffledData);
-    });
+    }); 
 }
 
 
