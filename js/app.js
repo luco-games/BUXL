@@ -49,8 +49,8 @@ function selectLetterByLetterAndPosition (letter, position) {
 }
 
 function selectLetterByLetter (letter) {
-    if (letter.match(/^[a-zA-ZßßÄÖÜäüö]+$/)) {
-        var btn_origin = $("[data-game-btn-letter=" + letter.toUpperCase() + "]");
+    if (letter.match(/^[a-zA-ZẞßÄÖÜäüö]+$/)) {
+        var btn_origin =  $("[data-game-btn-letter=" + (letter.match(/^ß$/) ? "ẞ" : letter.toUpperCase()) + "]");
         if (btn_origin.length !== 0)
             selectLetter(btn_origin);
     }
