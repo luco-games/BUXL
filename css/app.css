@@ -61,3 +61,8 @@
     border-bottom-left-radius: .5em;
     border-bottom-right-radius: .5em;
 }
+
+.solutioncloud > span
+{
+    margin: .2rem;
+}
