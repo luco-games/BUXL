@@ -9,6 +9,10 @@ function getText(btn) {
     return btn.text().replace(/[\n ]/g,'');
 }
 
+function replaceText(btn,orig, repltxt) {
+    btn.attr("class",btn.attr("class").replace(orig, repltxt));
+}
+
 function renderSolution (old_char, new_char) {
     var solution = $("[data-solution]").attr("data-solution");
     var foundID = [];
@@ -30,10 +34,6 @@ function renderSolution (old_char, new_char) {
 
     $("[data-solution]").attr("data-solution", result );
     $(".solution[data-solution-index="+foundID.index+"]").text(new_char);
-}
-
-function replaceText(btn,orig, repltxt) {
-    btn.attr("class",btn.attr("class").replace(orig, repltxt));
 }
 
 function selectLetterByLetterAndPosition (letter, position) {
@@ -132,36 +132,44 @@ function selectLetter(event) {
 }
 
 function help() {
-            var SolutionsLeftAr = [];
-            var usersolution = $("[data-solution]").attr("data-solution");
-            var position = -1;
+    var SolutionsLeftAr = [];
+    var usersolution = $("[data-solution]").attr("data-solution");
 
-            for (i=0; i < shuffledData["solution"].length; i++) {
-                if (shuffledData["solved"].indexOf(shuffledData["solution"][i]) === -1 ) {
-                    SolutionsLeftAr.unshift(shuffledData["solution"][i])
+    for (i=0; i < shuffledData["solution"].length; i++)
+        if (shuffledData["solved"].indexOf(shuffledData["solution"][i]) === -1 )
+            SolutionsLeftAr.unshift(shuffledData["solution"][i])
+
+    var randomvalues = new Uint32Array(1);
+    var datalength = SolutionsLeftAr.length;
+    window.crypto.getRandomValues(randomvalues);
+
+    var nextValue = SolutionsLeftAr[randomvalues%datalength][0];
+
+    var freeze = false;
+
+    for (j=0; j < usersolution.length; j++) {
+        for (i=0; i < SolutionsLeftAr.length; i++) {
+            if (usersolution[j].match(SolutionsLeftAr[i][j])) {
+                if (!freeze)
+                    nextValue = SolutionsLeftAr[i][j+1];
+            } else if (usersolution[j].match('_')){
+                if (!freeze) {
+                    freeze = true;
+                    nextValue = SolutionsLeftAr[i][j];
                 }
-            }
-
-            if (usersolution.length === 0) {
-                var randomvalues = new Uint32Array(1);
-                var datalength = SolutionsLeftAr.length;
-                window.crypto.getRandomValues(randomvalues);
-
-                var newValue = SolutionsLeftAr[randomvalues%datalength][0];
-                selectLetterByLetter(newValue);
+                break;
             } else {
-                var nextValue = "_";
-                for (i=0; i < SolutionsLeftAr.length; i++) {
-                    for (j=0; j < usersolution.length; j++) {
-                        if (usersolution[j].match(SolutionsLeftAr[i][j])) {
-                            nextValue = SolutionsLeftAr[i][j+1];
-                        } else {
-                            break;
-                        }
-                    }
-                }
-                selectLetterByLetter(nextValue);
+                SolutionsLeftAr.splice(i,1);
+                j--;
+                break;
             }
+        }
+    }
+
+    if (SolutionsLeftAr.length === 0)
+        $("#error").text("Alles verbuxlt, lösche ein paar Buchstaben und klick erneut auf Hilfe");
+    else
+        selectLetterByLetter(nextValue);
 }
 
 function shuffleData() {

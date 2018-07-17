@@ -1,4 +1,4 @@
-import findWordPairs, json, io
+import findWordPairs, json, io, hashlib
 
 wordlist_file = open("wordlist.txt")
 
@@ -14,6 +14,9 @@ for key in result:
     json_arr = {}
     json_arr["bottom"] = result[key][0]
     json_arr["top"] = result[key][1]
+    hashword = "".join(result[key][0])
+    hashword += "".join(result[key][1])
+    json_arr["hash"] = hashlib.sha256(hashword.encode("utf-8")).hexdigest()
     solution = list(key)
     solutions.extend(solution)
     json_arr["solution"] = solution
