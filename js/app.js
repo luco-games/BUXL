@@ -103,6 +103,8 @@ function selectLetter(event) {
 
         // Wrong solution
         if ((jQuery.inArray(usersolution, shuffledData["solution"]) === -1)) {
+            replaceText($(".letter-solution-mass"), "letter-notselected", "letter-wrong");
+
             $(".gamewrap").effect( "shake", function() {
                 renderData();
             });
@@ -114,19 +116,14 @@ function selectLetter(event) {
             });
         // Right solution, not found
         } else {
-            if (SolutionsLeft === 1) {
-                // Solved
-                $(".letter-mass").delay(200).effect( "explode", 1000, function() {
-                    shuffleData(); 
-                });
+            replaceText($(".letter-solution-mass"), "letter-notselected", "letter-selected");
+
             // Right solution, not found
-            } else {
                 $(".gamewrap").effect( "pulsate", 800, function() {
                     $(".solved").append($("<li>").text(usersolution));
                     shuffledData["solved"].unshift(usersolution);
                     renderData();
                 });
-            }
         }
     } 
 }
@@ -172,33 +169,67 @@ function help() {
         selectLetterByLetter(nextValue);
 }
 
-function shuffleData() {
+function shuffleRandomData() {
     var randomvalues = new Uint32Array(1);
     var datalength = data.length;
     window.crypto.getRandomValues(randomvalues);
 
-    shuffledData = data[randomvalues%datalength]
-    shuffledData["solved"] = [];
-    renderData();
+    shuffledData = data[randomvalues%datalength];
 }
 
+function reload() {
+    shuffleData(null);
+}
 
+function shuffleData(hash) {
+    if (hash) {
+        var gamehash = window.location.hash.split('/');
+        if (gamehash.length === 2 && gamehash[1].length === 64) {
+            var searchstring = gamehash[1];
+            for (var i = 0; i < data.length; i++) {
+                if (data[i]["hash"] === searchstring)
+                    break;
+            }
+            shuffledData = data[i];
+        } else {
+            shuffleRandomData();
+        }
+    } else {
+        shuffleRandomData();
+    }
+
+    window.location.hash = '#game/'+shuffledData["hash"];
+
+    shuffledData["solved"] = [];
+    shuffledData["SolutionsLeftAr"] = [];
+
+    renderData();
+}
 
 function renderData () {
 
     var myTmpl = $.templates("#tmpl");
-    var html = myTmpl.render(shuffledData);
+ 
+    SolutionsLeft = shuffledData["solution"].length - shuffledData["solved"].length;
+    SolutionsLeftAr = [];
 
+    for (var i=0; i < SolutionsLeft; i++)
+        SolutionsLeftAr.push(i);
+
+    shuffledData["SolutionsLeftAr"] = SolutionsLeftAr;
+
+    var html = myTmpl.render(shuffledData);
     $("#content").html(html);
 
-    SolutionsLeft = shuffledData["solution"].length - shuffledData["solved"].length
+    if (SolutionsLeft === 0) {
+        // Solved
+        $(".letter-mass").delay(200).effect( "explode", 1000, function() {
+            shuffleData(); 
+        });
+        return;
+    }
 
-    if (SolutionsLeft === 1)
-        $(".combilength").text("Es gibt eine Möglichkeit");
-    else
-        $(".combilength").text("Es gibt "+SolutionsLeft.toString()+" Möglichkeiten");
-
-    $( "#reload" ).click(shuffleData);
+    $( "#reload" ).click(reload);
     $( "#help" ).click(help);
 
     $( "[data-game-btn-id]").on("click touchend", function(e) { 
@@ -206,6 +237,8 @@ function renderData () {
         e.preventDefault();
         selectLetter($(this), shuffledData);
     }); 
+
+
 }
 
 
@@ -214,5 +247,5 @@ $(function() {
             selectLetterByLetter(String.fromCharCode(e.which));
     });
 
-    shuffleData();
+    shuffleData(window.location.hash);
 });

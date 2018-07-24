@@ -19,6 +19,12 @@
     width:  4em;
 }
 
+.letter-solution-mass
+{
+    height: 3em;
+    width:  3em;
+}
+
 .letter-inactive
 {
     background-color: lightblue;
@@ -34,6 +40,11 @@
     background-color: lightgray;
 }
 
+.letter-wrong 
+{
+    background-color: red;
+}
+
 .solution
 {
     margin-left: .5em; 
@@ -42,8 +53,7 @@
 
 .solution-letter
 {
-    font-size: 2rem;
-    background-color: lightgray;
+    font-size: 1.5rem;
 }
 
 .letter-box-top

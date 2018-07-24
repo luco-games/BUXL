@@ -11,6 +11,7 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
+    <link href="css/fontawesome.all.min.css" rel="stylesheet">
 
   </head>
 
@@ -23,6 +24,8 @@
     <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <p class="lead">Finde alle m&ouml;glichen Kombinationen</p>
     </div>
+
+
 
     <div class="container">
       <div id="content">
@@ -76,13 +79,13 @@
               </a>
             </div>
             <div class="p-2"> 
-              <a class="btn-sm btn btn-success" id="help" href="#/" role="button">
+              <a class="btn-sm btn btn-success" id="help" role="button">
                 Hilfe
               </a>
             </div>
             <div class="p-2">
-              <a class="btn-sm btn btn-warning" id="reload" href="#/" role="button">
-                Neu W&uuml;rfeln
+              <a class="btn-sm btn btn-warning rounded-circle" id="reload" role="button">
+                  <i class="fas fa-sync-alt"></i>
               </a>
             </div>
         </div>
@@ -104,27 +107,33 @@
                 </div>
             </div>
         </div>
-        <div class="justify-content-center d-flex">
-            <div class="p-2">
-                <p class="lead combilength"></p>
-            </div>
-        </div>
         <div class="solutionbox justify-content-center d-flex">
             <div class="p-2">
-                <h4 class="">&gt;</h4>
-            </div>
-            <div class="p-2" data-solution="">
-                {{for top}}
-                    <span class="solution solution-letter" data-solution-index="{{:#index}}" >_</span> 
-                {{/for}}
+                <div class="justify-content-center d-flex" data-solution="">
+                    {{for top}}
+                        <div class="p-2">
+                            <div class="d-flex justify-content-center align-items-center rounded-circle letter-solution-mass letter-notselected">
+                                <span class="solution solution-letter" data-solution-index="{{:#index}}" >_</span> 
+                            </div>
+                        </div>
+                    {{/for}}
+                </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center solutioncloud">
+        <div class="d-flex flex-wrap justify-content-center solutioncloud">
                 {{for solved}}
                     <span class="badge badge-pill badge-info">{{>}}</span>
                 {{/for}}
+                {{for SolutionsLeftAr}}
+                    <span class="badge badge-pill badge-secondary">
+                       &ensp;
+                       &ensp;
+                       &ensp;
+                       &ensp;
+                    </span>
+                {{/for}}
         </div>
-     </script>
+    </script>
     <script src="data/combopairs.js"></script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
