@@ -81,3 +81,23 @@
 {
     color: red;
 }
+
+.heart-inactive
+{
+    color: white;
+}
+
+.heart-active
+{
+    color: red;
+}
+
+.sharebox
+{
+    margin-top: -1.5em;
+}
+
+.btn-circle
+{
+    background-color: #bdbdbd;
+}

@@ -1,5 +1,6 @@
 var SolutionsLeft = 0;
 var shuffledData = null;
+var storedFavorites = [];
 
 function setText(btn, text) {
     btn.text( text );
@@ -181,22 +182,27 @@ function reload() {
     shuffleData(null);
 }
 
-function shuffleData(hash) {
+function getGameID(hash) {
     if (hash) {
         var gamehash = window.location.hash.split('/');
         if (gamehash.length === 2 && gamehash[1].length === 64) {
             var searchstring = gamehash[1];
             for (var i = 0; i < data.length; i++) {
                 if (data[i]["hash"] === searchstring)
-                    break;
+                    return i;
             }
-            shuffledData = data[i];
-        } else {
-            shuffleRandomData();
         }
-    } else {
-        shuffleRandomData();
     }
+    return -1;
+}
+
+function shuffleData(hash) {
+    var gameID = getGameID(hash);
+
+    if ( gameID  === -1)
+        shuffleRandomData();
+    else
+        shuffledData = data[gameID];
 
     window.location.hash = '#game/'+shuffledData["hash"];
 
@@ -207,9 +213,6 @@ function shuffleData(hash) {
 }
 
 function renderData () {
-
-    var myTmpl = $.templates("#tmpl");
- 
     SolutionsLeft = shuffledData["solution"].length - shuffledData["solved"].length;
     SolutionsLeftAr = [];
 
@@ -218,34 +221,101 @@ function renderData () {
 
     shuffledData["SolutionsLeftAr"] = SolutionsLeftAr;
 
+    var myTmpl = $.templates("#gametmpl");
     var html = myTmpl.render(shuffledData);
     $("#content").html(html);
 
+    // Game finished
     if (SolutionsLeft === 0) {
         // Solved
         $(".letter-mass").delay(200).effect( "explode", 1000, function() {
             shuffleData(); 
         });
-        return;
+    } else {
+        checkFavorites();
+        $( "#reload" ).click(reload);
+        $( "#help" ).click(help);
+
+        $( "[data-game-btn-id]").on("click touchend", function(e) { 
+            e.stopPropagation();
+            e.preventDefault();
+            selectLetter($(this), shuffledData);
+        }); 
     }
-
-    $( "#reload" ).click(reload);
-    $( "#help" ).click(help);
-
-    $( "[data-game-btn-id]").on("click touchend", function(e) { 
-        e.stopPropagation();
-        e.preventDefault();
-        selectLetter($(this), shuffledData);
-    }); 
 
 
 }
 
+function checkFavorites () {
+    if (jQuery.inArray(shuffledData["hash"], storedFavorites) === -1)
+        replaceText($(".fa-heart"),"heart-active","heart-inactive");
+    else
+        replaceText($(".fa-heart"),"heart-inactive","heart-active");
+}
+
+function saveFavorites () {
+    if (jQuery.inArray(shuffledData["hash"], storedFavorites) === -1) {
+        storedFavorites.push(shuffledData["hash"]);
+    } else {
+        var i = storedFavorites.indexOf(shuffledData["hash"]);
+        if(i != -1) {
+            storedFavorites.splice(i, 1);
+        }
+    }
+    localStorage.setItem("storedFavorites", JSON.stringify(storedFavorites));
+    checkFavorites();
+}
+
+
+function loadFavorites () {
+    var storedFavoritesJSON = localStorage.getItem("storedFavorites");
+    
+    if (storedFavoritesJSON)
+        storedFavorites = JSON.parse(storedFavoritesJSON);
+}
+
+function showFavorites () {
+    favorites = [];
+
+    for (var i = 0; i < data.length; i++) {
+        if (jQuery.inArray(data[i]["hash"], storedFavorites) >= 0)
+            favorites.push(data[i]);
+    } 
+
+    console.log(favorites);
+
+    var myTmpl = $.templates("#favtmpl");
+    var html = myTmpl.render(favorites);
+    $("#content").html(html);
+}
+
+function routing() {
+    var hash = window.location.hash.split('/');
+    if (hash.length < 1)
+        return;
+
+
+    switch (hash[0]) {
+        case "#game":
+            shuffleData(window.location.hash);
+            break;
+        case "#showFav":
+            showFavorites();
+            break;
+        case "#saveFav":
+            saveFavorites();
+            break;
+        default:
+            shuffleData();
+    }
+}
 
 $(function() {
     $( this ).on("keypress", function(e) {
             selectLetterByLetter(String.fromCharCode(e.which));
     });
 
-    shuffleData(window.location.hash);
+    window.addEventListener("hashchange", routing , false);
+    loadFavorites();
+    routing();
 });

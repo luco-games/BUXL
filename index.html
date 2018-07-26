@@ -47,8 +47,7 @@
       </footer>
     </div>
 
-    <script id="tmpl" type="text/x-jsrender">
-        <div class="gamewrap">
+    <script id="buxlstmpl" type="text/x-jsrender">
             <div class="d-flex justify-content-center">
                 {{for top}}
                   <div class="p-2 letter-box-top" >
@@ -71,6 +70,38 @@
                   </div>
                 {{/for}}
             </div>
+    </script>
+    <script id="favtmpl" type="text/x-jsrender">
+       {{for}}
+            <div class="d-flex justify-content-center space-1">
+               <div class="p-2">
+                   {{include tmpl="#buxlstmpl" /}}
+               </div>
+               <div class="p-2 sharebox ">
+                  <div class="d-flex">
+                    <div class="p-2">
+                      <a class="btn-sm btn btn-circle rounded-circle share" href="#share/{{:hash}}" role="button">
+                          <i class="fas fa-share-alt"></i>
+                      </a>
+                    </div>
+                    <div class="p-2">
+                      <a class="btn-sm btn btn-circle rounded-circle fav" href="#saveFav/{{:hash}}" role="button">
+                          <i class="fas fa-heart heart-active"></i>
+                      </a>
+                    </div>
+                    <div class="p-2">
+                      <a class="btn-sm btn btn-circle rounded-circle play" href="#game/{{:hash}}" role="button">
+                          <i class="fas fa-play"></i>
+                      </a>
+                    </div>
+                  </div>
+               </div>
+            </div>
+       {{/for}}
+    </script>
+    <script id="gametmpl" type="text/x-jsrender">
+        <div class="gamewrap">
+           {{include tmpl="#buxlstmpl"/}}
         </div>
         <div class="justify-content-center d-flex space-1">
             <div class="p-2"> 
@@ -86,6 +117,11 @@
             <div class="p-2">
               <a class="btn-sm btn btn-warning rounded-circle" id="reload" role="button">
                   <i class="fas fa-sync-alt"></i>
+              </a>
+            </div>
+            <div class="p-2">
+              <a class="btn-sm btn btn-secondary rounded-circle" id= role="button">
+                  <i class="fas fa-heart heart-inactive"></i>
               </a>
             </div>
         </div>
