@@ -80,17 +80,17 @@
                <div class="p-2 sharebox ">
                   <div class="d-flex">
                     <div class="p-2">
-                      <a class="btn-sm btn btn-circle rounded-circle share" href="#share/{{:hash}}" role="button">
+                      <a class="btn-sm btn btn-circle rounded-circle" data-link="{on ~shareBUXL hash}" role="button">
                           <i class="fas fa-share-alt"></i>
                       </a>
                     </div>
                     <div class="p-2">
-                      <a class="btn-sm btn btn-circle rounded-circle fav" href="#saveFav/{{:hash}}" role="button">
+                      <a class="btn-sm btn btn-circle rounded-circle" data-link="{on ~favBUXL hash}" role="button">
                           <i class="fas fa-heart heart-active"></i>
                       </a>
                     </div>
                     <div class="p-2">
-                      <a class="btn-sm btn btn-circle rounded-circle play" href="#game/{{:hash}}" role="button">
+                      <a class="btn-sm btn btn-circle rounded-circle" data-link="{on ~playBUXL hash}" role="button">
                           <i class="fas fa-play"></i>
                       </a>
                     </div>
@@ -115,12 +115,12 @@
               </a>
             </div>
             <div class="p-2">
-              <a class="btn-sm btn btn-warning rounded-circle" id="reload" role="button">
+              <a class="btn-sm btn btn-warning rounded-circle" id="shuffle" role="button">
                   <i class="fas fa-sync-alt"></i>
               </a>
             </div>
             <div class="p-2">
-              <a class="btn-sm btn btn-secondary rounded-circle" id= role="button">
+              <a class="btn-sm btn btn-secondary rounded-circle" id="favorite" role="button">
                   <i class="fas fa-heart heart-inactive"></i>
               </a>
             </div>
@@ -135,7 +135,7 @@
                 <div class="collapse" id="collapseSolution">
                   <div class="card card-body">
                     <ul>
-                    {{for solution}}
+                    {{for solutions}}
                       <li>{{>}}</li>
                     {{/for}}
                     </ul>
@@ -160,12 +160,9 @@
                 {{for solved}}
                     <span class="badge badge-pill badge-info">{{>}}</span>
                 {{/for}}
-                {{for SolutionsLeftAr}}
+                {{for unsolved}}
                     <span class="badge badge-pill badge-secondary">
-                       &ensp;
-                       &ensp;
-                       &ensp;
-                       &ensp;
+                    {{:>}}
                     </span>
                 {{/for}}
         </div>
@@ -175,7 +172,11 @@
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jsrender.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/Controllers/buxl.js"></script>
+    <script src="js/buxlController.js"></script>
+    <script src="js/buxlView.js"></script>
+    <script src="js/buxlModel.js"></script>
+    <script src="js/buxlMVC.js"></script>
 
   </body>
 

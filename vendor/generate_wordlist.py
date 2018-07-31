@@ -20,6 +20,7 @@ for key in result:
     solution = list(key)
     solutions.extend(solution)
     json_arr["solution"] = solution
+    json_arr["solved"] = []
     data.append(json_arr)
     
 with io.open('../data/combopairs.js', 'w', encoding='utf-8') as f:

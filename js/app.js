@@ -225,6 +225,16 @@ function renderData () {
     var html = myTmpl.render(shuffledData);
     $("#content").html(html);
 
+    var helpers = {
+      helpBUXL: function(ev) {
+        alert("do something. id: " + ev);
+      }
+    }
+
+    var myTmpl = $.templates("#gametmpl");
+    var html = myTmpl.link("#content", shuffledData, helpers);
+    //$("#content").html(html);
+
     // Game finished
     if (SolutionsLeft === 0) {
         // Solved
@@ -315,7 +325,9 @@ $(function() {
             selectLetterByLetter(String.fromCharCode(e.which));
     });
 
+
+    shuffleData();
     window.addEventListener("hashchange", routing , false);
-    loadFavorites();
-    routing();
+//    loadFavorites();
+//    routing();
 });
