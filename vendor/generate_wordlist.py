@@ -8,19 +8,18 @@ fWP = findWordPairs.findWordPairs(wordlist)
 result = fWP.generatePairs()
 
 data = []
-solutions = []
+allsolutions = []
 
 for key in result:
     json_arr = {}
-    json_arr["bottom"] = result[key][0]
-    json_arr["top"] = result[key][1]
+    json_arr["front"] = result[key][0]
+    json_arr["back"] = result[key][1]
     hashword = "".join(result[key][0])
     hashword += "".join(result[key][1])
     json_arr["hash"] = hashlib.sha256(hashword.encode("utf-8")).hexdigest()
-    solution = list(key)
-    solutions.extend(solution)
-    json_arr["solution"] = solution
-    json_arr["solved"] = []
+    solutions = list(key)
+    allsolutions.extend(solutions)
+    json_arr["solutions"] = solutions
     data.append(json_arr)
     
 with io.open('../data/combopairs.js', 'w', encoding='utf-8') as f:
@@ -28,5 +27,5 @@ with io.open('../data/combopairs.js', 'w', encoding='utf-8') as f:
 
 print ("Following words could not be processed:")
 for word in wordlist:
-    if word not in solutions:
+    if word not in allsolutions:
         print (word)

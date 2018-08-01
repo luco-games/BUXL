@@ -1,20 +1,24 @@
-var BuxlController = function BuxlController () 
+var BuxlRoutingController = function BuxlRoutingController () 
 {
     this.controllers = {};
 };
 
-BuxlController.prototype.registerView = function registerView (title, elements)
+BuxlRoutingController.prototype.registerView = function registerView (title, elements)
 {
    if (title && elements)
    {
         var elements_length = Object.getOwnPropertyNames(elements).length;
 
         if (elements_length > 0)
-            this.controllers[title].registerBuxlGameController(new BuxlView (elements));
+        {
+            var controller = this.controllers[title];
+            var view = new BuxlGameView (controller, elements);
+            controller.registerController(view);
+        }
    }
 };
 
-BuxlController.prototype.doRouting = function doRouting ()
+BuxlRoutingController.prototype.doRouting = function doRouting ()
 {
     var route = window.location.hash.substring(1).split('/') || null;
 
@@ -25,7 +29,7 @@ BuxlController.prototype.doRouting = function doRouting ()
     this.controllers[route[0]].route(route[1]);
 };
 
-BuxlController.prototype.registerControllers = function registerControllers () 
+BuxlRoutingController.prototype.registerControllers = function registerControllers () 
 {
     this.controllers["buxl"] = new BuxlGameController();
     //this.controllers["favs"] = registerFavoriteController;
