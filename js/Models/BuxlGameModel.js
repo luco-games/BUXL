@@ -3,10 +3,11 @@ var BuxlGameModel = function BuxlGameModel (buxls)
     this.buxls = buxls;
     this.currentGameHash = -1;
     this.wordLength = -1;
-    this.unsolvedCount = -1;
     this.selectedLetters = [];
     this.unsolved = [];
     this.solved = [];
+    this.unsolvedHiddenChar = "&ensp;";
+    this.unsolvedHiddenChars = "";
 };
 
 BuxlGameModel.prototype.getBuxls = function getBuxls ()
@@ -34,6 +35,7 @@ BuxlGameModel.prototype.getCurrentBuxl = function getCurrentBuxl ()
         solutions: currentBuxl.solutions,
         solved: this.solved,
         unsolved: this.unsolved,
+        unsolvedHiddenChars: this.unsolvedHiddenChars
     };
 };
 
@@ -44,24 +46,28 @@ BuxlGameModel.prototype.setCurrentBuxl = function setCurrentBuxl (gameHash)
     this.unsolved = [];
     this.solved = [];
     this.wordLength = this.buxls[this.currentGameHash].solutions[0].length;
+    this.unsolvedHiddenChars = this.unsolvedHiddenChar.repeat(this.wordLength);
+    console.log(this.unsolvedHiddenChars);
     this.generateUnsolvedList();
 };
 
 BuxlGameModel.prototype.generateUnsolvedList = function generateUnsovledList () 
-{
-    this.unsolvedCount = this.buxls[this.currentGameHash].solutions.length - this.solved.length;
+{ 
+    var solutions = this.buxls[this.currentGameHash].solutions;
+    var solutionsLength = solutions.length;
     this.unsolved = [];
 
-    for (i = 0; i < this.unsolvedCount; i++)
+    for (i = 0; i < solutionsLength; i++)
     {
-        this.unsolved.push("&ensp;".repeat(this.wordLength));
+        if (this.solved.indexOf(solutions[i]) === -1)
+            this.unsolved.unshift(solutions[i])
     }
-}
+};
 
 BuxlGameModel.prototype.getUnsolvedCount = function getUnsolvedCount () 
 {
-    return this.unsolvedCount.length;
-}
+    return this.unsolved.length;
+};
 
 BuxlGameModel.prototype.selectedLetterExists = function selectedLetterExists(id)
 {
@@ -70,7 +76,7 @@ BuxlGameModel.prototype.selectedLetterExists = function selectedLetterExists(id)
             return true;
         }
     }
-}
+};
 
 BuxlGameModel.prototype.setSelectedLetter = function setSelectedLetter (id) 
 {
@@ -86,7 +92,38 @@ BuxlGameModel.prototype.setSelectedLetter = function setSelectedLetter (id)
     this.selectedLetters.push(id);
 
     return i;
-}
+};
+
+BuxlGameModel.prototype.getHashesByLetter = function getHashesByLetter (letter)  
+{
+    var currentBuxl = this.buxls[this.currentGameHash];
+    var res = {};
+    var front = false;
+
+    for (i = 0; i < currentBuxl.front.length; i ++)
+    {
+        if (currentBuxl.front[i] === letter)
+        {
+            res["selectedLetter"] = "f" + i;
+            front = true;
+            break;
+        }
+
+        if (currentBuxl.back[i] === letter)
+        {
+            res["selectedLetter"] = "b" + i;
+            front = false;
+            break;
+        }
+    }
+
+    if (!res["selectedLetter"])
+        return null;
+
+    res["oppositeLetter"] = (front ? "b" : "f") + i;
+
+    return res;
+};
 
 BuxlGameModel.prototype.swapSelectedLetter = function swapSelectedLetter (curId, newId) 
 {
@@ -96,7 +133,7 @@ BuxlGameModel.prototype.swapSelectedLetter = function swapSelectedLetter (curId,
             return;
         }
     }
-}
+};
 
 BuxlGameModel.prototype.delSelectedLetter = function delSelectedLetter (id)
 {
@@ -107,7 +144,7 @@ BuxlGameModel.prototype.delSelectedLetter = function delSelectedLetter (id)
             return true;
         }
     }
-}
+};
 
 BuxlGameModel.prototype.delAllSelectedLetters = function delAllSelectedLetters ()
 {
@@ -120,12 +157,12 @@ BuxlGameModel.prototype.getSelectedLetters = function getSelectedLetters ()
 
     for (i = 0; i < this.selectedLetters.length; i++) 
     {
-        console.log (this.getLetterById(this.selectedLetters[i]));
+	
         letters += this.getLetterById(this.selectedLetters[i]);
     }
     
     return letters;
-}
+};
 
 BuxlGameModel.prototype.getLetterById = function getLetterById (id) 
 {
@@ -144,17 +181,17 @@ BuxlGameModel.prototype.getLetterById = function getLetterById (id)
         return currentBuxl.back [ letterId ];
 
     return null;
-}
+};
 
 BuxlGameModel.prototype.getWordLength = function getWordLength()
 {
     return this.wordLength
-}
+};
 
 BuxlGameModel.prototype.getSolutions = function getSoltuions () 
 {
     return this.buxls[this.currentGameHash].solutions;
-}
+};
 
 BuxlGameModel.prototype.addSolved = function addSolved () 
 {
@@ -170,4 +207,4 @@ BuxlGameModel.prototype.addSolved = function addSolved ()
         this.generateUnsolvedList();
         return true;
     }
-}
+};

@@ -75,7 +75,7 @@
        {{for}}
             <div class="d-flex justify-content-center space-1">
                <div class="p-2">
-                   {{include tmpl="#buxlstmpl" /}}
+                   {{include tmpl="buxlstmpl" /}}
                </div>
                <div class="p-2 sharebox ">
                   <div class="d-flex">
@@ -101,7 +101,7 @@
     </script>
     <script id="gametmpl" type="text/x-jsrender">
         <div class="gamewrap">
-           {{include tmpl="#buxlstmpl"/}}
+           {{include tmpl="buxlstmpl"/}}
         </div>
         <div class="justify-content-center d-flex space-1">
             <div class="p-2"> 
@@ -158,20 +158,22 @@
         </div>
         <div class="d-flex flex-wrap justify-content-center solutioncloud">
                 {{for solved}}
-                    <span class="badge badge-pill badge-info">{{>}}</span>
+                    {{if #index == 0}}
+                        <span class="latestsolved badge badge-pill badge-info">{{>}}</span>
+                    {{else}}
+                        <span class="badge badge-pill badge-info">{{>}}</span>
+                    {{/if}}
                 {{/for}}
-                {{for unsolved}}
+                {{for unsolved ~unsolvedHiddenChars=unsolvedHiddenChars}}
                     <span class="badge badge-pill badge-secondary">
-                    {{:>}}
+                        {{:~unsolvedHiddenChars}}
                     </span>
                 {{/for}}
         </div>
     </script>
     <script src="data/combopairs.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/anime.min.js"></script>
     <script src="js/jsrender.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
     <script src="js/helpers.js"></script>
     <script src="js/Views/BuxlViewPrototype.js"></script>
     <script src="js/Models/BuxlGameModel.js"></script>

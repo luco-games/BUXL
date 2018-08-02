@@ -20,17 +20,21 @@ BuxlRoutingController.prototype.registerView = function registerView (title, ele
 
 BuxlRoutingController.prototype.doRouting = function doRouting ()
 {
-    var route = window.location.hash.substring(1).split('/') || null;
+    var route = window.location.hash.substring(1).split('/');
 
-    if (! route || route.length < 1)
+    if (route.length < 2)
     {
-        return;
+    	this.controllers["default"].route(null);
+    } 
+    else
+    {
+    	this.controllers[route[0]].route(route[1]);
     }
-    this.controllers[route[0]].route(route[1]);
 };
 
 BuxlRoutingController.prototype.registerControllers = function registerControllers () 
 {
     this.controllers["buxl"] = new BuxlGameController();
+    this.controllers["default"] = this.controllers["buxl"];
     //this.controllers["favs"] = registerFavoriteController;
 };

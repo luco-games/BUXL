@@ -1,8 +1,6 @@
 var isInArray = function isInArray (value, array) {
-    for (var ar of array) {
-        console.log("check " + value + " "  + ar);
+    for (var ar of array)
         if (value === ar)
             return true;
-    }
     return false;
 };
