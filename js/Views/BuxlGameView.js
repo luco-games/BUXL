@@ -106,17 +106,15 @@ BuxlGameView.prototype.animateSolved = function animateSolved (dataModel)
     }, 1000);
 };
 
-BuxlGameView.prototype.animateGameFinished = function animateGameFinished (dataModel)
+BuxlGameView.prototype.animateGameFinished = function animateGameFinished ()
 {
-    var _this = this;
     anime({
       targets: '.gamewrap > div > div > div',
       translateX: function() { return anime.random(-10, 10) + 'rem'; },
       translateY: function() { return anime.random(-10, 10) + 'rem'; },
       easing: 'easeInOutQuart',
       direction: 'alternate',
-      duration: 500,
-      complete: _this.render.bind(_this, dataModel)
+      duration: 500
     });
 };
 
