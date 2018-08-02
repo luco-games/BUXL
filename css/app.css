@@ -101,5 +101,14 @@
 
 .btn-circle
 {
+    font-size: 4rem;
     background-color: #bdbdbd;
+}
+
+.btn-mass
+{
+    width: 2em;
+    height: 2em;
+    padding: 0.25em 0.5em;
+    font-size: 1.4em;
 }
