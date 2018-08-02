@@ -84,6 +84,7 @@ BuxlGameController.prototype.performSelectLetter = function performSelectLetter 
 
             if (this.model.getUnsolvedCount() === 0)
             { 
+                this.view.render(this.model.getCurrentBuxl());
                 this.createNewRandomGame();
                 this.view.animateGameFinished(this.model.getCurrentBuxl());
             } else {
