@@ -23,6 +23,7 @@
 {
     height: 3em;
     width:  3em;
+    background-color: lightgrey;
 }
 
 .letter-inactive
@@ -37,7 +38,8 @@
 
 .letter-notselected
 {
-    background-color: lightgray;
+    background-color: lightblue;
+    opacity: 0.2;
 }
 
 .letter-wrong 

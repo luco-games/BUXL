@@ -77,13 +77,21 @@ BuxlGameView.prototype.animateWrongWord = function animateWrongWord (dataModel)
 BuxlGameView.prototype.animateSolved = function animateSolved (dataModel)
 {
     var _this = this;
-    setTimeout(_this.render.bind(_this, dataModel), 200);
+    setTimeout(_this.render.bind(_this, dataModel), 750);
 
     anime({
       targets: '.letter-solution-mass',
-      duration: 1000,
+      duration: 500,
       backgroundColor: '#90EE90',  
       easing: 'easeOutBack'
+    });
+
+    anime({
+      targets: '.letter-selected',
+      duration: 150,
+      opacity: .2,
+      loop: 5,
+      easing: 'linear'
     });
 
     setTimeout(function () {
@@ -95,7 +103,7 @@ BuxlGameView.prototype.animateSolved = function animateSolved (dataModel)
           direction: 'alternate',
           easing: 'easeInOutQuart',
          });
-    }, 400);
+    }, 1000);
 };
 
 BuxlGameView.prototype.animateGameFinished = function animateGameFinished (dataModel)

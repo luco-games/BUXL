@@ -11,7 +11,6 @@ var BuxlViewPrototype = function BuxlViewPrototype (controller, elements)
 
 BuxlViewPrototype.prototype.render = function render (modelData)
 {
-    console.log(jsrender);
     var html = jsrender.render.gametmpl(modelData);
     var targetView = document.getElementById(this.elements.targetView);
     targetView.innerHTML = html;
