@@ -1,22 +1,8 @@
-var BuxlGameController = function BuxlGameController () 
-{
-    this.events = [];
+var BuxlGameController = function BuxlGameController () {
+    BuxlControllerPrototype.call(this);
 };
 
-BuxlGameController.prototype.onEvent = function onEvent (_this, eventName)
-{
-    var _event = _this.events[eventName]; 
-    
-    if (_event)
-    {
-        return _event;
-    }
-    else
-    {
-        console.log("[Warning] Event not found");
-        return null;
-    }
-};
+BuxlGameController.prototype = Object.create(BuxlControllerPrototype.prototype);
 
 BuxlGameController.prototype.onKeyPressLetterEvent = function onKeyPressLetterEvent (context, e) 
 {
@@ -179,11 +165,9 @@ BuxlGameController.prototype.route = function route (route)
     this.view.render(this.model.getCurrentBuxl()); 
 };
 
-BuxlGameController.prototype.registerController = function registerController (buxlView) 
+BuxlGameController.prototype.register = function register (buxlView, buxlModel) 
 {
-    this.view = buxlView;
-    this.model = this.view.elements.targetModel;
-
+    BuxlControllerPrototype.prototype.register.call(this, buxlView, buxlModel);
     this.events["onSelectLetterEvent"] = this.onSelectLetterEvent;
     this.events["onKeyPressLetterEvent"] = this.onKeyPressLetterEvent;
     this.events["onClickSolutionEvent"] = this.solutionManagerEvent;

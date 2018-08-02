@@ -3,18 +3,14 @@ var BuxlRoutingController = function BuxlRoutingController ()
     this.controllers = {};
 };
 
-BuxlRoutingController.prototype.registerView = function registerView (title, elements)
+BuxlRoutingController.prototype.register = function registerView (title, view, model)
 {
-   if (title && elements)
+   if (title)
    {
-        var elements_length = Object.getOwnPropertyNames(elements).length;
+        var controller = this.controllers[title];
 
-        if (elements_length > 0)
-        {
-            var controller = this.controllers[title];
-            var view = new BuxlGameView (controller, elements);
-            controller.registerController(view);
-        }
+        view.registerController(controller);
+        controller.register(view, model);
    }
 };
 
@@ -36,5 +32,5 @@ BuxlRoutingController.prototype.registerControllers = function registerControlle
 {
     this.controllers["buxl"] = new BuxlGameController();
     this.controllers["default"] = this.controllers["buxl"];
-    //this.controllers["favs"] = registerFavoriteController;
+    this.controllers["favorites"] = new BuxlFavoritesController();
 };

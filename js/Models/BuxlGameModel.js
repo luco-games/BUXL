@@ -47,7 +47,6 @@ BuxlGameModel.prototype.setCurrentBuxl = function setCurrentBuxl (gameHash)
     this.solved = [];
     this.wordLength = this.buxls[this.currentGameHash].solutions[0].length;
     this.unsolvedHiddenChars = this.unsolvedHiddenChar.repeat(this.wordLength);
-    console.log(this.unsolvedHiddenChars);
     this.generateUnsolvedList();
 };
 

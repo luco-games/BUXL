@@ -1,4 +1,4 @@
-var BuxlViewPrototype = function BuxlViewPrototype (controller, elements)
+var BuxlViewPrototype = function BuxlViewPrototype (elements)
 {
    this.elements = elements;
    this.events = elements.events;
@@ -6,14 +6,16 @@ var BuxlViewPrototype = function BuxlViewPrototype (controller, elements)
    var buxlsTemplate = document.getElementById("buxlstmpl");
    this.template = jsrender.templates("gametmpl", targetTemplate);
    this.template = jsrender.templates("buxlstmpl", buxlsTemplate);
-   this.controller = controller;
 };
 
 BuxlViewPrototype.prototype.render = function render (modelData)
 {
-    var html = jsrender.render.gametmpl(modelData);
-    var targetView = document.getElementById(this.elements.targetView);
-    targetView.innerHTML = html;
+    if (modelData)
+    {
+        var html = jsrender.render.gametmpl(modelData);
+        var targetView = document.getElementById(this.elements.targetView);
+        targetView.innerHTML = html;
+    }
 
     var _this = this;
     for (i = 0; i < _this.events.length; i++) 
@@ -28,8 +30,14 @@ BuxlViewPrototype.prototype.render = function render (modelData)
                var curEventFunction = _this.events[i].f;
                var curEventController = _this.controller;
                var eventToTrigger = curEventController.onEvent (curEventController, curEventFunction);
+
                element.addEventListener(triggers[j], eventToTrigger.bind(null, curEventController), false);
             }
         }
     }
+};
+
+BuxlViewPrototype.prototype.registerController = function registerController (controller)
+{
+    this.controller = controller;
 };

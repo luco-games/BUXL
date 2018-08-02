@@ -1,5 +1,5 @@
-var BuxlGameView = function BuxlGameView (controller, elements) {
-    BuxlViewPrototype.call(this, controller, elements);
+var BuxlGameView = function BuxlGameView (elements) {
+    BuxlViewPrototype.call(this, elements);
 }
 
 BuxlGameView.prototype = Object.create(BuxlViewPrototype.prototype);
@@ -167,4 +167,3 @@ var changeButtonByHash = function changeButtonByHash (letterHash, currentClass, 
        selectedBtn.classList.add(newClass);
     }
 }
-
