@@ -18,7 +18,10 @@ BuxlControllerPrototype.prototype.onEvent = function onEvent (_this, eventName)
     }
 };
 
-BuxlControllerPrototype.prototype.route = function route (route) 
+BuxlControllerPrototype.prototype.route = function route (route)
+{ };
+
+BuxlControllerPrototype.prototype.init = function init (callback)
 { };
 
 BuxlControllerPrototype.prototype.register = function registerController (buxlView, buxlModel) 

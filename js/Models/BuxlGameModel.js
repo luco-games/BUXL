@@ -8,6 +8,7 @@ var BuxlGameModel = function BuxlGameModel (buxls)
     this.solved = [];
     this.unsolvedHiddenChar = "&ensp;";
     this.unsolvedHiddenChars = "";
+    this.latestSolvedPosition = 0;
 };
 
 BuxlGameModel.prototype.getBuxls = function getBuxls ()
@@ -30,24 +31,33 @@ BuxlGameModel.prototype.getCurrentBuxl = function getCurrentBuxl ()
     var currentBuxl = this.buxls[this.currentGameHash];
 
     return {
+        gameHash: this.currentGameHash,
         front: currentBuxl.front,
         back: currentBuxl.back,
         solutions: currentBuxl.solutions,
         solved: this.solved,
         unsolved: this.unsolved,
-        unsolvedHiddenChars: this.unsolvedHiddenChars
+        unsolvedHiddenChars: this.unsolvedHiddenChars,
+        latestSolvedPosition: this.latestSolvedPosition
     };
 };
 
 BuxlGameModel.prototype.setCurrentBuxl = function setCurrentBuxl (gameHash)
 {
-    this.currentGameHash = gameHash;
     this.selectedLetters = [];
     this.unsolved = [];
     this.solved = [];
+    this.latestSolvedPosition = 0;
+
+    if (!this.buxls[gameHash])
+        return false;
+
+    this.currentGameHash = gameHash;
     this.wordLength = this.buxls[this.currentGameHash].solutions[0].length;
     this.unsolvedHiddenChars = this.unsolvedHiddenChar.repeat(this.wordLength);
     this.generateUnsolvedList();
+
+    return true;
 };
 
 BuxlGameModel.prototype.generateUnsolvedList = function generateUnsovledList () 
@@ -195,15 +205,19 @@ BuxlGameModel.prototype.getSolutions = function getSoltuions ()
 BuxlGameModel.prototype.addSolved = function addSolved () 
 {
     var selectedLetters = this.getSelectedLetters();
+    this
+    var latestSolvedPosition = this.solved.indexOf(selectedLetters);
 
-    if (isInArray (selectedLetters, this.solved))
-    {
-        return false;
-    }
-    else
+    if ( latestSolvedPosition === -1)
     {
         this.solved.unshift(selectedLetters);
         this.generateUnsolvedList();
+        this.latestSolvedPosition = 0;
         return true;
+    }
+    else
+    {
+        this.latestSolvedPosition = latestSolvedPosition;
+        return false;
     }
 };

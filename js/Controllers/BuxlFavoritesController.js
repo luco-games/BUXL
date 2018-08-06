@@ -16,10 +16,9 @@ BuxlFavoritesController.prototype.onFavoriteEvent = function onFavoriteEvent (co
     //context.model.saveFavorites();
 };
 
-BuxlFavoritesController.prototype.route = function route (route) 
+BuxlFavoritesController.prototype.route = function route (route)
 {
-    this.model.mergeUnsavedFavorites();
-    this.model.saveFavorites();
+    this.view.render(null, true);
 };
 
 BuxlFavoritesController.prototype.register = function register (buxlView, buxlModel) 
@@ -27,5 +26,9 @@ BuxlFavoritesController.prototype.register = function register (buxlView, buxlMo
     BuxlControllerPrototype.prototype.register.call(this, buxlView, buxlModel);
 
     this.events["onClickFavoriteEvent"] = this.onFavoriteEvent;
-    this.view.render(null); 
+};
+
+BuxlFavoritesController.prototype.init = function init (callback)
+{
+    this.model.loadFavorites();
 };

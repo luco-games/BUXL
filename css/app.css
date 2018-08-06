@@ -1,3 +1,16 @@
+html {
+    height: 100%;
+    background-color: #810485;
+}
+body {
+    height: 100%;
+    margin: 0;
+    background-color: #810485;
+    background: linear-gradient(#0D042D,#251A60,#810485 80%) fixed;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 .space-1 
 {
    margin-top: 2em;
@@ -19,32 +32,65 @@
     width:  4em;
 }
 
+.buxllogo 
+{
+ position:fixed;
+ top:0; bottom:0; left:0; right:0
+}
+
+.hideletters .gamewrap > div > div > div
+{
+ opacity: 0;
+}
+
+#buxllogocontainer
+{
+    margin-bottom: 2em;
+}
+
+#svg2
+{
+    drop-shadow( 13px 28px 0.25px rgba(0,0,0,0.5) );
+   -webkit-filter: drop-shadow( 1px 28px 0.25px rgba(0,0,0,0.5) );
+}
+
+#path226 
+{
+    stroke-width: 0.60px;
+}
+
+path
+{
+    stroke: #fff !important;
+}
+
 .letter-solution-mass
 {
     height: 3em;
     width:  3em;
-    background-color: lightgrey;
+    background-color: #b7e2f8;
+    box-shadow: 3px 3px 2px rgba(0,0,0,0.5);
 }
 
 .letter-inactive
 {
-    background-color: lightblue;
+    background-color: #b7e2f8;
 }
 
 .letter-selected
 {
-    background-color: lightgreen;
+    background-color: #b2ff33;
 }
 
 .letter-notselected
 {
-    background-color: lightblue;
+    background-color: #b7e2f8;
     opacity: 0.2;
 }
 
 .letter-wrong 
 {
-    background-color: red;
+    background-color: #ff0066;
 }
 
 .solution
@@ -56,22 +102,26 @@
 .solution-letter
 {
     font-size: 1.5rem;
+    color: #322387;
 }
 
 .letter-box-top
 {
     margin-left: .1em;
-    background-color: #bdbdbd;
+    background-color: #322387;
     border-top-left-radius: .5em;
     border-top-right-radius: .5em;
+    box-shadow: 3px 3px 2px rgba(0,0,0,0.5);
 }
 
 .letter-box-bottom
 {
     margin-left: .1em;
-    background-color: #bdbdbd;
+    background-color: #322387;
     border-bottom-left-radius: .5em;
     border-bottom-right-radius: .5em;
+    box-shadow: 3px 3px 2px rgba(0,0,0,0.5);
+    border-top: 1px solid rgba(183,236,248,0.25);
 }
 
 .solutioncloud > span
@@ -111,4 +161,26 @@
     height: 2em;
     padding: 0.25em 0.5em;
     font-size: 1.4em;
+}
+
+.unsolved
+{
+ background: linear-gradient(#251a60, #322387); 
+ border-bottom: 1px solid white;
+}
+
+.solved
+{
+ background: linear-gradient(#a1c530, #27763e); 
+ border-top: 1px solid white;
+}
+
+footer
+{
+    margin-top: 5em;
+}
+
+.text-muted
+{
+    color:#251A60 !important;
 }

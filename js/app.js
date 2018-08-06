@@ -50,11 +50,11 @@ var getBuxlFavoritesEvents = function getBuxlFavoritesEvents ()
    return events;
 }
 
+
 document.addEventListener('DOMContentLoaded', function() 
 {
     var controller = new BuxlRoutingController();
-
-    controller.registerControllers();
+    controller.registerRoutes();
 
     var buxlGameModel = new BuxlGameModel(data);
     var buxlFavoritesModel = new BuxlFavoritesModel();
@@ -64,19 +64,22 @@ document.addEventListener('DOMContentLoaded', function()
            'targetTemplate': "gametmpl",
            'events' : getBuxlGameEvents ()
     });
-    
+
     var buxlFavoritesView = new BuxlFavoritesView ({
-           'targetView': "content",
-           'targetTemplate': "gametmpl",
+           'targetView': "sharebox",
+           'targetTemplate': "favtmpl",
            'events' : getBuxlFavoritesEvents ()
     });
 
-    controller.register("buxl", buxlGameView, buxlGameModel);
+    var buxlIntroView = new BuxlIntroView ({
+           'targetView': "footer",
+           'targetTemplate': "footertmpl",
+           'events' : []
+    });
 
-    controller.doRouting();
-
+    controller.register("intro", buxlIntroView, null);
+    controller.register("buxlgame", buxlGameView, buxlGameModel);
     controller.register("favorites", buxlFavoritesView, buxlFavoritesModel);
 
-    //window.addEventListener("hashchange", controller.doRouting, false);
-
+    controller.init();
 });

@@ -6,8 +6,10 @@ BuxlGameView.prototype = Object.create(BuxlViewPrototype.prototype);
 
 BuxlGameView.prototype.setSelectedLetterInactive = function setSelectedLetterInactive (currentLetterHash, oppositeLetterHash)
 {
+    var target = '[data-game-btn-id="'+ currentLetterHash +'"]';
+    anime.remove (target);
     anime({
-      targets: '[data-game-btn-id="'+ currentLetterHash +'"]',
+      targets: target,
       scale: 0.8,
       easing: 'easeInOutQuad',
       direction: 'alternate',
@@ -20,8 +22,10 @@ BuxlGameView.prototype.setSelectedLetterInactive = function setSelectedLetterIna
 
 BuxlGameView.prototype.setSelectedLetter = function setSelectedLetter (currentLetterHash, oppositeLetterHash)
 {
+    var target = '[data-game-btn-id="'+ currentLetterHash +'"]';
+    anime.remove (target);
     anime({
-      targets: '[data-game-btn-id="'+ currentLetterHash +'"]',
+      targets: target,
       scale: 0.8,
       easing: 'easeInOutQuad',
       direction: 'alternate',
@@ -33,8 +37,10 @@ BuxlGameView.prototype.setSelectedLetter = function setSelectedLetter (currentLe
 
 BuxlGameView.prototype.swapLetter = function swapLetter (currentLetterHash, newLetterHash)
 {
+    var target = '[data-game-btn-id="'+ newLetterHash +'"]';
+    anime.remove (target);
     anime({
-      targets: '[data-game-btn-id="'+ newLetterHash +'"]',
+      targets: target,
       scale: 0.8,
       easing: 'easeInOutQuad',
       direction: 'alternate',
@@ -59,7 +65,7 @@ BuxlGameView.prototype.animateWrongWord = function animateWrongWord (dataModel)
     anime({
       targets: '.letter-solution-mass',
       duration: 1000,
-      backgroundColor: '#FF0000',  
+      backgroundColor: '#ff0066',  
       easing: 'easeOutBack'
     });
 
@@ -70,64 +76,117 @@ BuxlGameView.prototype.animateWrongWord = function animateWrongWord (dataModel)
       loop: 2,
       easing: 'linear',
       direction: 'alternate',
-      complete: _this.render.bind(_this, dataModel)
+      complete: _this.render.bind(_this, dataModel, true)
     });
 };
 
-BuxlGameView.prototype.animateSolved = function animateSolved (dataModel)
+BuxlGameView.prototype.animateSolved = async function animateSolved (dataModel)
 {
-    var _this = this;
-    setTimeout(_this.render.bind(_this, dataModel), 750);
-
     anime({
       targets: '.letter-solution-mass',
       duration: 500,
-      backgroundColor: '#90EE90',  
+      backgroundColor: '#b2ff33',
       easing: 'easeOutBack'
     });
 
-    anime({
+    await anime({
       targets: '.letter-selected',
       duration: 150,
+      delay: 0,
       opacity: .2,
       loop: 5,
       easing: 'linear'
-    });
+    }).finished;
+    
+    this.render(dataModel, true);
 
-    setTimeout(function () {
-        anime({
-          targets: '.latestsolved',
-          scale: 2,
-          duration: 400,
-          opacity: .6,
-          direction: 'alternate',
-          easing: 'easeInOutQuart',
-         });
-    }, 1000);
+    await anime({
+      targets: '.latestsolved',
+      scale: 2,
+      duration: 400,
+      opacity: .6,
+      direction: 'alternate',
+      easing: 'easeInOutQuart',
+     }).finished;
+
+    return true;
 };
 
-BuxlGameView.prototype.animateGameFinished = function animateGameFinished ()
+var funcx = function() { return anime.random(-40, 40) + 'px'; }
+var funcy = function() { return anime.random(-40, 40) + 'px'; }
+
+BuxlGameView.prototype.animateGameFinished = async function animateGameFinished (solvedDataModel, newDataModel)
 {
-    anime({
-      targets: '.gamewrap > div > div > div',
-      translateX: function() { return anime.random(-10, 10) + 'rem'; },
-      translateY: function() { return anime.random(-10, 10) + 'rem'; },
+    await this.animateSolved(solvedDataModel);
+
+    var _this = this;
+    var content = document.querySelector('#content');
+
+    await anime({
+      targets: '.solutioncloud > span ',
+      duration: 250,
+      scale: 1.3,
+      delay: 0,
+      opacity: .2,
+      loop: 5,
+      easing: 'linear'
+    }).finished;
+
+    await anime({
+      targets: '.letter-mass',
+      translateX: [funcx(), funcx()],
+      translateY: [funcy(), funcy()],
+      scale: [1, 20],
+      opacity: [1, 0],
+      backgroundColor: '#b2ff33',
       easing: 'easeInOutQuart',
-      direction: 'alternate',
-      duration: 500
+      delay: 0,
+      duration: 400
+    }).finished;
+
+    if (content) 
+       content.classList.add("hideletters");
+
+    this.render(newDataModel, false);
+
+    anime({
+      targets: '.letter-mass',
+      translateX: ["+=0",0],
+      translateY: ["+=0",0],
+      scale: [20, 1],
+      opacity: [0, 1],
+      easing: 'easeInOutQuart',
+      delay: 0,
+      duration: 400,
+      complete: function () {
+          if (content) 
+              content.classList.remove("hideletters");
+          BuxlViewPrototype.prototype.routeTo.call(_this, "buxl", newDataModel.gameHash);
+        }
     });
+};
+
+BuxlGameView.prototype.animateGameReload = function animateGameReload (gameModelData)
+{
+    var _this = this;
+    var target = '.gamewrap > div > div > div';
+    anime.remove (target);
+
+    BuxlViewPrototype.prototype.routeTo.call(_this, "buxl", gameModelData.gameHash);
 };
 
 BuxlGameView.prototype.animateHint = function animateHint (letterHash) 
 {
-        anime({
-          targets: '[data-game-btn-id="'+ letterHash +'"]',
-          rotate: ['-35','35', '-35'],
-          duration: 350,
-          loop: 4,
-          easing: 'easeInOutQuart',
-          direction: 'alternate'
-         });
+    var target = '[data-game-btn-id="'+ letterHash +'"]'
+    anime.remove (target);
+    anime({
+      targets: target, 
+      rotate: ['-35','35', '-35'],
+      duration: 350,
+      loop: 4,
+      easing: 'easeInOutQuart',
+      direction: 'alternate'
+     });
 };
 
 BuxlGameView.prototype.animateHintError = function animateHintError () 
@@ -135,7 +194,7 @@ BuxlGameView.prototype.animateHintError = function animateHintError ()
     anime({
       targets: '.letter-solution-mass',
       duration: 100,
-      backgroundColor: '#FF0000',  
+      backgroundColor: '#ff0066',  
       easing: 'easeOutBack'
     });
 
@@ -155,9 +214,9 @@ var changeButtonByHash = function changeButtonByHash (letterHash, currentClass, 
     anime({
       targets: '.letter-solution-mass',
       duration: 100,
-      backgroundColor: '#D3D3D3',  
+      backgroundColor: '#b7e2f8',
       easing: 'easeOutBack'
-    });
+   });
 
     var selectedBtn = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
 
@@ -167,3 +226,4 @@ var changeButtonByHash = function changeButtonByHash (letterHash, currentClass, 
        selectedBtn.classList.add(newClass);
     }
 }
+
