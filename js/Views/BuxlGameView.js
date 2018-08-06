@@ -91,7 +91,7 @@ BuxlGameView.prototype.animateSolved = async function animateSolved (dataModel)
 
     await anime({
       targets: '.letter-selected',
-      duration: 150,
+      duration: 200,
       delay: 0,
       opacity: .2,
       loop: 5,
