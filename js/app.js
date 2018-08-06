@@ -50,6 +50,21 @@ var getBuxlFavoritesEvents = function getBuxlFavoritesEvents ()
    return events;
 }
 
+var getBuxlIntroEvents = function getBuxlIntroEvents () 
+{
+   var events = [];
+
+   Logo = {
+        target : "#svg2",
+        triggers: "click touchend",
+        f: "onLogoClickEvent"
+   }
+   
+   events.push(Logo);
+
+   return events;
+}
+
 
 document.addEventListener('DOMContentLoaded', function() 
 {
@@ -74,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function()
     var buxlIntroView = new BuxlIntroView ({
            'targetView': "footer",
            'targetTemplate': "footertmpl",
-           'events' : []
+           'events' : getBuxlIntroEvents ()
     });
 
     controller.register("intro", buxlIntroView, null);

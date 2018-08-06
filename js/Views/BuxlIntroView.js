@@ -4,7 +4,7 @@ var BuxlIntroView = function BuxlIntroView (elements) {
 
 BuxlIntroView.prototype = Object.create(BuxlViewPrototype.prototype);
 
-BuxlIntroView.prototype.render = function render (callback, registerEvents)
+BuxlIntroView.prototype.animateLogo = async function animateLogo ()
 {
     var _this = this;
 
@@ -12,7 +12,7 @@ BuxlIntroView.prototype.render = function render (callback, registerEvents)
         autoplay: true,
     });
     // B
-    buxl.add({
+    await buxl.add({
       targets: "#path82",
       translateX: ["-30%", "0%"],
       elasticity: 100,
@@ -31,8 +31,20 @@ BuxlIntroView.prototype.render = function render (callback, registerEvents)
       targets: "#path154",
       translateX: ["30%", "0%"],
       offset: '-=800',
-    }) // svg resize
-    .add({
+    }).finished;
+};
+
+BuxlIntroView.prototype.render = async function render (callback, registerEvents)
+{
+    await this.animateLogo();
+
+    var _this = this;
+
+    var buxl = anime.timeline({
+        autoplay: true,
+    });
+    // // svg resize
+    buxl.add({
       targets: "svg",
       height: ["100","13"],
       opacity: ["1", "0"],
@@ -44,7 +56,8 @@ BuxlIntroView.prototype.render = function render (callback, registerEvents)
         if (svgClass)
             svgClass.classList.remove("buxllogo");
 
-        callback();
+        if (callback)
+            callback();
      }
     }) // svg change size from % to px
     .add({
@@ -60,7 +73,7 @@ BuxlIntroView.prototype.render = function render (callback, registerEvents)
         opacity: [0, 1],
         duration: 300,
         begin: function () {
-         BuxlViewPrototype.prototype.render.call(_this, null, false);
+         BuxlViewPrototype.prototype.render.call(_this, null, true);
         }
     });
 };
