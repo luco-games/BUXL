@@ -1,6 +1,6 @@
 var BuxlGameView = function BuxlGameView (elements) {
     BuxlViewPrototype.call(this, elements);
-}
+};
 
 BuxlGameView.prototype = Object.create(BuxlViewPrototype.prototype);
 
@@ -52,7 +52,7 @@ BuxlGameView.prototype.swapLetter = function swapLetter (currentLetterHash, newL
 
 BuxlGameView.prototype.setSelectedLetters = function setSelectedLetters (letters) 
 {
-    for (i = 0; i < letters.length; i++) {
+    for (var i = 0; i < letters.length; i++) {
         var selectedSolution = document.querySelector('[data-solution-index="'+ i +'"]');
         if (selectedSolution)
             selectedSolution.innerHTML = letters[i];
@@ -93,7 +93,7 @@ BuxlGameView.prototype.animateSolved = async function animateSolved (dataModel)
       targets: '.letter-selected',
       duration: 200,
       delay: 0,
-      opacity: .2,
+      opacity: 0.2,
       loop: 5,
       easing: 'linear'
     }).finished;
@@ -104,7 +104,7 @@ BuxlGameView.prototype.animateSolved = async function animateSolved (dataModel)
       targets: '.latestsolved',
       scale: 2,
       duration: 400,
-      opacity: .6,
+      opacity: 0.6,
       direction: 'alternate',
       easing: 'easeInOutQuart',
      }).finished;
@@ -112,8 +112,8 @@ BuxlGameView.prototype.animateSolved = async function animateSolved (dataModel)
     return true;
 };
 
-var funcx = function() { return anime.random(-40, 40) + 'px'; }
-var funcy = function() { return anime.random(-40, 40) + 'px'; }
+var funcx = function() { return anime.random(-40, 40) + 'px'; };
+var funcy = function() { return anime.random(-40, 40) + 'px'; };
 
 BuxlGameView.prototype.animateGameFinished = async function animateGameFinished (solvedDataModel, newDataModel)
 {
@@ -127,7 +127,7 @@ BuxlGameView.prototype.animateGameFinished = async function animateGameFinished 
       duration: 250,
       scale: 1.3,
       delay: 0,
-      opacity: .2,
+      opacity: 0.2,
       loop: 5,
       easing: 'linear'
     }).finished;
@@ -225,5 +225,4 @@ var changeButtonByHash = function changeButtonByHash (letterHash, currentClass, 
        selectedBtn.classList.remove(currentClass);
        selectedBtn.classList.add(newClass);
     }
-}
-
+};

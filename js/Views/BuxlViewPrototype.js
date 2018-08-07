@@ -14,18 +14,18 @@ var BuxlViewPrototype = function BuxlViewPrototype (elements)
 
 BuxlViewPrototype.prototype.registerEventsPerTrigger = function registerEventsPerTrigger (element, f, triggers)
 {
-    for (j = 0; j < triggers.length; j++) 
+    for (var j = 0; j < triggers.length; j++) 
     {
        var curEventFunction = f;
        var curEventController = this.controller;
        var eventToTrigger = curEventController.onEvent (curEventController, curEventFunction);
        element.addEventListener(triggers[j], eventToTrigger.bind(curEventController), false);
     }
-}
+};
 
 BuxlViewPrototype.prototype.registerEvents = function registerEvents ()
 {
-    for (i = 0; i < this.events.length; i++) 
+    for (var i = 0; i < this.events.length; i++) 
     {
         var triggers = this.events[i].triggers.split(' ');
 
@@ -36,21 +36,15 @@ BuxlViewPrototype.prototype.registerEvents = function registerEvents ()
         else
         {
             var elements = document.querySelectorAll(this.events[i].target);
-
-            for ( var element of elements) 
+            for (var element of elements) 
                 this.registerEventsPerTrigger(element, this.events[i].f, triggers);
         }
     }
-}
+};
 
 BuxlViewPrototype.prototype.render = function render (modelData, registerEvents)
 {
-    if (modelData)
-    {
-        var html = jsrender.render[this.elements.targetTemplate](modelData);
-    } else {
-        var html = jsrender.render[this.elements.targetTemplate]();
-    }
+    var html = jsrender.render[this.elements.targetTemplate](modelData ? modelData : {});
 
     var targetView = document.getElementById(this.elements.targetView);
     targetView.innerHTML = html;
@@ -62,8 +56,8 @@ BuxlViewPrototype.prototype.render = function render (modelData, registerEvents)
 
 BuxlViewPrototype.prototype.routeTo = function routeTo (controllerName, id)
 {
-    location.hash = "#" + controllerName + "/" + (id ? id : "");
-}
+    location.hash = "#/" + controllerName + "/" + (id ? id : "");
+};
 
 BuxlViewPrototype.prototype.registerController = function registerController (controller)
 {

@@ -18,9 +18,8 @@ var BuxlRoutingController = function BuxlRoutingController ()
            'events' : viewEvents
     });
 
-    this.events["doRouting"] = this.doRouting;
+    this.events.doRouting = this.doRouting;
     this.view.registerController(this);
-//    window.addEventListener("hashchange", this.doRouting.bind(this), false);
 };
 
 BuxlRoutingController.prototype = Object.create(BuxlControllerPrototype.prototype);
@@ -38,7 +37,7 @@ BuxlRoutingController.prototype.register = function register (title, view, model
 
 BuxlRoutingController.prototype.doRouting = function doRouting ()
 {
-    var route = window.location.hash.substring(1).split('/');
+    var route = window.location.hash.substring(2).split('/');
 
     if (route.length < 2)
         this.routeDefault();
@@ -53,8 +52,8 @@ BuxlRoutingController.prototype.route = function route (route, gameHash)
     if (typeof currentRoute === 'undefined')
         this.routeDefault();
 
-    for (i = 0; i < currentRoute.length; i++) 
-        currentRoute[i].route(gameHash);
+    for (var i = 0; i < currentRoute.length; i++) 
+        currentRoute[i].route(route, gameHash);
 };
 
 BuxlRoutingController.prototype.routeDefault = function routeDefault ()
@@ -64,16 +63,16 @@ BuxlRoutingController.prototype.routeDefault = function routeDefault ()
 
 BuxlRoutingController.prototype.registerRoutes = function registerRoutes () 
 {
-    this.controllers["buxlgame"] = new BuxlGameController();
-    this.controllers["intro"] = new BuxlIntroController();
-    this.controllers["favorites"] = new BuxlFavoritesController();
+    this.controllers.buxlgame = new BuxlGameController();
+    this.controllers.intro = new BuxlIntroController();
+    this.controllers.favorites = new BuxlFavoritesController();
 
-    this.routes["buxl"] = [];
-    this.routes["buxl"].push(this.controllers["buxlgame"])
-    this.routes["buxl"].push(this.controllers["favorites"])
+    this.routes.buxl = [];
+    this.routes.buxl.push(this.controllers.buxlgame);
+    this.routes.buxl.push(this.controllers.favorites);
 
-    this.routes["favorites"] = [];
-    this.routes["favorites"].push(this.controllers["favorites"])
+    this.routes.favorites = [];
+    this.routes.favorites.push(this.controllers.favorites);
 };
 
 BuxlRoutingController.prototype.init = function init ()
@@ -82,4 +81,4 @@ BuxlRoutingController.prototype.init = function init ()
         this.controllers[controller].init(this.doRouting.bind(this));
 
     this.view.registerEvents();
-}
+};

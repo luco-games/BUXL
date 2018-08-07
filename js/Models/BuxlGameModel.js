@@ -18,7 +18,7 @@ BuxlGameModel.prototype.getBuxls = function getBuxls ()
 
 BuxlGameModel.prototype.getBuxlsCount = function getBuxlsCount ()
 {
-    return this.buxls.length;
+    return Object.keys(this.buxls).length;
 };
 
 BuxlGameModel.prototype.getBuxl = function getBuxl (hash)
@@ -42,6 +42,16 @@ BuxlGameModel.prototype.getCurrentBuxl = function getCurrentBuxl ()
     };
 };
 
+BuxlGameModel.prototype.setCurrentBuxlById = function setCurrentBuxlById (gameHashId)
+{
+    var keys = Object.keys( this.buxls );
+
+    if (!keys[ gameHashId ])
+        return this.setCurrentBuxl(null);
+    else
+        return this.setCurrentBuxl(keys [ gameHashId ]);
+};
+
 BuxlGameModel.prototype.setCurrentBuxl = function setCurrentBuxl (gameHash)
 {
     this.selectedLetters = [];
@@ -49,9 +59,9 @@ BuxlGameModel.prototype.setCurrentBuxl = function setCurrentBuxl (gameHash)
     this.solved = [];
     this.latestSolvedPosition = 0;
 
-    if (!this.buxls[gameHash])
-        return false;
-
+    if (gameHash && !this.buxls[gameHash])
+         return false;
+ 
     this.currentGameHash = gameHash;
     this.wordLength = this.buxls[this.currentGameHash].solutions[0].length;
     this.unsolvedHiddenChars = this.unsolvedHiddenChar.repeat(this.wordLength);
@@ -66,10 +76,10 @@ BuxlGameModel.prototype.generateUnsolvedList = function generateUnsovledList ()
     var solutionsLength = solutions.length;
     this.unsolved = [];
 
-    for (i = 0; i < solutionsLength; i++)
+    for (var i = 0; i < solutionsLength; i++)
     {
         if (this.solved.indexOf(solutions[i]) === -1)
-            this.unsolved.unshift(solutions[i])
+            this.unsolved.unshift(solutions[i]);
     }
 };
 
@@ -89,7 +99,7 @@ BuxlGameModel.prototype.selectedLetterExists = function selectedLetterExists(id)
 
 BuxlGameModel.prototype.setSelectedLetter = function setSelectedLetter (id) 
 {
-    for (i = 0; i < this.selectedLetters.length; i++) 
+    for (var i = 0; i < this.selectedLetters.length; i++) 
     {
         if (this.selectedLetters[i] === "_") 
         {
@@ -109,27 +119,27 @@ BuxlGameModel.prototype.getHashesByLetter = function getHashesByLetter (letter)
     var res = {};
     var front = false;
 
-    for (i = 0; i < currentBuxl.front.length; i ++)
+    for (var i = 0; i < currentBuxl.front.length; i ++)
     {
         if (currentBuxl.front[i] === letter)
         {
-            res["selectedLetter"] = "f" + i;
+            res.selectedLetter = "f" + i;
             front = true;
             break;
         }
 
         if (currentBuxl.back[i] === letter)
         {
-            res["selectedLetter"] = "b" + i;
+            res.selectedLetter = "b" + i;
             front = false;
             break;
         }
     }
 
-    if (!res["selectedLetter"])
+    if (!res.selectedLetter)
         return null;
 
-    res["oppositeLetter"] = (front ? "b" : "f") + i;
+    res.oppositeLetter = (front ? "b" : "f") + i;
 
     return res;
 };
@@ -158,7 +168,7 @@ BuxlGameModel.prototype.delSelectedLetter = function delSelectedLetter (id)
 BuxlGameModel.prototype.delAllSelectedLetters = function delAllSelectedLetters ()
 {
     this.selectedLetters = [];
-}
+};
 
 BuxlGameModel.prototype.getSelectedLetters = function getSelectedLetters ()
 {
@@ -180,7 +190,7 @@ BuxlGameModel.prototype.getLetterById = function getLetterById (id)
 
     var letterType = id.substring(0, 1);
     var letterId = id.substring(1);
-    var currentBuxl = this.buxls[this.currentGameHash]
+    var currentBuxl = this.buxls[this.currentGameHash];
 
     if (!letterType)
         return null;
@@ -194,7 +204,7 @@ BuxlGameModel.prototype.getLetterById = function getLetterById (id)
 
 BuxlGameModel.prototype.getWordLength = function getWordLength()
 {
-    return this.wordLength
+    return this.wordLength;
 };
 
 BuxlGameModel.prototype.getSolutions = function getSoltuions () 
@@ -205,7 +215,6 @@ BuxlGameModel.prototype.getSolutions = function getSoltuions ()
 BuxlGameModel.prototype.addSolved = function addSolved () 
 {
     var selectedLetters = this.getSelectedLetters();
-    this
     var latestSolvedPosition = this.solved.indexOf(selectedLetters);
 
     if ( latestSolvedPosition === -1)

@@ -1,6 +1,6 @@
 var BuxlIntroController = function BuxlIntroController () {
     BuxlControllerPrototype.call(this);
-}
+};
 
 BuxlIntroController.prototype = Object.create(BuxlControllerPrototype.prototype);
 
@@ -12,7 +12,7 @@ BuxlIntroController.prototype.onLogoClickEvent = function onLogoClickEvent (e)
 BuxlIntroController.prototype.register = function register (buxlView, buxlModel) 
 {
     BuxlControllerPrototype.prototype.register.call(this, buxlView, buxlModel);
-    this.events["onLogoClickEvent"] = this.onLogoClickEvent;
+    this.events.onLogoClickEvent = this.onLogoClickEvent;
 };
 
 BuxlIntroController.prototype.init = function init (callback) 

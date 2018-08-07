@@ -69,9 +69,9 @@ BuxlGameController.prototype.performSelectLetter = function performSelectLetter 
 
     if (selectedLetters.length === this.model.getWordLength())
     {
-        var res = isInArray(selectedLetters, this.model.getSolutions());
+        var res = this.model.getSolutions().indexOf(selectedLetters);
 
-        if (res) 
+        if (res !== -1)
         {
             var newHit = this.model.addSolved();
 
@@ -103,15 +103,15 @@ BuxlGameController.prototype.solutionManagerEvent = function solutionManagerEven
 
     var randomvalues = new Uint32Array(1);
     var unsolved = this.model.unsolved.slice();
-    var selectedLetters = this.model.selectedLetters
+    var selectedLetters = this.model.selectedLetters;
     window.crypto.getRandomValues(randomvalues);
 
     var nextValue = this.model.unsolved[randomvalues%unsolved.length][0];
 
     var freeze = false;
 
-    for (j=0; j < selectedLetters.length; j++) {
-        for (i=0; i < unsolved.length; i++) {
+    for (var j = 0; j < selectedLetters.length; j++) {
+        for (var i = 0; i < unsolved.length; i++) {
             var curLetter = this.model.getLetterById(selectedLetters[j]);
             if (curLetter.match(unsolved[i][j])) {
                 if (!freeze)
@@ -143,10 +143,13 @@ BuxlGameController.prototype.solutionManagerEvent = function solutionManagerEven
 
 BuxlGameController.prototype.shuffleEvent = function shuffleEvent (e)
 {
-    e.stopPropagation();
-    e.preventDefault();
+    if (e)
+    {
+        e.stopPropagation();
+        e.preventDefault();
+    }
 
-    this.route();
+    this.route("buxl", null);
 };
 
 BuxlGameController.prototype.createNewRandomGame = function createNewRandomGame ()
@@ -156,21 +159,22 @@ BuxlGameController.prototype.createNewRandomGame = function createNewRandomGame 
     window.crypto.getRandomValues(randomvalues);
 
     var currentGameHash = randomvalues%datalength;
-    this.model.setCurrentBuxl(currentGameHash);
+    this.model.setCurrentBuxlById(currentGameHash);
 };
 
-BuxlGameController.prototype.route = function route (route)
+BuxlGameController.prototype.route = function route (route, gameHash)
 {
-    if (! route)
+    if (gameHash)
     {
-        this.createNewRandomGame();
-        this.view.animateGameReload(this.model.getCurrentBuxl());
+        if(this.model.setCurrentBuxl(gameHash))
+            this.view.render(this.model.getCurrentBuxl(), true);
+        else
+            this.shuffleEvent(null); 
     }
     else
     {
-        this.model.setCurrentBuxl(route)                 ? 
-          this.view.render(this.model.getCurrentBuxl(), true)  :
-          this.createNewRandomGame(); 
+        this.createNewRandomGame();
+        this.view.animateGameReload(this.model.getCurrentBuxl());
     }
 };
 
@@ -178,8 +182,8 @@ BuxlGameController.prototype.register = function register (buxlView, buxlModel)
 {
     BuxlControllerPrototype.prototype.register.call(this, buxlView, buxlModel);
 
-    this.events["onSelectLetterEvent"] = this.onSelectLetterEvent;
-    this.events["onKeyPressLetterEvent"] = this.onKeyPressLetterEvent;
-    this.events["onClickSolutionEvent"] = this.solutionManagerEvent;
-    this.events["onClickShuffleEvent"] = this.shuffleEvent;
+    this.events.onSelectLetterEvent = this.onSelectLetterEvent;
+    this.events.onKeyPressLetterEvent = this.onKeyPressLetterEvent;
+    this.events.onClickSolutionEvent = this.solutionManagerEvent;
+    this.events.onClickShuffleEvent = this.shuffleEvent;
 };

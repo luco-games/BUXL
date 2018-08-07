@@ -1,31 +1,33 @@
+"use strict";
+
 var getBuxlGameEvents = function getBuxlGameEvents () 
 {
    var events = [];
 
    // Register Buttons
-   letterButtons = {
+   var letterButtons = {
         target : ".letter-mass",
         triggers: "click touchend",
         f: "onSelectLetterEvent"
     };
 
-    letterKeyPress = {
+    var letterKeyPress = {
         target : "body",
         triggers: "keypress",
         f: "onKeyPressLetterEvent"
-    }
+    };
 
-    solutionButton = {
+    var solutionButton = {
         target : "#help",
         triggers: "click touchend",
         f: "onClickSolutionEvent"
-    }
+    };
 
-    shuffleButton = {
+    var shuffleButton = {
         target : "#shuffle",
         triggers: "click touchend",
         f: "onClickShuffleEvent"
-    }
+    };
 
     events.push(letterButtons);
     events.push(letterKeyPress);
@@ -39,31 +41,31 @@ var getBuxlFavoritesEvents = function getBuxlFavoritesEvents ()
 {
    var events = [];
 
-   favoriteButton = {
+   var favoriteButton = {
         target : "#favorite",
         triggers: "click touchend",
         f: "onClickFavoriteEvent"
-   }
+   };
    
    events.push(favoriteButton);
 
    return events;
-}
+};
 
 var getBuxlIntroEvents = function getBuxlIntroEvents () 
 {
    var events = [];
 
-   Logo = {
+   var Logo = {
         target : "#svg2",
         triggers: "click touchend",
         f: "onLogoClickEvent"
-   }
+   };
    
    events.push(Logo);
 
    return events;
-}
+};
 
 
 document.addEventListener('DOMContentLoaded', function() 

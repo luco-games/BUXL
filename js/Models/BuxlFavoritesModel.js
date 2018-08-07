@@ -26,32 +26,40 @@ BuxlFavoritesModel.prototype.loadFavorites = function loadFavorites ()
 
 BuxlFavoritesModel.prototype.saveFavorites = function saveFavorites ()
 {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.unsavedFavorites));
+    console.log(this.savedFavorites);
+    localStorage.setItem(this.storageKey, JSON.stringify(this.savedFavorites));
     this.unsavedFavorites = [];
     this.trashedFavorites = [];
 };
 
 BuxlFavoritesModel.prototype.mergeUnsavedFavorites = function mergeUnsavedFavorites ()
 {
-    //this.unsavedFavorites = [];
-    //this.trashedFavorites = [];
+    this.savedFavorites = this.savedFavorites.concat(this.unsavedFavorites);
+    this.unsavedFavorites = [];
+    this.trashedFavorites = [];
+};
+
+BuxlFavoritesModel.prototype.isFavorite = function isFavorite (gameHash)
+{
+    return (this.savedFavorites.indexOf(gameHash) !== -1);
 };
 
 BuxlFavoritesModel.prototype.toggleFavorite = function toggleFavorites (gameHash)
 {
     var toggle = false;
+    var index = -1;
 
-    if (isInArray(gameHash, this.savedFavorites))
+    if (this.isFavorite(gameHash))
     {
-        var i = this.savedFavorites.indexOf(gameHash);
-        this.savedFavories.splice(i, 1);
+        index = this.savedFavorites.indexOf(gameHash);
+        this.savedFavorites.splice(index, 1);
 
         this.trashedFavorites.unshift(gameHash);
     } 
-    else if (isInArray(gameHash, this.unsavedFavorites))
+    else if (this.unsavedFavorites.indexOf(gameHash) !== -1)
     {
-        var i = this.unsavedFavorites.indexOf(gameHash);
-        this.unsavedFavories.splice(i, 1);
+        i = this.unsavedFavorites.indexOf(gameHash);
+        this.unsavedFavories.splice(index, 1);
 
         this.trashedFavorites.unshift(gameHash);
     } 

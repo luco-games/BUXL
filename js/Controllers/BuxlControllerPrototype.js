@@ -18,7 +18,7 @@ BuxlControllerPrototype.prototype.onEvent = function onEvent (_this, eventName)
     }
 };
 
-BuxlControllerPrototype.prototype.route = function route (route)
+BuxlControllerPrototype.prototype.route = function route (route, gameHash)
 { };
 
 BuxlControllerPrototype.prototype.init = function init (callback)

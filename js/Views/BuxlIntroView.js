@@ -1,6 +1,6 @@
 var BuxlIntroView = function BuxlIntroView (elements) {
     BuxlViewPrototype.call(this, elements);
-}
+};
 
 BuxlIntroView.prototype = Object.create(BuxlViewPrototype.prototype);
 
