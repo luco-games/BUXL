@@ -14,6 +14,7 @@ body {
 .space-1 
 {
    margin-top: 2em;
+   margin-bottom: 2em;
 }
 
 .space-2 
@@ -202,9 +203,10 @@ footer
   color: #ff0066;  
 }
 
-#svghelp
+#Ebene_1
 {
-  margin-top: 0.75em;
+  transform: scale(2.25);
+  margin-top: 1.5em;
   margin-bottom: 0.75em;
   drop-shadow( 13px 3px 0.25px rgba(0,0,0,0.5) );
    -webkit-filter: drop-shadow( 1px 3px 0.25px rgba(0,0,0,0.5) );

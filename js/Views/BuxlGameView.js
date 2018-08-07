@@ -187,6 +187,7 @@ BuxlGameView.prototype.animateHint = function animateHint (letterHash)
       easing: 'easeInOutQuart',
       direction: 'alternate'
      });
+
 };
 
 BuxlGameView.prototype.animateHintError = function animateHintError () 
