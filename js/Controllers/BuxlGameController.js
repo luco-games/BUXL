@@ -141,16 +141,6 @@ BuxlGameController.prototype.solutionManagerEvent = function solutionManagerEven
     }
 };
 
-BuxlGameController.prototype.shuffleEvent = function shuffleEvent (e)
-{
-    if (e)
-    {
-        e.stopPropagation();
-        e.preventDefault();
-    }
-
-    this.route("buxl", null);
-};
 
 BuxlGameController.prototype.createNewRandomGame = function createNewRandomGame ()
 {
@@ -169,7 +159,7 @@ BuxlGameController.prototype.route = function route (route, gameHash)
         if(this.model.setCurrentBuxl(gameHash))
             this.view.render(this.model.getCurrentBuxl(), true);
         else
-            this.shuffleEvent(null); 
+            this.view.routeTo("buxl", null);
     }
     else
     {
@@ -185,5 +175,4 @@ BuxlGameController.prototype.register = function register (buxlView, buxlModel)
     this.events.onSelectLetterEvent = this.onSelectLetterEvent;
     this.events.onKeyPressLetterEvent = this.onKeyPressLetterEvent;
     this.events.onClickSolutionEvent = this.solutionManagerEvent;
-    this.events.onClickShuffleEvent = this.shuffleEvent;
 };

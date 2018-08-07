@@ -23,33 +23,33 @@ var getBuxlGameEvents = function getBuxlGameEvents ()
         f: "onClickSolutionEvent"
     };
 
-    var shuffleButton = {
-        target : "#shuffle",
-        triggers: "click touchend",
-        f: "onClickShuffleEvent"
-    };
-
     events.push(letterButtons);
     events.push(letterKeyPress);
     events.push(solutionButton);
-    events.push(shuffleButton);
 
     return events;
 };
 
 var getBuxlFavoritesEvents = function getBuxlFavoritesEvents () 
 {
-   var events = [];
+    var events = [];
 
-   var favoriteButton = {
+    var favoriteButton = {
         target : "#favorite",
         triggers: "click touchend",
         f: "onClickFavoriteEvent"
-   };
-   
-   events.push(favoriteButton);
+    };
 
-   return events;
+    var shuffleButton = {
+        target : "#shuffle",
+        triggers: "click touchend",
+        f: "onClickShuffleEvent"
+    };
+   
+    events.push(favoriteButton);
+    events.push(shuffleButton);
+
+    return events;
 };
 
 var getBuxlIntroEvents = function getBuxlIntroEvents () 

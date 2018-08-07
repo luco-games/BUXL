@@ -8,7 +8,7 @@ var BuxlRoutingController = function BuxlRoutingController ()
 
     viewEvents.push({
         target : "window",
-        triggers: "hashchange",
+        triggers: "hashchange hiddenroute",
         f: "doRouting"
     });
 
@@ -35,9 +35,23 @@ BuxlRoutingController.prototype.register = function register (title, view, model
    }
 };
 
-BuxlRoutingController.prototype.doRouting = function doRouting ()
+BuxlRoutingController.prototype.doRouting = function doRouting (e)
 {
-    var route = window.location.hash.substring(2).split('/');
+    console.log("Route");
+
+    var route = null;
+
+    if (e)
+    {
+        e.stopImmediatePropagation();
+        if (e.detail)
+            route = e.detail;
+    }
+
+    if (! route)
+        var route = window.location.hash;
+
+    route = route.substring(2).split('/');
 
     if (route.length < 2)
         this.routeDefault();

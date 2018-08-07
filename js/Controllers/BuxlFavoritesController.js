@@ -34,11 +34,24 @@ BuxlFavoritesController.prototype.route = function route (route, gameHash)
     }
 };
 
+BuxlFavoritesController.prototype.shuffleEvent = function shuffleEvent (e)
+{
+    if (e)
+    {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+
+    this.view.routeTo("buxl", null);
+};
+
+
 BuxlFavoritesController.prototype.register = function register (buxlView, buxlModel) 
 {
     BuxlControllerPrototype.prototype.register.call(this, buxlView, buxlModel);
 
     this.events.onClickFavoriteEvent = this.onFavoriteEvent;
+    this.events.onClickShuffleEvent = this.shuffleEvent;
 };
 
 BuxlFavoritesController.prototype.init = function init (callback)

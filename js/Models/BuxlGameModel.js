@@ -62,6 +62,7 @@ BuxlGameModel.prototype.setCurrentBuxl = function setCurrentBuxl (gameHash)
     if (gameHash && !this.buxls[gameHash])
          return false;
  
+    console.log("Set buxl");
     this.currentGameHash = gameHash;
     this.wordLength = this.buxls[this.currentGameHash].solutions[0].length;
     this.unsolvedHiddenChars = this.unsolvedHiddenChar.repeat(this.wordLength);

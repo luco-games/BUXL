@@ -56,7 +56,15 @@ BuxlViewPrototype.prototype.render = function render (modelData, registerEvents)
 
 BuxlViewPrototype.prototype.routeTo = function routeTo (controllerName, id)
 {
-    location.hash = "#/" + controllerName + "/" + (id ? id : "");
+    if (id)
+    {
+        location.hash = "#/" + controllerName + "/" + id;
+    }
+    else
+    {
+        var evt = new CustomEvent('hiddenroute', { detail: "#/" + controllerName + "/"});
+        window.dispatchEvent(evt);
+    }
 };
 
 BuxlViewPrototype.prototype.registerController = function registerController (controller)
