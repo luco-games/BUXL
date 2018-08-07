@@ -59,7 +59,7 @@ body {
     stroke-width: 0.60px;
 }
 
-path
+#svg2 path
 {
     stroke: #fff !important;
 }
@@ -205,7 +205,6 @@ footer
 {
   margin-top: 0.75em;
   margin-bottom: 0.75em;
-  transform: scale(3);
   drop-shadow( 13px 3px 0.25px rgba(0,0,0,0.5) );
    -webkit-filter: drop-shadow( 1px 3px 0.25px rgba(0,0,0,0.5) );
 }
