@@ -176,6 +176,9 @@ BuxlGameView.prototype.animateHint = function animateHint (letterHash)
 
 BuxlGameView.prototype.animateHintError = function animateHintError () 
 {
+    var target = document.querySelector('#helpico');
+    target.src = "images/buxlsurprisedico.svg";
+    
     anime({
       targets: '.letter-solution-mass',
       duration: 100,
@@ -189,7 +192,10 @@ BuxlGameView.prototype.animateHintError = function animateHintError ()
       duration: 60,
       direction: 'alternate',
       loop: 4,
-      easing: 'linear'
+      easing: 'linear',
+      complete: function () {
+        target.src = "images/buxlnormalico.svg";
+      }
     });
 
 };

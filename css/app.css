@@ -168,11 +168,7 @@ body
 {
     line-height: 0;
     font-size: 1.4em;
-    color: rgba(50, 35, 135, 0.5) !important;
-    text-shadow:  1px  1px 1px rgba(183, 226, 248, 0.75),
-                  1px -1px 1px rgba(183, 226, 248, 0.75),
-                 -1px  1px 1px rgba(183, 226, 248, 0.75),
-                 -1px -1px 1px rgba(183, 226, 248, 0.75);
+    color: rgba(183, 226, 248, 0.75) !important;
     font-size: 1.3rem;
 }
 
