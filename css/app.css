@@ -1,8 +1,14 @@
-html {
+html 
+{
     height: 100%;
     background-color: #810485;
+    background: linear-gradient(#0D042D,#251A60,#810485 80%) fixed;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
-body {
+
+body 
+{
     height: 100%;
     margin: 0;
     background-color: #810485;
