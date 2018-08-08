@@ -426,16 +426,14 @@
 
     <div class="container">
           <div class="d-flex justify-content-center">
-              <div class="p-2" id="sharebox">
+              <div class="p-2" id="navigation">
               </div>
           </div>
           <div class="d-flex justify-content-center">
               <div class="p-2" id="content">
               </div>
           </div>
-          <div class="d-flex justify-content-center">
-              <div class="p-2" id="footer">
-              </div>
+          <div id="footer">
           </div>
     </div>
 
@@ -480,44 +478,43 @@
                 {{/for}}
             </div>
     </script>
-    <script id="favtmpl" type="text/x-jsrender">
-            <div>
-                <div class="d-flex justify-content-center flex-wrap">
-                  <div class="p-2">
-                    <div class="d-flex justify-content-around">
-                        <div class="p-2 rounded-circle btn-sharebox">
-                          <a id="shuffle" role="button">
-                              <i class="fas fa-sync-alt"></i>
-                          </a>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="p-2">
-                    <div class="d-flex justify-content-center">
-                        <div class="p-2 rounded-circle btn-sharebox">
-                          <a id="share" role="button">
-                              <i class="fas fa-share-alt"></i>
-                          </a>
-                        </div>
-                        <div class="p-2 rounded-circle btn-sharebox">
-                          <a id="favorite" role="button">
-                              <i class="fas fa-heart {{if isFavorite}} favorite {{else}} not-favorite {{/if}}"></i>
-                          </a>
-                        </div>
-                        <div class="p-2 btn-sharebox rounded-circle">
-                          <a id="playBuxl" role="button">
-                              <i class="fas fa-play"></i>
-                          </a>
-                        </div>
-                     </div>
-                  </div>
+    <script id="navtmpl" type="text/x-jsrender">
+        <div class="d-flex justify-content-center flex-wrap">
+          <div class="p-2">
+            <div class="d-flex justify-content-around">
+                <div class="p-2 rounded-circle btn-sharebox">
+                  <a id="shuffle" role="button">
+                      <i class="fas fa-sync-alt"></i>
+                  </a>
+                </div>
+            </div>
+          </div>
+          <div class="p-2">
+            <div class="d-flex justify-content-center">
+                <div class="p-2 rounded-circle btn-sharebox">
+                  <a id="share" role="button">
+                      <i class="fas fa-share-alt"></i>
+                  </a>
+                </div>
+                <div class="p-2 rounded-circle btn-sharebox">
+                  <a id="favorite" role="button">
+                      <i class="fas fa-heart {{if isFavorite}} favorite {{else}} not-favorite {{/if}}"></i>
+                  </a>
+                </div>
+                <div class="p-2 btn-sharebox rounded-circle">
+                  <a id="playBuxl" role="button">
+                      <i class="fas fa-play"></i>
+                  </a>
+                </div>
+             </div>
+          </div>
     </script>
     <script id="gametmpl" type="text/x-jsrender">
         <div class="gamewrap">
            {{include tmpl="buxlstmpl"/}}
         </div>
         <div class="justify-content-center d-flex">
-            <div class="p-2"> 
+            <div class="p-2 helpwrap"> 
               <a class="rounded-circle" id="help" role="button">
                 <img src="images/buxlhelpicon.svg" id="helpico" />
               </a>

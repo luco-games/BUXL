@@ -205,9 +205,13 @@ footer
 
 #helpico
 {
-  transform: scale(2.25);
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
+  height: 200%;
+  margin-left: -4em;
   drop-shadow( 13px 3px 0.25px rgba(0,0,0,0.5) );
    -webkit-filter: drop-shadow( 1px 3px 0.25px rgba(0,0,0,0.5) );
+}
+
+.helpwrap
+{
+  margin-bottom: 3em;
 }

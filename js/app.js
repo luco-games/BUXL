@@ -83,8 +83,8 @@ document.addEventListener('DOMContentLoaded', function()
     });
 
     var buxlFavoritesView = new BuxlFavoritesView ({
-           'targetView': "sharebox",
-           'targetTemplate': "favtmpl",
+           'targetView': "navigation",
+           'targetTemplate': "navtmpl",
            'events' : getBuxlFavoritesEvents ()
     });
 
