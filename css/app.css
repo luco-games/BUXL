@@ -1,6 +1,20 @@
+html {
+    height: 100%;
+    background-color: #810485;
+}
+body {
+    height: 100%;
+    margin: 0;
+    background-color: #810485;
+    background: linear-gradient(#0D042D,#251A60,#810485 80%) fixed;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 .space-1 
 {
    margin-top: 2em;
+   margin-bottom: 2em;
 }
 
 .space-2 
@@ -19,30 +33,66 @@
     width:  4em;
 }
 
+.buxllogo 
+{
+ position:fixed;
+ top:0; bottom:0; left:0; right:0
+}
+
+.hideletters .gamewrap > div > div > div
+{
+ opacity: 0;
+}
+
+#buxllogocontainer
+{
+    margin-bottom: 2em;
+    width: 100%;
+}
+
+#svg2
+{
+    drop-shadow( 13px 28px 0.25px rgba(0,0,0,0.5) );
+   -webkit-filter: drop-shadow( 1px 28px 0.25px rgba(0,0,0,0.5) );
+}
+
+#path226 
+{
+    stroke-width: 0.60px;
+}
+
+#svg2 path
+{
+    stroke: #fff !important;
+}
+
 .letter-solution-mass
 {
     height: 3em;
     width:  3em;
+    background-color: #b7e2f8;
+    box-shadow: 3px 3px 2px rgba(0,0,0,0.5);
 }
 
 .letter-inactive
 {
-    background-color: lightblue;
+    background-color: #b7e2f8;
 }
 
 .letter-selected
 {
-    background-color: lightgreen;
+    background-color: #b2ff33;
 }
 
 .letter-notselected
 {
-    background-color: lightgray;
+    background-color: #b7e2f8;
+    opacity: 0.2;
 }
 
 .letter-wrong 
 {
-    background-color: red;
+    background-color: #ff0066;
 }
 
 .solution
@@ -54,22 +104,26 @@
 .solution-letter
 {
     font-size: 1.5rem;
+    color: #322387;
 }
 
 .letter-box-top
 {
     margin-left: .1em;
-    background-color: #bdbdbd;
+    background-color: #322387;
     border-top-left-radius: .5em;
     border-top-right-radius: .5em;
+    box-shadow: 3px 3px 2px rgba(0,0,0,0.5);
 }
 
 .letter-box-bottom
 {
     margin-left: .1em;
-    background-color: #bdbdbd;
+    background-color: #322387;
     border-bottom-left-radius: .5em;
     border-bottom-right-radius: .5em;
+    box-shadow: 3px 3px 2px rgba(0,0,0,0.5);
+    border-top: 1px solid rgba(183,236,248,0.25);
 }
 
 .solutioncloud > span
@@ -87,17 +141,73 @@
     color: white;
 }
 
-.heart-active
-{
-    color: red;
-}
-
-.sharebox
-{
-    margin-top: -1.5em;
-}
-
 .btn-circle
 {
+    font-size: 4rem;
     background-color: #bdbdbd;
+}
+
+.btn-sharebox
+{
+    width: 2.5em;
+    height: 2.5em;
+    background: #322387;
+    border-top: 1px solid white;
+    box-shadow: 3px 3px 2px rgba(0,0,0,0.5);
+    text-align: center;
+    margin: 0.2em;
+}
+
+.btn-sharebox > a
+{
+    line-height: 0;
+    font-size: 1.4em;
+    color: rgba(50, 35, 135, 0.5) !important;
+    text-shadow:  1px  1px 1px rgba(183, 226, 248, 0.75),
+                  1px -1px 1px rgba(183, 226, 248, 0.75),
+                 -1px  1px 1px rgba(183, 226, 248, 0.75),
+                 -1px -1px 1px rgba(183, 226, 248, 0.75);
+    font-size: 1.3rem;
+}
+
+.btn-sharebox > i
+{
+    padding: 0;
+    margin: 0;
+}
+
+.unsolved
+{
+ background: linear-gradient(#251a60, #322387); 
+ border-bottom: 1px solid white;
+}
+
+.solved
+{
+ background: linear-gradient(#a1c530, #27763e); 
+ border-top: 1px solid white;
+}
+
+footer
+{
+    margin-top: 5em;
+}
+
+.text-muted
+{
+    color:#251A60 !important;
+}
+
+.favorite
+{
+  color: #ff0066;  
+}
+
+#helpico
+{
+  transform: scale(2.25);
+  margin-top: 1.5em;
+  margin-bottom: 0.75em;
+  drop-shadow( 13px 3px 0.25px rgba(0,0,0,0.5) );
+   -webkit-filter: drop-shadow( 1px 3px 0.25px rgba(0,0,0,0.5) );
 }
