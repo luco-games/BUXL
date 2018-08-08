@@ -4,50 +4,40 @@ var BuxlGameView = function BuxlGameView (elements) {
 
 BuxlGameView.prototype = Object.create(BuxlViewPrototype.prototype);
 
-BuxlGameView.prototype.setSelectedLetterInactive = function setSelectedLetterInactive (currentLetterHash, oppositeLetterHash)
+BuxlGameView.prototype.onLetterClick = function onLetterClick (letterHash)
 {
-    var target = '[data-game-btn-id="'+ currentLetterHash +'"]';
-    anime.remove (target);
+    var target = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
     anime({
       targets: target,
       scale: 0.8,
       easing: 'easeInOutQuad',
       direction: 'alternate',
-      duration: 100
+      duration: 100,
+      complete: function () {
+        target.style="";
+      }
     });
+};
 
-    changeButtonByHash(currentLetterHash,"letter-selected","letter-inactive");
-    changeButtonByHash(oppositeLetterHash,"letter-notselected","letter-inactive");
+BuxlGameView.prototype.setSelectedLetterInactive = function setSelectedLetterInactive (currentLetterHash, oppositeLetterHash)
+{
+    this.onLetterClick(currentLetterHash);
+    this.changeButtonByHash(currentLetterHash,"letter-selected","letter-inactive");
+    this.changeButtonByHash(oppositeLetterHash,"letter-notselected","letter-inactive");
 };
 
 BuxlGameView.prototype.setSelectedLetter = function setSelectedLetter (currentLetterHash, oppositeLetterHash)
 {
-    var target = '[data-game-btn-id="'+ currentLetterHash +'"]';
-    anime.remove (target);
-    anime({
-      targets: target,
-      scale: 0.8,
-      easing: 'easeInOutQuad',
-      direction: 'alternate',
-      duration: 100
-    });
-    changeButtonByHash(currentLetterHash,"letter-inactive","letter-selected");
-    changeButtonByHash(oppositeLetterHash,"letter-inactive","letter-notselected");
+    this.onLetterClick(currentLetterHash);
+    this.changeButtonByHash(currentLetterHash,"letter-inactive","letter-selected");
+    this.changeButtonByHash(oppositeLetterHash,"letter-inactive","letter-notselected");
 };
 
 BuxlGameView.prototype.swapLetter = function swapLetter (currentLetterHash, newLetterHash)
 {
-    var target = '[data-game-btn-id="'+ newLetterHash +'"]';
-    anime.remove (target);
-    anime({
-      targets: target,
-      scale: 0.8,
-      easing: 'easeInOutQuad',
-      direction: 'alternate',
-      duration: 100
-    });
-    changeButtonByHash(currentLetterHash,"letter-selected","letter-notselected");
-    changeButtonByHash(newLetterHash,"letter-notselected","letter-selected");
+    this.onLetterClick(newLetterHash);
+    this.changeButtonByHash(currentLetterHash,"letter-selected","letter-notselected");
+    this.changeButtonByHash(newLetterHash,"letter-notselected","letter-selected");
 };
 
 BuxlGameView.prototype.setSelectedLetters = function setSelectedLetters (letters) 
@@ -61,7 +51,9 @@ BuxlGameView.prototype.setSelectedLetters = function setSelectedLetters (letters
 
 BuxlGameView.prototype.animateWrongWord = function animateWrongWord (dataModel)
 {
+    this.curDataModel = dataModel;
     var _this = this;
+
     anime({
       targets: '.letter-solution-mass',
       duration: 1000,
@@ -76,7 +68,7 @@ BuxlGameView.prototype.animateWrongWord = function animateWrongWord (dataModel)
       loop: 2,
       easing: 'linear',
       direction: 'alternate',
-      complete: _this.render.bind(_this, dataModel, true)
+      complete:  _this.render.bind(_this, dataModel, true)
     });
 };
 
@@ -120,10 +112,9 @@ BuxlGameView.prototype.animateGameFinished = async function animateGameFinished 
     await this.animateSolved(solvedDataModel);
 
     var _this = this;
-    var content = document.querySelector('#content');
 
     await anime({
-      targets: '.solutioncloud > span ',
+      targets: '.solutioncloud > span',
       duration: 250,
       scale: 1.3,
       delay: 0,
@@ -144,9 +135,6 @@ BuxlGameView.prototype.animateGameFinished = async function animateGameFinished 
       duration: 400
     }).finished;
 
-    if (content) 
-       content.classList.add("hideletters");
-
     this.render(newDataModel, false);
 
     anime({
@@ -159,8 +147,6 @@ BuxlGameView.prototype.animateGameFinished = async function animateGameFinished 
       delay: 0,
       duration: 400,
       complete: function () {
-          if (content) 
-              content.classList.remove("hideletters");
           BuxlViewPrototype.prototype.routeTo.call(_this, "buxl", newDataModel.gameHash);
         }
     });
@@ -168,26 +154,24 @@ BuxlGameView.prototype.animateGameFinished = async function animateGameFinished 
 
 BuxlGameView.prototype.animateGameReload = function animateGameReload (gameModelData)
 {
-    var _this = this;
-    var target = '.gamewrap > div > div > div';
-    anime.remove (target);
-
-    BuxlViewPrototype.prototype.routeTo.call(_this, "buxl", gameModelData.gameHash);
+    BuxlViewPrototype.prototype.routeTo.call(this, "buxl", gameModelData.gameHash);
 };
 
 BuxlGameView.prototype.animateHint = function animateHint (letterHash) 
 {
-    var target = '[data-game-btn-id="'+ letterHash +'"]'
-    anime.remove (target);
+    var target = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
+
     anime({
-      targets: target, 
+      targets: target,
       rotate: ['-35','35', '-35'],
       duration: 350,
       loop: 4,
       easing: 'easeInOutQuart',
-      direction: 'alternate'
-     });
-
+      direction: 'alternate',
+      complete: function () {
+        target.style="";
+      }
+    });
 };
 
 BuxlGameView.prototype.animateHintError = function animateHintError () 
@@ -210,14 +194,14 @@ BuxlGameView.prototype.animateHintError = function animateHintError ()
 
 };
 
-var changeButtonByHash = function changeButtonByHash (letterHash, currentClass, newClass) 
+BuxlGameView.prototype.changeButtonByHash = function changeButtonByHash (letterHash, currentClass, newClass) 
 {
     anime({
       targets: '.letter-solution-mass',
       duration: 100,
       backgroundColor: '#b7e2f8',
       easing: 'easeOutBack'
-   });
+    });
 
     var selectedBtn = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
 

@@ -48,13 +48,14 @@ BuxlFavoritesController.prototype.shuffleEvent = function shuffleEvent (e)
 
 BuxlFavoritesController.prototype.register = function register (buxlView, buxlModel) 
 {
-    BuxlControllerPrototype.prototype.register.call(this, buxlView, buxlModel);
-
     this.events.onClickFavoriteEvent = this.onFavoriteEvent;
     this.events.onClickShuffleEvent = this.shuffleEvent;
+
+    BuxlControllerPrototype.prototype.register.call(this, buxlView, buxlModel);
 };
 
 BuxlFavoritesController.prototype.init = function init (callback)
 {
+    BuxlControllerPrototype.prototype.init.call(this);
     this.model.loadFavorites();
 };

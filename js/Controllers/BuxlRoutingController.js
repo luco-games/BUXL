@@ -18,8 +18,8 @@ var BuxlRoutingController = function BuxlRoutingController ()
            'events' : viewEvents
     });
 
-    this.events.doRouting = this.doRouting;
-    this.view.registerController(this);
+   this.events.doRouting = this.doRouting;
+   this.view.linkEventsToController(this);
 };
 
 BuxlRoutingController.prototype = Object.create(BuxlControllerPrototype.prototype);
@@ -29,16 +29,12 @@ BuxlRoutingController.prototype.register = function register (title, view, model
    if (title)
    {
         var controller = this.controllers[title];
-
-        view.registerController(controller);
         controller.register(view, model);
    }
 };
 
 BuxlRoutingController.prototype.doRouting = function doRouting (e)
 {
-    console.log("Route");
-
     var route = null;
 
     if (e)

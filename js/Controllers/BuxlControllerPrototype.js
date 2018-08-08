@@ -3,9 +3,9 @@ var BuxlControllerPrototype = function BuxlControllerPrototype ()
     this.events = [];
 };
 
-BuxlControllerPrototype.prototype.onEvent = function onEvent (_this, eventName)
+BuxlControllerPrototype.prototype.onEvent = function onEvent (eventName)
 {
-    var _event = _this.events[eventName]; 
+    var _event = this.events[eventName]; 
     
     if (_event)
     {
@@ -22,7 +22,9 @@ BuxlControllerPrototype.prototype.route = function route (route, gameHash)
 { };
 
 BuxlControllerPrototype.prototype.init = function init (callback)
-{ };
+{ 
+   this.view.linkEventsToController(this);
+};
 
 BuxlControllerPrototype.prototype.register = function registerController (buxlView, buxlModel) 
 {
