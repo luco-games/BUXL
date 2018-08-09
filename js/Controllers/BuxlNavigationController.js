@@ -12,7 +12,7 @@ BuxlNavigationController.prototype.triggerAction = function triggerAction (trigg
             this.view.routeTo("buxl", null);
             return true;
         case trigger.contains("listFavorites"):
-            this.view.routeTo("favorites", null);
+            this.view.routeTo("favorites", "list");
             return true;
         case trigger.contains("favorite"):
             this.toggleFavorite(gameHash);
