@@ -28,17 +28,28 @@ BuxlGameModel.prototype.getBuxl = function getBuxl (hash)
 
 BuxlGameModel.prototype.getCurrentBuxl = function getCurrentBuxl ()
 {
-    var currentBuxl = this.buxls[this.currentGameHash];
+    var currentBuxl = this.getBuxl(this.currentGameHash);
+
+    currentBuxl.solved = this.solved;
+    currentBuxl.unsolved = this.unsolved;
+    currentBuxl.unsolvedHiddenChars = this.unsolvedHiddenChars;
+    currentBuxl.latestSolvedPosition = this.latestSolvedPosition;
+
+    return currentBuxl; 
+};
+
+BuxlGameModel.prototype.getBuxl = function getBuxl (gameHash)
+{
+    var selectedBuxl = this.buxls[gameHash];
+    
+    if (! selectedBuxl)
+        return null;
 
     return {
-        gameHash: this.currentGameHash,
-        front: currentBuxl.front,
-        back: currentBuxl.back,
-        solutions: currentBuxl.solutions,
-        solved: this.solved,
-        unsolved: this.unsolved,
-        unsolvedHiddenChars: this.unsolvedHiddenChars,
-        latestSolvedPosition: this.latestSolvedPosition
+        gameHash: gameHash,
+        front: selectedBuxl.front,
+        back: selectedBuxl.back,
+        solutions: selectedBuxl.solutions,
     };
 };
 

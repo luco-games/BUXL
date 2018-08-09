@@ -4,13 +4,22 @@ var BuxlViewPrototype = function BuxlViewPrototype (elements)
     this.events = elements.events;
     this.eventfunctions = {};
 
+    if (this.elements.templates)
+    {
+        for (var i=0; i < this.elements.templates.length; i++)
+        {
+            var curTemplateName = this.elements.templates[i];
+            var templateElement = document.getElementById(curTemplateName);
+            jsrender.templates(curTemplateName, templateElement);
+        }
+    }
+
     if (this.elements.targetTemplate)
     { 
         var targetTemplate = document.getElementById(this.elements.targetTemplate);
         this.template = jsrender.templates(this.elements.targetTemplate, targetTemplate);
-        var buxlsTemplate = document.getElementById("buxlstmpl");
-        this.template = jsrender.templates("buxlstmpl", buxlsTemplate);
     }
+
 };
 
 BuxlViewPrototype.prototype.registerEventsPerTrigger = function registerEventsPerTrigger (element, f, triggers)
@@ -18,8 +27,8 @@ BuxlViewPrototype.prototype.registerEventsPerTrigger = function registerEventsPe
     for (var j = 0; j < triggers.length; j++) 
     {
        var curEventFunction = f;
-       element.removeEventListener(triggers[j], this.eventfunctions[curEventFunction], false);
-       element.addEventListener(triggers[j], this.eventfunctions[curEventFunction], false);
+       element.removeEventListener(triggers[j], this.eventfunctions[curEventFunction], true);
+       element.addEventListener(triggers[j], this.eventfunctions[curEventFunction], true);
     }
 };
 
@@ -36,8 +45,8 @@ BuxlViewPrototype.prototype.registerEvents = function registerEvents ()
         else
         {
             var elements = document.querySelectorAll(this.events[i].target);
-            for (var element of elements) 
-                this.registerEventsPerTrigger(element, this.events[i].f, triggers);
+            for (var j = 0; j < elements.length; j++)
+                this.registerEventsPerTrigger(elements[j], this.events[i].f, triggers);
         }
     }
 };

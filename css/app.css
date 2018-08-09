@@ -200,7 +200,7 @@ footer
     color:#251A60 !important;
 }
 
-.favorite
+.is-favorite
 {
   color: #ff0066;  
 }
@@ -214,4 +214,9 @@ footer
 .helpwrap
 {
     margin-top: 1.5em;
+}
+
+.not-visible
+{
+    opacity: 0;
 }

@@ -454,6 +454,25 @@
         </div>
       </footer>
     </script>
+    <script id="buxlslisttmpl" type="text/x-jsrender">
+        {{for}}
+          <div class="p-2">
+              <div class="d-flex justify-content-center">
+                  <div class="p-2 navoutterbar" data-game-hash="{{:gameHash}}">
+                    {{include tmpl="navtmpl"/}}
+                  </div>
+                  <div class="p-2">
+                    <div class="gamewrap">
+                       {{include tmpl="buxlstmpl"/}}
+                    </div>
+                  </div>
+                  <div class="p-2 solutionsbox not-visible">
+                    {{include tmpl="solutionstmpl"/}}
+                  </div>
+              </div>
+          </div>
+        {{/for}}
+    </script>
     <script id="buxlstmpl" type="text/x-jsrender">
             <div class="d-flex justify-content-center">
                 {{for front}}
@@ -479,35 +498,58 @@
             </div>
     </script>
     <script id="navtmpl" type="text/x-jsrender">
-        <div class="d-flex justify-content-center flex-wrap">
-          <div class="p-2">
-            <div class="d-flex justify-content-around">
-                <div class="p-2 rounded-circle btn-sharebox">
-                  <a id="shuffle" role="button">
-                      <i class="fas fa-sync-alt"></i>
-                  </a>
+        <div class="d-flex justify-content-center flex-wrap navbar" data-game-hash="{{:gameHash}}" >
+          {{if route == "buxl"}}
+              <div class="p-2">
+                <div class="d-flex justify-content-around">
+                    <div class="p-2 rounded-circle btn-sharebox">
+                      <a class="shuffle" role="button">
+                          <i class="fas fa-sync-alt"></i>
+                      </a>
+                    </div>
                 </div>
-            </div>
-          </div>
+              </div>
+          {{/if}}
           <div class="p-2">
             <div class="d-flex justify-content-center">
                 <div class="p-2 rounded-circle btn-sharebox">
-                  <a id="share" role="button">
+                  <a class="share" role="button">
                       <i class="fas fa-share-alt"></i>
                   </a>
                 </div>
                 <div class="p-2 rounded-circle btn-sharebox">
-                  <a id="favorite" role="button">
-                      <i class="fas fa-heart {{if isFavorite}} favorite {{else}} not-favorite {{/if}}"></i>
+                  <a class="favorite" role="button">
+                      <i class="fas fa-heart {{if isFavorite}} is-favorite {{else}} not-favorite {{/if}}"></i>
+                  </a>
+                </div>
+               {{if route != "buxl"}}
+                <div class="p-2 btn-sharebox rounded-circle">
+                  <a class="showSolutions" role="button">
+                      <i class="fas fa-eye"></i>
                   </a>
                 </div>
                 <div class="p-2 btn-sharebox rounded-circle">
-                  <a id="playBuxl" role="button">
+                  <a class="playBuxl" role="button">
                       <i class="fas fa-play"></i>
                   </a>
                 </div>
+               {{/if}}
              </div>
           </div>
+    </script>
+    <script id="solutionstmpl" type="text/x-jsrender">
+        {{for solved ~latestSolvedPosition=latestSolvedPosition}}
+            {{if #index == ~latestSolvedPosition}}
+                <span class="latestsolved badge badge-pill badge-info solved">{{>}}</span>
+            {{else}}
+                <span class="badge badge-pill badge-info solved">{{>}}</span>
+            {{/if}}
+        {{/for}}
+        {{for unsolved ~unsolvedHiddenChars=unsolvedHiddenChars}}
+            <span class="badge badge-pill badge-secondary unsolved">
+                {{:~unsolvedHiddenChars}}
+            </span>
+        {{/for}}
     </script>
     <script id="gametmpl" type="text/x-jsrender">
         <div class="gamewrap">
@@ -534,36 +576,13 @@
             </div>
         </div>
         <div class="d-flex flex-wrap justify-content-center solutioncloud">
-                {{for solved ~latestSolvedPosition=latestSolvedPosition}}
-                    {{if #index == ~latestSolvedPosition}}
-                        <span class="latestsolved badge badge-pill badge-info solved">{{>}}</span>
-                    {{else}}
-                        <span class="badge badge-pill badge-info solved">{{>}}</span>
-                    {{/if}}
-                {{/for}}
-                {{for unsolved ~unsolvedHiddenChars=unsolvedHiddenChars}}
-                    <span class="badge badge-pill badge-secondary unsolved">
-                        {{:~unsolvedHiddenChars}}
-                    </span>
-                {{/for}}
+           {{include tmpl="solutionstmpl"/}}
         </div>
     </script>
     <script src="data/combopairs.js"></script>
     <script src="js/Vendors/anime.min.js"></script>
     <script src="js/Vendors/jsrender.min.js"></script>
-    <script src="js/Models/BuxlGameModel.js"></script>
-    <script src="js/Models/BuxlFavoritesModel.js"></script>
-    <script src="js/Views/BuxlViewPrototype.js"></script>
-    <script src="js/Views/BuxlRoutingView.js"></script>
-    <script src="js/Views/BuxlGameView.js"></script>
-    <script src="js/Views/BuxlFavoritesView.js"></script>
-    <script src="js/Views/BuxlIntroView.js"></script>
-    <script src="js/Controllers/BuxlControllerPrototype.js"></script>
-    <script src="js/Controllers/BuxlGameController.js"></script>
-    <script src="js/Controllers/BuxlIntroController.js"></script>
-    <script src="js/Controllers/BuxlFavoritesController.js"></script>
-    <script src="js/Controllers/BuxlRoutingController.js"></script>
-    <script src="js/app.js"></script>
+    <script src="dist/buxlapp.min.js"></script>
 
   </body>
 

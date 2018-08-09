@@ -63,7 +63,8 @@ BuxlRoutingController.prototype.route = function route (route, gameHash)
         this.routeDefault();
 
     for (var i = 0; i < currentRoute.length; i++) 
-        currentRoute[i].route(route, gameHash);
+        if (currentRoute[i])
+            currentRoute[i].route(route, gameHash);
 };
 
 BuxlRoutingController.prototype.routeDefault = function routeDefault ()
@@ -75,14 +76,16 @@ BuxlRoutingController.prototype.registerRoutes = function registerRoutes ()
 {
     this.controllers.buxlgame = new BuxlGameController();
     this.controllers.intro = new BuxlIntroController();
-    this.controllers.favorites = new BuxlFavoritesController();
+    this.controllers.navbar = new BuxlNavigationController();
+    this.controllers.list = new BuxlListController();
 
     this.routes.buxl = [];
     this.routes.buxl.push(this.controllers.buxlgame);
-    this.routes.buxl.push(this.controllers.favorites);
+    this.routes.buxl.push(this.controllers.navbar);
 
     this.routes.favorites = [];
-    this.routes.favorites.push(this.controllers.favorites);
+    this.routes.favorites.push(this.controllers.list);
+    this.routes.favorites.push(this.controllers.navbar);
 };
 
 BuxlRoutingController.prototype.init = function init ()

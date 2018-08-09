@@ -30,24 +30,17 @@ var getBuxlGameEvents = function getBuxlGameEvents ()
     return events;
 };
 
-var getBuxlFavoritesEvents = function getBuxlFavoritesEvents () 
+var getBuxlNavigationEvents = function getBuxlNavigationEvents () 
 {
     var events = [];
 
-    var favoriteButton = {
-        target : "#favorite",
+    var navigationButtons = {
+        target : ".navbar",
         triggers: "click touchend",
-        f: "onClickFavoriteEvent"
+        f: "onNavigationClickEvent"
     };
 
-    var shuffleButton = {
-        target : "#shuffle",
-        triggers: "click touchend",
-        f: "onClickShuffleEvent"
-    };
-   
-    events.push(favoriteButton);
-    events.push(shuffleButton);
+    events.push(navigationButtons);
 
     return events;
 };
@@ -75,17 +68,37 @@ document.addEventListener('DOMContentLoaded', function()
 
     var buxlGameModel = new BuxlGameModel(data);
     var buxlFavoritesModel = new BuxlFavoritesModel();
+    var buxlListModel = new BuxlListModel({
+            "buxlGameModel" : buxlGameModel,
+            "buxlFavoritesModel" : buxlFavoritesModel
+        });
+
+    var buxlGameViewTmpls = [];
+    buxlGameViewTmpls.push("buxlstmpl");
+    buxlGameViewTmpls.push("solutionstmpl");
+
+    var buxlListViewTmpls = [];
+    buxlListViewTmpls.push("buxlstmpl");
+    buxlListViewTmpls.push("navtmpl");
+    buxlListViewTmpls.push("solutionstmpl");
 
     var buxlGameView = new BuxlGameView ({
            'targetView': "content",
            'targetTemplate': "gametmpl",
+           'templates' : buxlGameViewTmpls,
            'events' : getBuxlGameEvents ()
     });
 
-    var buxlFavoritesView = new BuxlFavoritesView ({
+    var buxlListView = new BuxlListView ({
+           'targetView': "content",
+           'targetTemplate': "buxlslisttmpl",
+           'templates' : buxlListViewTmpls
+    });
+
+    var buxlNavigationView = new BuxlNavigationView ({
            'targetView': "navigation",
            'targetTemplate': "navtmpl",
-           'events' : getBuxlFavoritesEvents ()
+           'events' : getBuxlNavigationEvents ()
     });
 
     var buxlIntroView = new BuxlIntroView ({
@@ -96,7 +109,8 @@ document.addEventListener('DOMContentLoaded', function()
 
     controller.register("intro", buxlIntroView, null);
     controller.register("buxlgame", buxlGameView, buxlGameModel);
-    controller.register("favorites", buxlFavoritesView, buxlFavoritesModel);
+    controller.register("navbar", buxlNavigationView, buxlFavoritesModel);
+    controller.register("list", buxlListView, buxlListModel);
 
     controller.init();
 });

@@ -26,7 +26,6 @@ BuxlFavoritesModel.prototype.loadFavorites = function loadFavorites ()
 
 BuxlFavoritesModel.prototype.saveFavorites = function saveFavorites ()
 {
-    console.log(this.savedFavorites);
     localStorage.setItem(this.storageKey, JSON.stringify(this.savedFavorites));
     this.unsavedFavorites = [];
     this.trashedFavorites = [];
