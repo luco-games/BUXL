@@ -63,6 +63,14 @@ BuxlNavigationView.prototype.showSolutions = function showSolutions (gameHash)
     
 };
 
+BuxlNavigationView.prototype.clearRender = function clearRender ()
+{
+    var oldTargetView = document.getElementById(this.elements.targetView);
+
+    if (oldTargetView)
+        oldTargetView.innerHTML = "";
+};
+
 BuxlNavigationView.prototype.renderOnList = function renderOnList (dataModel, registerEvents)
 {
     var html = jsrender.render[this.elements.targetTemplate](dataModel ? dataModel : {});

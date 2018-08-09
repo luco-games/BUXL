@@ -1,5 +1,3 @@
-"use strict";
-
 var getBuxlGameEvents = function getBuxlGameEvents () 
 {
    var events = [];

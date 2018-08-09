@@ -49,18 +49,18 @@ BuxlRoutingController.prototype.doRouting = function doRouting (e)
 
     route = route.substring(2).split('/');
 
-    if (route.length < 2)
-        this.routeDefault();
-    else
-    	this.route(route[0], route[1]);
+    this.route(route[0], route[1]);
 };
 
 BuxlRoutingController.prototype.route = function route (route, gameHash)
 {
-    var currentRoute = this.routes[route];
-
-    if (typeof currentRoute === 'undefined')
+    if (route === "")
+    {
         this.routeDefault();
+        return;
+    }
+
+    var currentRoute = this.routes[route];
 
     for (var i = 0; i < currentRoute.length; i++) 
         if (currentRoute[i])

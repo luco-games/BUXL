@@ -11,6 +11,9 @@ BuxlNavigationController.prototype.triggerAction = function triggerAction (trigg
         case trigger.contains("shuffle"):
             this.view.routeTo("buxl", null);
             return true;
+        case trigger.contains("listFavorites"):
+            this.view.routeTo("favorites", null);
+            return true;
         case trigger.contains("favorite"):
             this.toggleFavorite(gameHash);
             return true;
@@ -84,6 +87,7 @@ BuxlNavigationController.prototype.route = function route (route, gameHash)
     } 
     else if (route === "favorites")
     {
+	this.view.clearRender();
         this.view.registerEvents();
     }
 };
