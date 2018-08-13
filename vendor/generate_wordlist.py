@@ -32,3 +32,5 @@ print ("Following words could not be processed:")
 for word in wordlist:
     if word not in allsolutions:
         print (word)
+
+print ("Combinations: %s" % len(result))
