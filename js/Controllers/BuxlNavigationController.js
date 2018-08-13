@@ -65,14 +65,7 @@ BuxlNavigationController.prototype.toggleFavorite = function toggleFavorite (gam
          "gameHash"   : gameHash
        };
 
-    let render = null;
-
-    if (this.currentRoute === "buxl")
-        render = this.view.render.bind(this.view, dataModel , true)
-    else if (this.currentRoute === "favorites")
-        render = this.view.renderOnList.bind(this.view, dataModel , true)
-
-    this.view.toggleFavorite(dataModel, render);
+    this.view.toggleFavorite(dataModel);
 };
 
 BuxlNavigationController.prototype.route = function route (route, gameHash)
@@ -90,7 +83,7 @@ BuxlNavigationController.prototype.route = function route (route, gameHash)
     } 
     else if (route === "favorites")
     {
-	this.view.clearRender();
+        this.view.clearRender();
         this.view.registerEvents(true);
     }
 };
