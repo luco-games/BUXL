@@ -1,4 +1,4 @@
-var BuxlListView = function BuxlListView (elements) {
+let BuxlListView = function BuxlListView (elements) {
     BuxlViewPrototype.call(this, elements);
 };
 

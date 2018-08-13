@@ -1,4 +1,4 @@
-var BuxlNavigationController = function BuxlNavigationController () {
+let BuxlNavigationController = function BuxlNavigationController () {
     BuxlControllerPrototype.call(this);
     this.currentGameHash = null;
 };
@@ -23,6 +23,9 @@ BuxlNavigationController.prototype.triggerAction = function triggerAction (trigg
         case trigger.contains("showSolutions"):
             this.view.showSolutions(gameHash);
             return true;
+        case trigger.contains("goBack"):
+            this.view.goBack();
+            return true;
     } 
     
     return false;
@@ -37,7 +40,7 @@ BuxlNavigationController.prototype.onNavigationClickEvent = function onNavigatio
     if (! e.target)
         return;
 
-    var gameHash = e.currentTarget.dataset.gameHash;
+    let gameHash = e.currentTarget.dataset.gameHash;
 
     if (e.target.parentElement && this.triggerAction (e.target.parentElement.classList, gameHash) )
         return;
@@ -52,24 +55,17 @@ BuxlNavigationController.prototype.toggleFavorite = function toggleFavorite (gam
     if (!gameHash)
         return;
 
-    var isFavorite = this.model.toggleFavorite (gameHash);
+    let isFavorite = this.model.toggleFavorite (gameHash);
     
     this.model.mergeUnsavedFavorites();
     this.model.saveFavorites();
     
-    var dataModel = { "isFavorite" : isFavorite,
+    let dataModel = { "isFavorite" : isFavorite,
          "route"      : this.currentRoute,
          "gameHash"   : gameHash
        };
 
-    var render = null;
-
-    if (this.currentRoute === "buxl")
-        render = this.view.render.bind(this.view, dataModel , true)
-    else if (this.currentRoute === "favorites")
-        render = this.view.renderOnList.bind(this.view, dataModel , true)
-
-    this.view.toggleFavorite(dataModel, render);
+    this.view.toggleFavorite(dataModel);
 };
 
 BuxlNavigationController.prototype.route = function route (route, gameHash)
@@ -78,7 +74,7 @@ BuxlNavigationController.prototype.route = function route (route, gameHash)
 
     if (route === "buxl" && gameHash)
     {
-        var isFavorite = this.model.isFavorite(gameHash);
+        let isFavorite = this.model.isFavorite(gameHash);
         this.view.render(
            { "isFavorite" : isFavorite,
              "route"      : route,
@@ -87,8 +83,8 @@ BuxlNavigationController.prototype.route = function route (route, gameHash)
     } 
     else if (route === "favorites")
     {
-	this.view.clearRender();
-        this.view.registerEvents();
+        this.view.clearRender();
+        this.view.registerEvents(true);
     }
 };
 

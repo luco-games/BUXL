@@ -1,4 +1,4 @@
-var BuxlFavoritesModel = function BuxlFavoritesModel ()
+let BuxlFavoritesModel = function BuxlFavoritesModel ()
 {
     this.savedFavorites = [];
     this.unsavedFavorites = [];
@@ -16,7 +16,7 @@ BuxlFavoritesModel.prototype.loadFavorites = function loadFavorites ()
     this.unsavedFavorites = [];
     this.trashedFavorites = [];
 
-    var storedFavoritesJSON = localStorage.getItem(this.storageKey);
+    let storedFavoritesJSON = localStorage.getItem(this.storageKey);
     
     if (storedFavoritesJSON)
         this.savedFavorites = JSON.parse(storedFavoritesJSON);
@@ -45,8 +45,8 @@ BuxlFavoritesModel.prototype.isFavorite = function isFavorite (gameHash)
 
 BuxlFavoritesModel.prototype.toggleFavorite = function toggleFavorites (gameHash)
 {
-    var toggle = false;
-    var index = -1;
+    let toggle = false;
+    let index = -1;
 
     if (this.isFavorite(gameHash))
     {

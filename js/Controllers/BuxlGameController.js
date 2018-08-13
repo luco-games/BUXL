@@ -1,4 +1,4 @@
-var BuxlGameController = function BuxlGameController ()
+let BuxlGameController = function BuxlGameController ()
 {
     BuxlControllerPrototype.call(this);
 };
@@ -9,7 +9,7 @@ BuxlGameController.prototype.onKeyPressLetterEvent = function onKeyPressLetterEv
 {
     e.stopImmediatePropagation();
 
-    var letter = String.fromCharCode(e.which);
+    let letter = String.fromCharCode(e.which);
 
     if (letter.match("\\?"))
     {
@@ -22,7 +22,7 @@ BuxlGameController.prototype.onKeyPressLetterEvent = function onKeyPressLetterEv
 
     letter = letter.match(/^ß$/) ? "ẞ" : letter.toUpperCase();
 
-    var letterHashes = this.model.getHashesByLetter (letter);
+    let letterHashes = this.model.getHashesByLetter (letter);
 
     if (letterHashes)
         this.performSelectLetter (letterHashes.selectedLetter, letterHashes.oppositeLetter);
@@ -33,13 +33,13 @@ BuxlGameController.prototype.onSelectLetterEvent = function onSelectLetterEvent 
     e.stopPropagation();
     e.preventDefault();
 
-    var btnSelected = e.currentTarget;
+    let btnSelected = e.currentTarget;
 
-    selectedLetterHash = btnSelected.dataset.gameBtnId;
-    selectedLetterType = selectedLetterHash.substring(0, 1);
-    selectedLetterId = selectedLetterHash.substring(1);
+    let selectedLetterHash = btnSelected.dataset.gameBtnId;
+    let selectedLetterType = selectedLetterHash.substring(0, 1);
+    let selectedLetterId = selectedLetterHash.substring(1);
     
-    oppositeLetterHash = ((selectedLetterType === "f") ? "b" : "f") + selectedLetterId;
+    let oppositeLetterHash = ((selectedLetterType === "f") ? "b" : "f") + selectedLetterId;
 
     this.performSelectLetter (selectedLetterHash, oppositeLetterHash);
 };
@@ -64,20 +64,20 @@ BuxlGameController.prototype.performSelectLetter = function performSelectLetter 
         }
     }
 
-    var selectedLetters = this.model.getSelectedLetters();
+    let selectedLetters = this.model.getSelectedLetters();
     this.view.setSelectedLetters (selectedLetters);
 
     if (selectedLetters.length === this.model.getWordLength())
     {
-        var res = this.model.getSolutions().indexOf(selectedLetters);
+        let res = this.model.getSolutions().indexOf(selectedLetters);
 
         if (res !== -1)
         {
-            var newHit = this.model.addSolved();
+            let newHit = this.model.addSolved();
 
             if (this.model.getUnsolvedCount() === 0)
             { 
-                var solvedModelData = this.model.getCurrentBuxl();
+                let solvedModelData = this.model.getCurrentBuxl();
                 this.createNewRandomGame();
                 this.view.animateGameFinished(solvedModelData, this.model.getCurrentBuxl());
             } else {
@@ -101,18 +101,18 @@ BuxlGameController.prototype.solutionManagerEvent = function solutionManagerEven
     e.stopPropagation();
     e.preventDefault();
 
-    var randomvalues = new Uint32Array(1);
-    var unsolved = this.model.unsolved.slice();
-    var selectedLetters = this.model.selectedLetters;
+    let randomvalues = new Uint32Array(1);
+    let unsolved = this.model.unsolved.slice();
+    let selectedLetters = this.model.selectedLetters;
     window.crypto.getRandomValues(randomvalues);
 
-    var nextValue = this.model.unsolved[randomvalues%unsolved.length][0];
+    let nextValue = this.model.unsolved[randomvalues%unsolved.length][0];
 
-    var freeze = false;
+    let freeze = false;
 
-    for (var j = 0; j < selectedLetters.length; j++) {
-        for (var i = 0; i < unsolved.length; i++) {
-            var curLetter = this.model.getLetterById(selectedLetters[j]);
+    for (let j = 0; j < selectedLetters.length; j++) {
+        for (let i = 0; i < unsolved.length; i++) {
+            let curLetter = this.model.getLetterById(selectedLetters[j]);
             if (curLetter.match(unsolved[i][j])) {
                 if (!freeze)
                     nextValue = unsolved[i][j+1];
@@ -136,7 +136,7 @@ BuxlGameController.prototype.solutionManagerEvent = function solutionManagerEven
     }
     else
     {
-        var letterHashes = this.model.getHashesByLetter (nextValue);
+        let letterHashes = this.model.getHashesByLetter (nextValue);
         this.view.animateHint ( letterHashes.selectedLetter );
     }
 };
@@ -144,11 +144,11 @@ BuxlGameController.prototype.solutionManagerEvent = function solutionManagerEven
 
 BuxlGameController.prototype.createNewRandomGame = function createNewRandomGame ()
 {
-    var randomvalues = new Uint32Array(1);
-    var datalength = this.model.getBuxlsCount();
+    let randomvalues = new Uint32Array(1);
+    let datalength = this.model.getBuxlsCount();
     window.crypto.getRandomValues(randomvalues);
 
-    var currentGameHash = randomvalues%datalength;
+    let currentGameHash = randomvalues%datalength;
     this.model.setCurrentBuxlById(currentGameHash);
 };
 

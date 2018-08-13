@@ -1,4 +1,4 @@
-var BuxlIntroController = function BuxlIntroController () {
+let BuxlIntroController = function BuxlIntroController () {
     BuxlControllerPrototype.call(this);
 };
 

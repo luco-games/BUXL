@@ -1,11 +1,11 @@
-var BuxlControllerPrototype = function BuxlControllerPrototype () 
+let BuxlControllerPrototype = function BuxlControllerPrototype () 
 {
     this.events = [];
 };
 
 BuxlControllerPrototype.prototype.onEvent = function onEvent (eventName)
 {
-    var _event = this.events[eventName]; 
+    let _event = this.events[eventName]; 
     
     if (_event)
     {
@@ -26,7 +26,7 @@ BuxlControllerPrototype.prototype.init = function init (callback)
    this.view.linkEventsToController(this);
 };
 
-BuxlControllerPrototype.prototype.register = function registerController (buxlView, buxlModel) 
+BuxlControllerPrototype.prototype.register = function register (buxlView, buxlModel) 
 {
     this.view = buxlView;
     this.model = buxlModel;

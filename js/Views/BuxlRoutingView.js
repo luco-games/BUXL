@@ -1,4 +1,4 @@
-var BuxlRoutingView = function BuxlRoutingView (elements) {
+let BuxlRoutingView = function BuxlRoutingView (elements) {
     BuxlViewPrototype.call(this, elements);
 };
 

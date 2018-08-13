@@ -1,4 +1,4 @@
-var BuxlListController = function BuxlListController () {
+let BuxlListController = function BuxlListController () {
     BuxlControllerPrototype.call(this);
 };
 
@@ -6,7 +6,7 @@ BuxlListController.prototype = Object.create(BuxlControllerPrototype.prototype);
 
 BuxlListController.prototype.route = function route (route, gameHash) 
 {
-    var favs = this.model.getFavoritesList();
+    let favs = this.model.getFavoritesList();
     this.view.render(favs, false);
 };
 
