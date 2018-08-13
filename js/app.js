@@ -1,21 +1,21 @@
-var getBuxlGameEvents = function getBuxlGameEvents () 
+let getBuxlGameEvents = function getBuxlGameEvents () 
 {
-   var events = [];
+   let events = [];
 
    // Register Buttons
-   var letterButtons = {
+   let letterButtons = {
         target : ".letter-mass",
         triggers: "click touchend",
         f: "onSelectLetterEvent"
     };
 
-    var letterKeyPress = {
+    let letterKeyPress = {
         target : "body",
         triggers: "keypress",
         f: "onKeyPressLetterEvent"
     };
 
-    var solutionButton = {
+    let solutionButton = {
         target : "#help",
         triggers: "click touchend",
         f: "onClickSolutionEvent"
@@ -28,11 +28,11 @@ var getBuxlGameEvents = function getBuxlGameEvents ()
     return events;
 };
 
-var getBuxlNavigationEvents = function getBuxlNavigationEvents () 
+let getBuxlNavigationEvents = function getBuxlNavigationEvents () 
 {
-    var events = [];
+    let events = [];
 
-    var navigationButtons = {
+    let navigationButtons = {
         target : ".navbar",
         triggers: "click touchend",
         f: "onNavigationClickEvent"
@@ -43,11 +43,11 @@ var getBuxlNavigationEvents = function getBuxlNavigationEvents ()
     return events;
 };
 
-var getBuxlIntroEvents = function getBuxlIntroEvents () 
+let getBuxlIntroEvents = function getBuxlIntroEvents () 
 {
-   var events = [];
+   let events = [];
 
-   var Logo = {
+   let Logo = {
         target : "#svg2",
         triggers: "click touchend",
         f: "onLogoClickEvent"
@@ -61,45 +61,45 @@ var getBuxlIntroEvents = function getBuxlIntroEvents ()
 
 document.addEventListener('DOMContentLoaded', function() 
 {
-    var controller = new BuxlRoutingController();
+    let controller = new BuxlRoutingController();
     controller.registerRoutes();
 
-    var buxlGameModel = new BuxlGameModel(data);
-    var buxlFavoritesModel = new BuxlFavoritesModel();
-    var buxlListModel = new BuxlListModel({
+    let buxlGameModel = new BuxlGameModel(data);
+    let buxlFavoritesModel = new BuxlFavoritesModel();
+    let buxlListModel = new BuxlListModel({
             "buxlGameModel" : buxlGameModel,
             "buxlFavoritesModel" : buxlFavoritesModel
         });
 
-    var buxlGameViewTmpls = [];
+    let buxlGameViewTmpls = [];
     buxlGameViewTmpls.push("buxlstmpl");
     buxlGameViewTmpls.push("solutionstmpl");
 
-    var buxlListViewTmpls = [];
+    let buxlListViewTmpls = [];
     buxlListViewTmpls.push("buxlstmpl");
     buxlListViewTmpls.push("navtmpl");
     buxlListViewTmpls.push("solutionstmpl");
 
-    var buxlGameView = new BuxlGameView ({
+    let buxlGameView = new BuxlGameView ({
            'targetView': "content",
            'targetTemplate': "gametmpl",
            'templates' : buxlGameViewTmpls,
            'events' : getBuxlGameEvents ()
     });
 
-    var buxlListView = new BuxlListView ({
+    let buxlListView = new BuxlListView ({
            'targetView': "content",
            'targetTemplate': "buxlslisttmpl",
            'templates' : buxlListViewTmpls
     });
 
-    var buxlNavigationView = new BuxlNavigationView ({
+    let buxlNavigationView = new BuxlNavigationView ({
            'targetView': "navigation",
            'targetTemplate': "navtmpl",
            'events' : getBuxlNavigationEvents ()
     });
 
-    var buxlIntroView = new BuxlIntroView ({
+    let buxlIntroView = new BuxlIntroView ({
            'targetView': "footer",
            'targetTemplate': "footertmpl",
            'events' : getBuxlIntroEvents ()
@@ -111,11 +111,11 @@ document.addEventListener('DOMContentLoaded', function()
     controller.register("list", buxlListView, buxlListModel);
 
     // Gradient Bug Fix
-    var isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
     
     if (!isChrome)
     {    
-        var root = document.getElementsByTagName( 'html' )[0]; // '0' to assign the first (and only `HTML` tag)
+        let root = document.getElementsByTagName( 'html' )[0]; // '0' to assign the first (and only `HTML` tag)
         if (root)
             root.setAttribute( 'class', 'not-chrome' );
     }

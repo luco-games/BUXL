@@ -1,4 +1,4 @@
-var BuxlIntroView = function BuxlIntroView (elements) {
+let BuxlIntroView = function BuxlIntroView (elements) {
     BuxlViewPrototype.call(this, elements);
 };
 
@@ -6,9 +6,9 @@ BuxlIntroView.prototype = Object.create(BuxlViewPrototype.prototype);
 
 BuxlIntroView.prototype.animateLogo = async function animateLogo ()
 {
-    var _this = this;
+    let _this = this;
 
-    var buxl = anime.timeline({
+    let buxl = anime.timeline({
         autoplay: true,
     });
     // B
@@ -38,9 +38,9 @@ BuxlIntroView.prototype.render = async function render (callback, registerEvents
 {
     await this.animateLogo();
 
-    var _this = this;
+    let _this = this;
 
-    var buxl = anime.timeline({
+    let buxl = anime.timeline({
         autoplay: true,
     });
     // // svg resize
@@ -52,7 +52,7 @@ BuxlIntroView.prototype.render = async function render (callback, registerEvents
       translateY: ["60%"],
       ease: 'linear',
       complete: function (e) {
-        var svgClass = document.querySelector('.buxllogo');
+        let svgClass = document.querySelector('.buxllogo');
         if (svgClass)
             svgClass.classList.remove("buxllogo");
 

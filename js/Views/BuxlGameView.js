@@ -1,4 +1,4 @@
-var BuxlGameView = function BuxlGameView (elements) {
+let BuxlGameView = function BuxlGameView (elements) {
     BuxlViewPrototype.call(this, elements);
 };
 
@@ -6,7 +6,7 @@ BuxlGameView.prototype = Object.create(BuxlViewPrototype.prototype);
 
 BuxlGameView.prototype.onLetterClick = function onLetterClick (letterHash)
 {
-    var target = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
+    let target = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
     anime({
       targets: target,
       scale: 0.8,
@@ -42,8 +42,8 @@ BuxlGameView.prototype.swapLetter = function swapLetter (currentLetterHash, newL
 
 BuxlGameView.prototype.setSelectedLetters = function setSelectedLetters (letters) 
 {
-    for (var i = 0; i < letters.length; i++) {
-        var selectedSolution = document.querySelector('[data-solution-index="'+ i +'"]');
+    for (let i = 0; i < letters.length; i++) {
+        let selectedSolution = document.querySelector('[data-solution-index="'+ i +'"]');
         if (selectedSolution)
             selectedSolution.innerHTML = letters[i];
     }
@@ -52,7 +52,7 @@ BuxlGameView.prototype.setSelectedLetters = function setSelectedLetters (letters
 BuxlGameView.prototype.animateWrongWord = function animateWrongWord (dataModel)
 {
     this.curDataModel = dataModel;
-    var _this = this;
+    let _this = this;
 
     anime({
       targets: '.letter-solution-mass',
@@ -104,14 +104,14 @@ BuxlGameView.prototype.animateSolved = async function animateSolved (dataModel)
     return true;
 };
 
-var funcx = function() { return anime.random(-40, 40) + 'px'; };
-var funcy = function() { return anime.random(-40, 40) + 'px'; };
+let funcx = function() { return anime.random(-40, 40) + 'px'; };
+let funcy = function() { return anime.random(-40, 40) + 'px'; };
 
 BuxlGameView.prototype.animateGameFinished = async function animateGameFinished (solvedDataModel, newDataModel)
 {
     await this.animateSolved(solvedDataModel);
 
-    var _this = this;
+    let _this = this;
 
     await anime({
       targets: '.solutioncloud > span',
@@ -159,7 +159,7 @@ BuxlGameView.prototype.animateGameReload = function animateGameReload (gameModel
 
 BuxlGameView.prototype.animateHint = function animateHint (letterHash) 
 {
-    var target = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
+    let target = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
 
     anime({
       targets: target,
@@ -176,7 +176,7 @@ BuxlGameView.prototype.animateHint = function animateHint (letterHash)
 
 BuxlGameView.prototype.animateHintError = function animateHintError () 
 {
-    var target = document.querySelector('#helpico');
+    let target = document.querySelector('#helpico');
     target.src = "images/buxlsurprisedico.svg";
     
     anime({
@@ -209,7 +209,7 @@ BuxlGameView.prototype.changeButtonByHash = function changeButtonByHash (letterH
       easing: 'easeOutBack'
     });
 
-    var selectedBtn = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
+    let selectedBtn = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
 
     if (selectedBtn && selectedBtn.classList.contains(currentClass)) 
     {

@@ -1,10 +1,10 @@
-var BuxlRoutingController = function BuxlRoutingController () 
+let BuxlRoutingController = function BuxlRoutingController () 
 {
     this.controllers = {};
     this.routes = {};
     this.events = {};
 
-    var viewEvents = [];
+    let viewEvents = [];
 
     viewEvents.push({
         target : "window",
@@ -28,14 +28,14 @@ BuxlRoutingController.prototype.register = function register (title, view, model
 {
    if (title)
    {
-        var controller = this.controllers[title];
+        let controller = this.controllers[title];
         controller.register(view, model);
    }
 };
 
 BuxlRoutingController.prototype.doRouting = function doRouting (e)
 {
-    var route = null;
+    let route = null;
 
     if (e)
     {
@@ -45,7 +45,7 @@ BuxlRoutingController.prototype.doRouting = function doRouting (e)
     }
 
     if (! route)
-        var route = window.location.hash;
+        route = window.location.hash;
 
     route = route.substring(2).split('/');
 
@@ -60,11 +60,22 @@ BuxlRoutingController.prototype.route = function route (route, gameHash)
         return;
     }
 
-    var currentRoute = this.routes[route];
+    let currentRoute = this.routes[route];
+    let successRoute = false;
+    
+    this.unregisterEvents();
 
-    for (var i = 0; i < currentRoute.length; i++) 
+    for (let i = 0; i < currentRoute.length; i++) 
+    {
         if (currentRoute[i])
+        {
+            successRoute = true;
             currentRoute[i].route(route, gameHash);
+        }
+    }
+
+    if (! successRoute)
+        this.routeDefault();
 };
 
 BuxlRoutingController.prototype.routeDefault = function routeDefault ()
@@ -88,10 +99,16 @@ BuxlRoutingController.prototype.registerRoutes = function registerRoutes ()
     this.routes.favorites.push(this.controllers.navbar);
 };
 
+BuxlRoutingController.prototype.unregisterEvents = function unregisterEvents () 
+{
+    for (let controller in this.controllers)
+        this.controllers[controller].view.registerEvents(false);
+};
+
 BuxlRoutingController.prototype.init = function init ()
 {
-    for (var controller in this.controllers)
+    for (let controller in this.controllers)
         this.controllers[controller].init(this.doRouting.bind(this));
 
-    this.view.registerEvents();
+    this.view.registerEvents(true);
 };

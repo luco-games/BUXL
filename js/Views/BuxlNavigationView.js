@@ -1,4 +1,4 @@
-var BuxlNavigationView = function BuxlGameView (elements) {
+let BuxlNavigationView = function BuxlGameView (elements) {
     BuxlViewPrototype.call(this, elements);
 };
 
@@ -6,7 +6,7 @@ BuxlNavigationView.prototype = Object.create(BuxlViewPrototype.prototype);
 
 BuxlNavigationView.prototype.toggleFavorite = function toggleFavorite (dataModel, renderFunction)
 {
-    var _this = this;
+    let _this = this;
 
     anime({
       targets: '[data-game-hash="' + dataModel.gameHash + '"] .favorite > i',
@@ -14,7 +14,7 @@ BuxlNavigationView.prototype.toggleFavorite = function toggleFavorite (dataModel
       opacity: 0,
       easing: 'easeOutQuad',
       run: function (anim) {
-        var render = false;
+        let render = false;
         if (Math.round(anim.progress) > 10)
         {
           if (!render)
@@ -26,7 +26,7 @@ BuxlNavigationView.prototype.toggleFavorite = function toggleFavorite (dataModel
       }
     });
 
-    var selectedFavorite = document.querySelector('[data-game-hash="' + dataModel.gameHash + '"]');
+    let selectedFavorite = document.querySelector('[data-game-hash="' + dataModel.gameHash + '"]');
     
     if (! selectedFavorite)
         return;
@@ -54,7 +54,7 @@ BuxlNavigationView.prototype.toggleFavorite = function toggleFavorite (dataModel
 
 BuxlNavigationView.prototype.showSolutions = function showSolutions (gameHash)
 {
-    var selectedFavorite = document.querySelector('[data-game-hash="' + gameHash + '"] > .solutionsbox');
+    let selectedFavorite = document.querySelector('[data-game-hash="' + gameHash + '"] > .solutionsbox');
     
     if (! selectedFavorite)
         return;
@@ -65,7 +65,7 @@ BuxlNavigationView.prototype.showSolutions = function showSolutions (gameHash)
 
 BuxlNavigationView.prototype.clearRender = function clearRender ()
 {
-    var oldTargetView = document.getElementById(this.elements.targetView);
+    let oldTargetView = document.getElementById(this.elements.targetView);
 
     if (oldTargetView)
         oldTargetView.innerHTML = "";
@@ -73,11 +73,16 @@ BuxlNavigationView.prototype.clearRender = function clearRender ()
 
 BuxlNavigationView.prototype.renderOnList = function renderOnList (dataModel, registerEvents)
 {
-    var html = jsrender.render[this.elements.targetTemplate](dataModel ? dataModel : {});
+    let html = jsrender.render[this.elements.targetTemplate](dataModel ? dataModel : {});
 
-    var targetView = document.querySelector('.navoutterbar [data-game-hash="' + dataModel.gameHash + '"]');
+    let targetView = document.querySelector('.buxlslistwrap [data-game-hash="' + dataModel.gameHash + '"]');
     targetView.innerHTML = html;
     
     if (registerEvents)
-        this.registerEvents();
+        this.registerEvents(true);
+};
+
+BuxlNavigationView.prototype.goBack = function goBack ()
+{
+	window.history.back();
 };

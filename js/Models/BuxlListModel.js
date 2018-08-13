@@ -1,4 +1,4 @@
-var BuxlListModel = function BuxlListModel (elements)
+let BuxlListModel = function BuxlListModel (elements)
 {
     this.buxlGameModel = elements.buxlGameModel;
     this.buxlFavoritesModel = elements.buxlFavoritesModel;
@@ -9,13 +9,13 @@ BuxlListModel.prototype.getFavoritesList = function getFavoritesList ()
     if (! this.buxlFavoritesModel.savedFavorites)
         this.buxlFavoritesModel.loadFavorites();
 
-    var savedFavorites = this.buxlFavoritesModel.savedFavorites;
-    var trashedFavorites  = this.buxlFavoritesModel.trashedFavorites;
-    var favedBuxls = [];
+    let savedFavorites = this.buxlFavoritesModel.savedFavorites;
+    let trashedFavorites  = this.buxlFavoritesModel.trashedFavorites;
+    let favedBuxls = [];
 
-    for (var i=0; i < savedFavorites.length; i++)
+    for (let i=0; i < savedFavorites.length; i++)
     {
-        var buxl = this.buxlGameModel.getBuxl(savedFavorites[i]);
+        let buxl = this.buxlGameModel.getBuxl(savedFavorites[i]);
         if (buxl)
         {
             // Buxl is solved, so put the solution into solved
@@ -24,6 +24,15 @@ BuxlListModel.prototype.getFavoritesList = function getFavoritesList ()
             favedBuxls.push(buxl);
         }
     }
+
+    if (favedBuxls.length === 0)
+    {
+        favedBuxls.push({
+            front:["K","E","I","N"],
+            back:["B","U","X","L"]
+        });
+         
+    } 
     
     return favedBuxls;
 };

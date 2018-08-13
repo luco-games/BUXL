@@ -1,4 +1,5 @@
-var BuxlViewPrototype = function BuxlViewPrototype (elements)
+"use strict";
+let BuxlViewPrototype = function BuxlViewPrototype (elements)
 {
     this.elements = elements;
     this.events = elements.events;
@@ -6,60 +7,66 @@ var BuxlViewPrototype = function BuxlViewPrototype (elements)
 
     if (this.elements.templates)
     {
-        for (var i=0; i < this.elements.templates.length; i++)
+        for (let i=0; i < this.elements.templates.length; i++)
         {
-            var curTemplateName = this.elements.templates[i];
-            var templateElement = document.getElementById(curTemplateName);
+            let curTemplateName = this.elements.templates[i];
+            let templateElement = document.getElementById(curTemplateName);
             jsrender.templates(curTemplateName, templateElement);
         }
     }
 
     if (this.elements.targetTemplate)
     { 
-        var targetTemplate = document.getElementById(this.elements.targetTemplate);
+        let targetTemplate = document.getElementById(this.elements.targetTemplate);
         this.template = jsrender.templates(this.elements.targetTemplate, targetTemplate);
     }
 
 };
 
-BuxlViewPrototype.prototype.registerEventsPerTrigger = function registerEventsPerTrigger (element, f, triggers)
+BuxlViewPrototype.prototype.registerEventsPerTrigger = function registerEventsPerTrigger (element, f, triggers, addEventListener)
 {
-    for (var j = 0; j < triggers.length; j++) 
+    for (let j = 0; j < triggers.length; j++) 
     {
-       var curEventFunction = f;
-       element.removeEventListener(triggers[j], this.eventfunctions[curEventFunction], true);
-       element.addEventListener(triggers[j], this.eventfunctions[curEventFunction], true);
+        let curEventFunction = f;
+
+        if (addEventListener)
+            element.addEventListener(triggers[j], this.eventfunctions[curEventFunction], true);
+        else
+            element.removeEventListener(triggers[j], this.eventfunctions[curEventFunction], true);
     }
 };
 
-BuxlViewPrototype.prototype.registerEvents = function registerEvents ()
+BuxlViewPrototype.prototype.registerEvents = function registerEvents (addEventListener)
 {
-    for (var i = 0; i < this.events.length; i++) 
+    if (! this.events)
+        return;
+
+    for (let i = 0; i < this.events.length; i++) 
     {
-        var triggers = this.events[i].triggers.split(' ');
+        let triggers = this.events[i].triggers.split(' ');
 
         if (this.events[i].target === "window")
         {
-            this.registerEventsPerTrigger(window, this.events[i].f,  triggers);
+            this.registerEventsPerTrigger(window, this.events[i].f,  triggers, addEventListener);
         }
         else
         {
-            var elements = document.querySelectorAll(this.events[i].target);
-            for (var j = 0; j < elements.length; j++)
-                this.registerEventsPerTrigger(elements[j], this.events[i].f, triggers);
+            let elements = document.querySelectorAll(this.events[i].target);
+            for (let j = 0; j < elements.length; j++)
+                this.registerEventsPerTrigger(elements[j], this.events[i].f, triggers, addEventListener);
         }
     }
 };
 
 BuxlViewPrototype.prototype.render = function render (modelData, registerEvents)
 {
-    var html = jsrender.render[this.elements.targetTemplate](modelData ? modelData : {});
+    let html = jsrender.render[this.elements.targetTemplate](modelData ? modelData : {});
 
-    var targetView = document.getElementById(this.elements.targetView);
+    let targetView = document.getElementById(this.elements.targetView);
     targetView.innerHTML = html;
     
     if (registerEvents)
-        this.registerEvents();
+        this.registerEvents(true);
 
 };
 
@@ -71,7 +78,7 @@ BuxlViewPrototype.prototype.routeTo = function routeTo (controllerName, id)
     }
     else
     {
-        var evt = new CustomEvent('hiddenroute', { detail: "#/" + controllerName + "/"});
+        let evt = new CustomEvent('hiddenroute', { detail: "#/" + controllerName + "/"});
         window.dispatchEvent(evt);
     }
 };
@@ -80,15 +87,14 @@ BuxlViewPrototype.prototype.linkEventsToController = function linkEventsToContro
 {
     if (controller && this.events)
     {
-        for (var i = 0; i < this.events.length; i++) 
+        for (let i = 0; i < this.events.length; i++) 
         {
-            var curEventFunction = this.events[i].f;
-            var curEventController = controller;
-            var eventToTrigger = curEventController.onEvent (curEventFunction);
+            let curEventFunction = this.events[i].f;
+            let curEventController = controller;
+            let eventToTrigger = curEventController.onEvent (curEventFunction);
 
             if (eventToTrigger)
                 this.eventfunctions[curEventFunction] = eventToTrigger.bind(curEventController);
         }
     }
 };
-
