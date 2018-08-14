@@ -29,7 +29,10 @@ BuxlGameController.prototype.onKeyPressLetterEvent = function onKeyPressLetterEv
 };
 
 BuxlGameController.prototype.onSelectLetterEvent = function onSelectLetterEvent (e)
-{
+{ 
+    e.stopPropagation();
+    e.preventDefault();
+
     let btnSelected = e.target;
     let selectedLetterHash = null;
 
