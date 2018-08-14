@@ -93,22 +93,22 @@ BuxlRoutingController.prototype.registerRoutes = function registerRoutes ()
     this.controllers.legal = new BuxlLegalController();
 
     this.routes.buxl = [];
-    this.routes.buxl.push(this.controllers.footer);
     this.routes.buxl.push(this.controllers.buxlgame);
     this.routes.buxl.push(this.controllers.navbar);
+    this.routes.buxl.push(this.controllers.footer);
 
     this.routes.favorites = [];
-    this.routes.favorites.push(this.controllers.footer);
     this.routes.favorites.push(this.controllers.list);
     this.routes.favorites.push(this.controllers.navbar);
+    this.routes.favorites.push(this.controllers.footer);
 
     this.routes.imprint = [];
-    this.routes.imprint.push(this.controllers.footer);
     this.routes.imprint.push(this.controllers.legal);
+    this.routes.imprint.push(this.controllers.footer);
 
     this.routes.privacy = [];
-    this.routes.privacy.push(this.controllers.footer);
     this.routes.privacy.push(this.controllers.legal);
+    this.routes.privacy.push(this.controllers.footer);
 };
 
 BuxlRoutingController.prototype.unregisterEvents = function unregisterEvents () 
