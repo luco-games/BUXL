@@ -1,4 +1,5 @@
 #!/bin/env python3
+
 class findWordPairs:
     inputWords = []
     possibleWords = set()
@@ -12,21 +13,14 @@ class findWordPairs:
         result_combos = self.findCombinations()
         for word in result_combos:
             if len(result_combos[word]) > 2:
-                wordslist = list(result_combos[word])
-                top = []
-                bottom = []
-                top, bottom = self.findPair(wordslist)
-                while (len(top) != 4 and len(bottom) != 4):
-                    if (len(wordslist) - 1 == 0):
-                        break;
-                    del wordslist[-1]
-                    top, bottom = self.findPair(wordslist)
-                t_result_combos =  tuple(wordslist)
-                self.comboPairs[t_result_combos] = []
-                self.comboPairs[t_result_combos].append(top)
-                self.comboPairs[t_result_combos].append(bottom)
-        return self.comboPairs
+                top, bottom = self.findPair(list(result_combos[word]))
+                if len(top) == 4 and len(bottom) == 4:
+                    t_result_combos =  tuple(result_combos[word])
+                    self.comboPairs[t_result_combos] = []
+                    self.comboPairs[t_result_combos].append(top)
+                    self.comboPairs[t_result_combos].append(bottom)
 
+        return self.comboPairs
 
     def convertStringToSet(self, word):           
         result = set()
@@ -142,6 +136,13 @@ class findWordPairs:
         for word in words:
            for letter in word:
                 combos[letter].difference_update(self.convertStringToSet(word))
+        min_letter = words[0][0]
+        min_length = len(combos[min_letter])
+        
+        for combo in combos:
+            if len(combos[combo]) < min_length:
+                min_letter = combo
+                min_length = len(combos[combo])
 
         top = []
         bottom = []
