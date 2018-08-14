@@ -16,7 +16,7 @@ class findWordPairs:
                 top = []
                 bottom = []
                 top, bottom = self.findPair(wordslist)
-                while (len(wordslist) != 3 and len(top) != 4 and len(bottom) != 4):
+                while (len(wordslist) >= 3 and len(top) != 4 and len(bottom) != 4):
                     del wordslist[-1]
                     top, bottom = self.findPair(wordslist)
                 t_result_combos =  tuple(wordslist)
