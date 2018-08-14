@@ -59,12 +59,15 @@ BuxlRoutingController.prototype.route = function route (route, gameHash)
         this.routeDefault();
         return;
     }
-
+    
     let currentRoute = this.routes[route];
     let successRoute = false;
     
-    this.unregisterEvents();
+    if (this.latestRoute !== route) 
+        this.unregisterEvents();
 
+    this.latestRoute = route;
+    
     for (let i = 0; i < currentRoute.length; i++) 
     {
         if (currentRoute[i])

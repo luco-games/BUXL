@@ -29,10 +29,10 @@ BuxlViewPrototype.prototype.registerEventsPerTrigger = function registerEventsPe
     {
         let curEventFunction = f;
 
+        element.removeEventListener(triggers[j], this.eventfunctions[curEventFunction], true);
+
         if (addEventListener)
             element.addEventListener(triggers[j], this.eventfunctions[curEventFunction], true);
-        else
-            element.removeEventListener(triggers[j], this.eventfunctions[curEventFunction], true);
     }
 };
 
