@@ -33,7 +33,6 @@ BuxlNavigationController.prototype.triggerAction = function triggerAction (trigg
 
 BuxlNavigationController.prototype.onNavigationClickEvent = function onNavigationClickEvent (e)
 {
-    e.stopImmediatePropagation();
     e.stopPropagation();
     e.preventDefault();
 
@@ -83,7 +82,6 @@ BuxlNavigationController.prototype.route = function route (route, gameHash)
     } 
     else if (route === "favorites")
     {
-        this.view.clearRender();
         this.view.registerEvents(true);
     }
 };

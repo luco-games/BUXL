@@ -97,4 +97,12 @@ BuxlViewPrototype.prototype.linkEventsToController = function linkEventsToContro
                 this.eventfunctions[curEventFunction] = eventToTrigger.bind(curEventController);
         }
     }
+}
+
+BuxlViewPrototype.prototype.clearRender = function clearRender ()
+{
+    let oldTargetView = document.getElementById(this.elements.targetView);
+
+    if (oldTargetView)
+        oldTargetView.innerHTML = "";
 };

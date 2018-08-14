@@ -4,7 +4,7 @@ let getBuxlGameEvents = function getBuxlGameEvents ()
 
    // Register Buttons
    let letterButtons = {
-        target : ".letter-mass",
+        target : ".gamewrap",
         triggers: "click touchend",
         f: "onSelectLetterEvent"
     };
@@ -80,6 +80,22 @@ document.addEventListener('DOMContentLoaded', function()
     buxlListViewTmpls.push("navtmpl");
     buxlListViewTmpls.push("solutionstmpl");
 
+    let buxlLegalViewTmpls = [];
+    buxlListViewTmpls.push("privacytmpl");
+    buxlListViewTmpls.push("imprinttmpl");
+
+    let buxlIntroView = new BuxlIntroView ({
+           'targetView': null,
+           'targetTemplate': null,
+           'events' : getBuxlIntroEvents ()
+    });
+
+    let buxlFooterView = new BuxlFooterView ({
+           'targetView': "footer",
+           'targetTemplate': "footertmpl",
+           'events' : null
+    });
+
     let buxlGameView = new BuxlGameView ({
            'targetView': "content",
            'targetTemplate': "gametmpl",
@@ -99,16 +115,20 @@ document.addEventListener('DOMContentLoaded', function()
            'events' : getBuxlNavigationEvents ()
     });
 
-    let buxlIntroView = new BuxlIntroView ({
-           'targetView': "footer",
-           'targetTemplate': "footertmpl",
-           'events' : getBuxlIntroEvents ()
+
+    let buxlLegalView = new BuxlLegalView ({
+           'targetView': "content",
+           'targetTemplate': null,
+           'templates': buxlLegalViewTmpls,
+           'events' : null
     });
 
     controller.register("intro", buxlIntroView, null);
     controller.register("buxlgame", buxlGameView, buxlGameModel);
     controller.register("navbar", buxlNavigationView, buxlFavoritesModel);
     controller.register("list", buxlListView, buxlListModel);
+    controller.register("legal", buxlLegalView, null);
+    controller.register("footer", buxlFooterView, null);
 
     // Gradient Bug Fix
     let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);

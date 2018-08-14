@@ -23,7 +23,8 @@ BuxlControllerPrototype.prototype.route = function route (route, gameHash)
 
 BuxlControllerPrototype.prototype.init = function init (callback)
 { 
-   this.view.linkEventsToController(this);
+    if (this.view)
+        this.view.linkEventsToController(this);
 };
 
 BuxlControllerPrototype.prototype.register = function register (buxlView, buxlModel) 

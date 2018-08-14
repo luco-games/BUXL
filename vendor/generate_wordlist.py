@@ -14,28 +14,28 @@ allsolutionsLength = []
 for key in result:
     hashword = "".join(result[key][0])
     hashword += "".join(result[key][1])
-    gameHash = hashlib.sha256(hashword.encode("utf-8")).hexdigest()[:15]
+    gH = hashlib.sha256(hashword.encode("utf-8")).hexdigest()[:15]
 
-    if (gameHash in data):
+    if (gH in data):
         continue
 
     json_arr = {}
-    json_arr["front"] = result[key][0]
-    json_arr["back"] = result[key][1]
+    json_arr["f"] = result[key][0]
+    json_arr["b"] = result[key][1]
 
     solutions = list(key)
     allsolutions.extend(solutions)
     allsolutionsLength.append(len(solutions))
 
     if (len(solutions) == 1):
-        print(gameHash)
+        print(gH)
 
-    json_arr["solutions"] = solutions
+    json_arr["s"] = solutions
 
-    data[gameHash] = json_arr
+    data[gH] = json_arr
     
 with io.open('../data/combopairs.js', 'w', encoding='utf-8') as f:
-  f.write("var data = %s;" % json.dumps(data))
+  f.write("var data=%s;" % json.dumps(data,separators=(',', ':')))
 
 html_out = '<!doctype html>\n<html> <head> <meta charset="utf-8"> <title>BUXL</title> <meta name="description" content="Buxl, finde alle Kombinationen"> <meta name="author" content="JC"> <meta name="google" content="notranslate" /> </head> <body>\n'
 

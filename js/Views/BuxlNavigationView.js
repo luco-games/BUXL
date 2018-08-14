@@ -68,11 +68,3 @@ BuxlNavigationView.prototype.goBack = function goBack ()
 	window.history.back();
 };
 
-BuxlNavigationView.prototype.clearRender = function clearRender ()
-{
-    let oldTargetView = document.getElementById(this.elements.targetView);
-
-    if (oldTargetView)
-        oldTargetView.innerHTML = "";
-};
-

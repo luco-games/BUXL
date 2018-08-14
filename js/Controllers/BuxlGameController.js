@@ -30,12 +30,28 @@ BuxlGameController.prototype.onKeyPressLetterEvent = function onKeyPressLetterEv
 
 BuxlGameController.prototype.onSelectLetterEvent = function onSelectLetterEvent (e)
 {
-    e.stopPropagation();
-    e.preventDefault();
+    let btnSelected = e.target;
+    let selectedLetterHash = null;
 
-    let btnSelected = e.currentTarget;
+    // Not h3 Element
+    if (btnSelected.childElementCount > 0)
+    {
+        if (btnSelected.dataset.gameBtnId)
+            selectedLetterHash = btnSelected.dataset.gameBtnId;
+        else if (btnSelected.parentElement.dataset.gameBtnId)
+            selectedLetterHash = btnSelected.parentElement.dataset.gameBtnId;
+        else
+            selectedLetterHash = btnSelected.firstElementChild.dataset.gameBtnId;
+    } else {
+        selectedLetterHash = btnSelected.parentElement.parentElement.dataset.gameBtnId;
+    }
 
-    let selectedLetterHash = btnSelected.dataset.gameBtnId;
+    if (! selectedLetterHash)
+    {
+        console.log("Element could not be found" + e.target);
+        return;
+    }
+
     let selectedLetterType = selectedLetterHash.substring(0, 1);
     let selectedLetterId = selectedLetterHash.substring(1);
     

@@ -87,22 +87,38 @@ BuxlRoutingController.prototype.registerRoutes = function registerRoutes ()
 {
     this.controllers.buxlgame = new BuxlGameController();
     this.controllers.intro = new BuxlIntroController();
+    this.controllers.footer = new BuxlFooterController();
     this.controllers.navbar = new BuxlNavigationController();
     this.controllers.list = new BuxlListController();
+    this.controllers.legal = new BuxlLegalController();
 
     this.routes.buxl = [];
+    this.routes.buxl.push(this.controllers.footer);
     this.routes.buxl.push(this.controllers.buxlgame);
     this.routes.buxl.push(this.controllers.navbar);
 
     this.routes.favorites = [];
+    this.routes.favorites.push(this.controllers.footer);
     this.routes.favorites.push(this.controllers.list);
     this.routes.favorites.push(this.controllers.navbar);
+
+    this.routes.imprint = [];
+    this.routes.imprint.push(this.controllers.footer);
+    this.routes.imprint.push(this.controllers.legal);
+
+    this.routes.privacy = [];
+    this.routes.privacy.push(this.controllers.footer);
+    this.routes.privacy.push(this.controllers.legal);
 };
 
 BuxlRoutingController.prototype.unregisterEvents = function unregisterEvents () 
 {
     for (let controller in this.controllers)
-        this.controllers[controller].view.registerEvents(false);
+        if (this.controllers[controller].view)
+        {
+            this.controllers[controller].view.registerEvents(false);
+            this.controllers[controller].view.clearRender();
+        }
 };
 
 BuxlRoutingController.prototype.init = function init ()

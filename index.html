@@ -16,16 +16,7 @@
 
 <body>
     <div class="justify-content-center d-flex" id="buxllogocontainer">
-        <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-10 -10 158 65" height="100%" width="100%" xml:space="preserve" id="svg2" class="buxllogo" version="1.1">
-            <metadata id="metadata8">
-                <rdf:RDF>
-                    <cc:Work rdf:about="">
-                        <dc:format>image/svg+xml</dc:format>
-                        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-                        <dc:title></dc:title>
-                    </cc:Work>
-                </rdf:RDF>
-            </metadata>
+        <svg viewBox="-10 -10 158 65" height="100%" width="100%" xml:space="preserve" id="svg2" class="buxllogo" version="1.1">
             <defs id="defs6">
                 <clipPath id="clipPath18" clipPathUnits="userSpaceOnUse">
                     <path id="path16" d="M 0,255.118 H 141.732 V 0 H 0 Z" />
@@ -269,31 +260,50 @@
                 </div>
                 <div class="col-6 col-md">
                     <ul class="list-unstyled text-small">
-                      <li><a class="text-muted" href="#">Impressum</a></li>
-                      <li><a class="text-muted" href="#">Datenschutzerkl&auml;rung</a></li>
-                      <li><a class="text-muted" href="#">GitHub</a></li>
+                      <li><a class="text-muted" href="#/imprint/">Impressum</a></li>
+                      <li><a class="text-muted" href="#/privacy/">Datenschutzerkl&auml;rung</a></li>
+                      <li><a class="text-muted" href="https://github.com/h8h/buxl" target="_blank" rel="noopener noreferrer">GitHub</a></li>
                     </ul>
                  </div>
             </div>
         </footer>
     </script>
 
-    <script id="buxlslisttmpl" type="text/x-jsrender">
-        {{for}}
-            <div class="buxlslistwrap" data-game-hash="{{:gameHash}}">
-                <div class="d-flex justify-content-center p-2" >
-                    {{include tmpl="navtmpl"/}}
-                </div>
-                <div class="d-flex justify-content-center p-2">
-                    <div class="gamewrap">
-                        {{include tmpl="buxlstmpl"/}}
-                    </div>
-                </div>
-                <div class="solutionsbox d-flex justify-content-center p-2 not-visible">
-                    {{include tmpl="solutionstmpl"/}}
-                </div>
+    <script id="privacytmpl" type="text/x-jsrender">
+        <div class="pt-4 my-md-5 pt-md-5 legalcontent">
+            <div class="row">
+                <a href="javascript:history.back()">Zurück</a>
             </div>
-        {{/for}}
+            <div class="row">
+                <h1>Datenschutzerklärung</h1>
+                <p>Die Nutzung unserer Webseite ist ohne Angabe personenbezogener Daten möglich. Wir weisen darauf hin, dass die Datenübertragung im Internet Sicherheitslücken aufweisen kann. Ein lückenloser Schutz der Daten vor dem Zugriff durch Dritte ist nicht möglich.</p>
+
+                <p>Die Applikation wird komplett im Browser ausgeführt. Es werden nur Daten übertragen die für das Spiel zwingend erforderlich sind.</p>
+                <p>Die Speicherung der Favoritenliste wird ausschließlich in Ihrem Browser durchgeführt, weitere Informationen dazu finden Sie im GitHub Quellcode.</p> 
+                <p>Diese Website wird auf Servern von <a href="https://www.github.com">Github Inc., 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA</a> gehostet. Beachten Sie daher auch die <a href="https://help.github.com/articles/github-privacy-policy/">GitHub Privacy Policy</a> und <a href="https://help.github.com/articles/global-privacy-practices/">GitHub Global Privacy Practices</a>.</p>
+
+                <p>Der Nutzung von im Rahmen der Impressumspflicht veröffentlichten Kontaktdaten durch Dritte zur Übersendung von nicht ausdrücklich angeforderter Werbung und Informationsmaterialien wird hiermit ausdrücklich widersprochen. Die Betreiber der Seiten behalten sich ausdrücklich rechtliche Schritte im Falle der unverlangten Zusendung von Werbeinformationen, etwa durch Spam-Mails, vor.</p>
+
+                <b>SSL- bzw. TLS-Verschlüsselung</b>
+                <p>Aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte, die Sie an uns als Seitenbetreiber senden, nutzt unsere Website eine SSL-bzw. TLS-Verschlüsselung. Damit sind Daten, die Sie über diese Website übermitteln, für Dritte nicht mitlesbar. Sie erkennen eine verschlüsselte Verbindung an der "https://" Adresszeile Ihres Browsers.</p>
+
+            </div>
+        </div>
+    </script>
+
+    <script id="imprinttmpl" type="text/x-jsrender">
+        <div class="pt-4 my-md-5 pt-md-5 legalcontent">
+            <div class="row">
+                <a href="javascript:history.back()">Zurück</a>
+            </div>
+            <div>
+                <h1>Impressum</h1>
+                <p>Homeyer</p>
+                <p>Hauptstr.3/3</p>
+                <p>89134 Blaustein</p>
+                <p>privacy@chomeyer.de</p>
+            </div>
+        </div>
     </script>
 
     <script id="buxlstmpl" type="text/x-jsrender">
@@ -319,6 +329,24 @@
                 </div>
             {{/for}}
         </div>
+    </script>
+
+    <script id="buxlslisttmpl" type="text/x-jsrender">
+        {{for}}
+            <div class="buxlslistwrap" data-game-hash="{{:gameHash}}">
+                <div class="d-flex justify-content-center p-2" >
+                    {{include tmpl="navtmpl"/}}
+                </div>
+                <div class="d-flex justify-content-center p-2">
+                    <div class="gamewrap">
+                        {{include tmpl="buxlstmpl"/}}
+                    </div>
+                </div>
+                <div class="solutionsbox d-flex justify-content-center p-2 not-visible">
+                    {{include tmpl="solutionstmpl"/}}
+                </div>
+            </div>
+        {{/for}}
     </script>
 
     <script id="navtmpl" type="text/x-jsrender">
@@ -368,6 +396,7 @@
             </div>
         </div>
     </script>
+
     <script id="solutionstmpl" type="text/x-jsrender">
         {{for solved ~latestSolvedPosition=latestSolvedPosition}}
             {{if #index == ~latestSolvedPosition}}
@@ -383,6 +412,7 @@
             </span>
         {{/for}}
     </script>
+
     <script id="gametmpl" type="text/x-jsrender">
         <div class="gamewrap">
             {{include tmpl="buxlstmpl"/}}
@@ -414,6 +444,6 @@
     <script src="data/combopairs.js"></script>
     <script src="js/Vendors/anime.min.js"></script>
     <script src="js/Vendors/jsrender.min.js"></script>
-    <script src="dist/buxlapp.min.js"></script>
+    <script src="dist/buxlgames.min.js"></script>
 </body>
 </html>

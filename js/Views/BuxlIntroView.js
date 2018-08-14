@@ -67,13 +67,5 @@ BuxlIntroView.prototype.render = async function render (callback, registerEvents
       translateY: ["0%"],
       elasticity: 0,
       ease: 'linear',
-    }) // display footer
-    .add({
-        targets: 'footer',
-        opacity: [0, 1],
-        duration: 300,
-        begin: function () {
-         BuxlViewPrototype.prototype.render.call(_this, null, true);
-        }
     });
 };
