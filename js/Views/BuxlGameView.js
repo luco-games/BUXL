@@ -53,6 +53,8 @@ BuxlGameView.prototype.animateWrongWord = async function animateWrongWord (dataM
 {
     this.curDataModel = dataModel;
     let _this = this;
+    let targetBuxl = document.querySelector('#buxlhelp');
+    targetBuxl.src = "images/buxlne.svg";
 
     anime({
       targets: '.letter-solution-mass',
@@ -60,9 +62,6 @@ BuxlGameView.prototype.animateWrongWord = async function animateWrongWord (dataM
       backgroundColor: '#ff0066',  
       easing: 'easeOutBack'
     });
-
-    let targetBuxl = document.querySelector('#buxlhelp');
-    targetBuxl.src = "images/buxlwoh.svg";
     
     await anime({
       targets: targetBuxl,
@@ -177,7 +176,7 @@ BuxlGameView.prototype.animateHint = function animateHint (letterHash)
 {
     let targetLetter = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
     let targetBuxl = document.querySelector('#buxlhelp');
-    targetBuxl.src = "images/buxlne.svg";
+    targetBuxl.src = "images/buxlwoh.svg";
 
     anime({
       targets: targetLetter,
@@ -208,7 +207,7 @@ BuxlGameView.prototype.animateHintError = function animateHintError ()
 {
     let targetLetters = document.querySelectorAll('.gamewrap > div > div > div');
     let targetBuxl = document.querySelector('#buxlhelp');
-    targetBuxl.src = "images/buxlwoh.svg";
+    targetBuxl.src = "images/buxlne.svg";
     
     anime({
       targets: '.letter-solution-mass',
