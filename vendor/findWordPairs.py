@@ -106,11 +106,12 @@ class findWordPairs:
         result_combos = {}
         for word in self.possibleWords:
             for word2 in self.possibleWords:
-                if (not word2 in combinations):
+                if (word2 not in combinations):
                     if self.is_not_in(word2, word):
                         if word not in combinations:
                             combinations[word] = set()
                         combinations[word].add(word2)
+
 
         for word in combinations:
             if len(combinations[word]) > 1:
