@@ -234,7 +234,6 @@ BuxlGameView.prototype.animateHintError = function animateHintError ()
       easing: 'easeInOutQuart',
       complete: function () {
         targetBuxl.style="";
-        setTimeout(function(){ targetBuxl.src = "images/buxlsmile.svg"; }, 200);
       }
     });
 
@@ -242,6 +241,9 @@ BuxlGameView.prototype.animateHintError = function animateHintError ()
 
 BuxlGameView.prototype.changeButtonByHash = function changeButtonByHash (letterHash, currentClass, newClass) 
 {
+    let targetBuxl = document.querySelector('#buxlhelp');
+    targetBuxl.src = "images/buxlsmile.svg";
+
     anime({
       targets: '.letter-solution-mass',
       duration: 100,
