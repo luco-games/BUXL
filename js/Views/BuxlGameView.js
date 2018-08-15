@@ -63,25 +63,21 @@ BuxlGameView.prototype.animateWrongWord = async function animateWrongWord (dataM
       easing: 'easeOutBack'
     });
     
-    await anime({
+    anime({
       targets: targetBuxl,
-      rotate: ['-15', '15', '-15'],
-      duration: 60,
+      translateX: ['.60rem', '-.60rem', '.60rem'],
+      duration: 500,
       direction: 'alternate',
-      loop: 4,
-      easing: 'easeInOutQuart',
-      complete: function () {
-        targetBuxl.style="";
-        setTimeout(function(){ targetBuxl.src = "images/buxlsmile.svg"; }, 200);
-      }
-    }).finished;
+      loop: 2,
+      easing: 'easeInOutQuart'
+    });
 
     anime({
       targets: '.gamewrap',
       translateX: ['-.60rem', '.60rem', '-.60rem'],
       duration: 500,
       loop: 2,
-      easing: 'linear',
+      easing: 'easeInOutQuart',
       direction: 'alternate',
       complete:  _this.render.bind(_this, dataModel, true)
     });
