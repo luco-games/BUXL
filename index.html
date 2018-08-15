@@ -342,7 +342,7 @@
                         {{include tmpl="buxlstmpl"/}}
                     </div>
                 </div>
-                <div class="solutionsbox d-flex justify-content-center p-2 not-visible">
+                <div class="solutioncloud d-flex justify-content-center p-2 not-visible">
                     {{include tmpl="solutionstmpl"/}}
                 </div>
             </div>
@@ -354,18 +354,18 @@
             <div class="p-2">
                 <div class="d-flex justify-content-around">
                     {{if route == "buxl"}}
-                        <div class="p-2 rounded-circle btn-sharebox">
+                        <div class="p-2 rounded-circle btn-navbox">
                             <a class="shuffle" role="button">
                                 <i class="fas fa-sync-alt"></i>
                             </a>
                         </div>
-                        <div class="p-2 rounded-circle btn-sharebox">
+                        <div class="p-2 rounded-circle btn-navbox">
                             <a class="listFavorites" role="button">
                                 <i class="fas fa-list-alt"></i>
                             </a>
                         </div>
                     {{else}}
-                        <div class="p-2 rounded-circle btn-sharebox">
+                        <div class="p-2 rounded-circle btn-navbox">
                             <a class="goBack" role="button">
                                 <i class="fas fa-arrow-left"></i>
                             </a>
@@ -375,18 +375,18 @@
             </div>
             <div class="p-2">
                 <div class="d-flex justify-content-center">
-                    <div class="p-2 rounded-circle btn-sharebox">
+                    <div class="p-2 rounded-circle btn-navbox">
                         <a class="favorite" role="button">
                             <i class="fas fa-heart {{if isFavorite}} is-favorite {{else}} not-favorite {{/if}}"></i>
                         </a>
                     </div>
                     {{if route != "buxl"}}
-                        <div class="p-2 btn-sharebox rounded-circle">
+                        <div class="p-2 btn-navbox rounded-circle">
                             <a class="showSolutions" role="button">
                                 <i class="fas fa-eye"></i>
                             </a>
                         </div>
-                        <div class="p-2 btn-sharebox rounded-circle">
+                        <div class="p-2 btn-navbox rounded-circle">
                             <a class="playBuxl" role="button">
                                 <i class="fas fa-play"></i>
                             </a>
@@ -420,7 +420,9 @@
         <div class="justify-content-center d-flex">
             <div class="p-2 helpwrap"> 
                 <a class="rounded-circle" id="help" role="button">
-                    <img src="images/buxlnormalico.svg" id="helpico" />
+                    <img src="images/buxlsmile.svg" id="buxlhelp"/>
+                    <img src="images/buxlwoh.svg" id="buxlwoh" style="display:none"/>
+                    <img src="images/buxlne.svg" id="buxlnah" style="display:none"/>
                 </a>
             </div>
         </div>

@@ -159,25 +159,40 @@ BuxlGameView.prototype.animateGameReload = function animateGameReload (gameModel
 
 BuxlGameView.prototype.animateHint = function animateHint (letterHash) 
 {
-    let target = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
+    let targetLetter = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
+    let targetBuxl = document.querySelector('#buxlhelp');
+    targetBuxl.src = "images/buxlwoh.svg";
 
     anime({
-      targets: target,
+      targets: targetLetter,
       rotate: ['-35','35', '-35'],
       duration: 350,
       loop: 4,
       easing: 'easeInOutQuart',
       direction: 'alternate',
       complete: function () {
-        target.style="";
+        targetLetter.style="";
+      }
+    });
+
+    anime({
+      targets: targetBuxl,
+      scale: 0.8,
+      duration: 350,
+      easing: 'easeInOutQuart',
+      direction: 'alternate',
+      complete: function () {
+        targetBuxl.style="";
+        setTimeout(function(){ targetBuxl.src = "images/buxlsmile.svg"; }, 200);
       }
     });
 };
 
 BuxlGameView.prototype.animateHintError = function animateHintError () 
 {
-    let target = document.querySelector('#helpico');
-    target.src = "images/buxlsurprisedico.svg";
+    let targetLetters = document.querySelectorAll('.gamewrap > div > div > div');
+    let targetBuxl = document.querySelector('#buxlhelp');
+    targetBuxl.src = "images/buxlne.svg";
     
     anime({
       targets: '.letter-solution-mass',
@@ -187,14 +202,28 @@ BuxlGameView.prototype.animateHintError = function animateHintError ()
     });
 
     anime({
-      targets: '.gamewrap > div > div > div',
+      targets: targetLetters,
       translateX: ['-.60rem', '.60rem', '-.60rem'],
       duration: 60,
       direction: 'alternate',
       loop: 4,
-      easing: 'linear',
+      easing: 'easeInOutQuart',
       complete: function () {
-        target.src = "images/buxlnormalico.svg";
+        for (let i = 0; i < targetLetters.length; i++)
+            targetLetters[i].style="";
+      }
+    });
+
+    anime({
+      targets: targetBuxl,
+      rotate: ['-15', '15', '-15'],
+      duration: 60,
+      direction: 'alternate',
+      loop: 4,
+      easing: 'easeInOutQuart',
+      complete: function () {
+        targetBuxl.style="";
+        setTimeout(function(){ targetBuxl.src = "images/buxlsmile.svg"; }, 200);
       }
     });
 

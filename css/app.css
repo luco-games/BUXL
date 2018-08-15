@@ -157,8 +157,9 @@ body
     background-color: #bdbdbd;
 }
 
-.btn-sharebox
+.btn-navbox
 {
+    z-index: 99;
     width: 2.5em;
     height: 2.5em;
     background: #322387;
@@ -168,7 +169,7 @@ body
     margin: 0.2em;
 }
 
-.btn-sharebox > a
+.btn-navbox > a
 {
     line-height: 0;
     font-size: 1.4em;
@@ -176,7 +177,7 @@ body
     font-size: 1.3rem;
 }
 
-.btn-sharebox > i
+.btn-navbox > i
 {
     padding: 0;
     margin: 0;
@@ -225,11 +226,9 @@ footer
     opacity: 0;
 }
 
-.buxlslistwrap > div > .solved
+.solved, .unsolved
 {
-    font-size: 1rem;
-    padding-bottom: 0.5em;
-    margin-left: 0.5em;
+    font-size: 0.85rem;
 }
 
 .legalcontent

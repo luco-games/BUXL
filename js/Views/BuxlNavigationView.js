@@ -54,7 +54,7 @@ BuxlNavigationView.prototype.toggleFavorite = function toggleFavorite (dataModel
 
 BuxlNavigationView.prototype.showSolutions = function showSolutions (gameHash)
 {
-    let selectedFavorite = document.querySelector('[data-game-hash="' + gameHash + '"] > .solutionsbox');
+    let selectedFavorite = document.querySelector('[data-game-hash="' + gameHash + '"] > .solutioncloud');
     
     if (! selectedFavorite)
         return;

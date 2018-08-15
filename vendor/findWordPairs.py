@@ -13,9 +13,15 @@ class findWordPairs:
         result_combos = self.findCombinations()
         for word in result_combos:
             if len(result_combos[word]) > 2:
-                top, bottom = self.findPair(list(result_combos[word]))
-                if len(top) == 4 and len(bottom) == 4:
-                    t_result_combos =  tuple(result_combos[word])
+                wordslist = list(result_combos[word])
+                top, bottom = self.findPair(wordslist)
+                counter = len(wordslist) + 1
+                while (len(top) != 4 and len(bottom) != 4 and counter > 0):
+                    counter -= 1
+                    top, bottom = self.findPair(wordslist[:counter])
+                
+                if (len(top) == 4 and len(bottom) == 4):
+                    t_result_combos =  tuple(wordslist[:counter])
                     self.comboPairs[t_result_combos] = []
                     self.comboPairs[t_result_combos].append(top)
                     self.comboPairs[t_result_combos].append(bottom)
@@ -136,13 +142,6 @@ class findWordPairs:
         for word in words:
            for letter in word:
                 combos[letter].difference_update(self.convertStringToSet(word))
-        min_letter = words[0][0]
-        min_length = len(combos[min_letter])
-        
-        for combo in combos:
-            if len(combos[combo]) < min_length:
-                min_letter = combo
-                min_length = len(combos[combo])
 
         top = []
         bottom = []
@@ -163,8 +162,4 @@ class findWordPairs:
                    sortedList, empty = self.reArange(combos, letter_top, letter_bottom)
                    break
 
-        if (len(top) == 4 and len(bottom) == 4):
-            self.removePossibleWords(words)
-            return top, bottom
-
-        return [],[]
+        return top, bottom
