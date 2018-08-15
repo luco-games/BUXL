@@ -49,7 +49,7 @@ BuxlGameView.prototype.setSelectedLetters = function setSelectedLetters (letters
     }
 };
 
-BuxlGameView.prototype.animateWrongWord = function animateWrongWord (dataModel)
+BuxlGameView.prototype.animateWrongWord = async function animateWrongWord (dataModel)
 {
     this.curDataModel = dataModel;
     let _this = this;
@@ -60,6 +60,22 @@ BuxlGameView.prototype.animateWrongWord = function animateWrongWord (dataModel)
       backgroundColor: '#ff0066',  
       easing: 'easeOutBack'
     });
+
+    let targetBuxl = document.querySelector('#buxlhelp');
+    targetBuxl.src = "images/buxlwoh.svg";
+    
+    await anime({
+      targets: targetBuxl,
+      rotate: ['-15', '15', '-15'],
+      duration: 60,
+      direction: 'alternate',
+      loop: 4,
+      easing: 'easeInOutQuart',
+      complete: function () {
+        targetBuxl.style="";
+        setTimeout(function(){ targetBuxl.src = "images/buxlsmile.svg"; }, 200);
+      }
+    }).finished;
 
     anime({
       targets: '.gamewrap',
@@ -161,7 +177,7 @@ BuxlGameView.prototype.animateHint = function animateHint (letterHash)
 {
     let targetLetter = document.querySelector('[data-game-btn-id="'+ letterHash +'"]');
     let targetBuxl = document.querySelector('#buxlhelp');
-    targetBuxl.src = "images/buxlwoh.svg";
+    targetBuxl.src = "images/buxlne.svg";
 
     anime({
       targets: targetLetter,
@@ -192,7 +208,7 @@ BuxlGameView.prototype.animateHintError = function animateHintError ()
 {
     let targetLetters = document.querySelectorAll('.gamewrap > div > div > div');
     let targetBuxl = document.querySelector('#buxlhelp');
-    targetBuxl.src = "images/buxlne.svg";
+    targetBuxl.src = "images/buxlwoh.svg";
     
     anime({
       targets: '.letter-solution-mass',
