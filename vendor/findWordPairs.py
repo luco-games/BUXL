@@ -13,18 +13,24 @@ class findWordPairs:
         result_combos = self.findCombinations()
         for word in result_combos:
             if len(result_combos[word]) > 2:
-                wordslist = list(result_combos[word])
-                top, bottom = self.findPair(wordslist)
-                counter = len(wordslist) + 1
-                while (len(top) != 4 and len(bottom) != 4 and counter > 0):
-                    counter -= 1
-                    top, bottom = self.findPair(wordslist[:counter])
-                
-                if (len(top) == 4 and len(bottom) == 4):
-                    t_result_combos =  tuple(wordslist[:counter])
+                top, bottom = self.findPair(list(result_combos[word]))
+                if len(top) == 4 and len(bottom) == 4:
+                    t_result_combos =  tuple(result_combos[word])
                     self.comboPairs[t_result_combos] = []
                     self.comboPairs[t_result_combos].append(top)
                     self.comboPairs[t_result_combos].append(bottom)
+                else:
+                    wordlist = list(result_combos[word])
+                    del wordlist[-1]
+                    top, bottom = self.findPair(wordlist)
+                    if len(top) == 4 and len(bottom) == 4:
+                        t_result_combos =  tuple(wordlist)
+                        self.comboPairs[t_result_combos] = []
+                        self.comboPairs[t_result_combos].append(top)
+                        self.comboPairs[t_result_combos].append(bottom)
+                    else:
+                        print ("nothing found with %s - %s" % (top,bottom))
+                
 
         return self.comboPairs
 
@@ -106,12 +112,11 @@ class findWordPairs:
         result_combos = {}
         for word in self.possibleWords:
             for word2 in self.possibleWords:
-                if (word2 not in combinations):
+                if (not word2 in combinations):
                     if self.is_not_in(word2, word):
                         if word not in combinations:
                             combinations[word] = set()
                         combinations[word].add(word2)
-
 
         for word in combinations:
             if len(combinations[word]) > 1:
@@ -143,6 +148,13 @@ class findWordPairs:
         for word in words:
            for letter in word:
                 combos[letter].difference_update(self.convertStringToSet(word))
+        min_letter = words[0][0]
+        min_length = len(combos[min_letter])
+        
+        for combo in combos:
+            if len(combos[combo]) < min_length:
+                min_letter = combo
+                min_length = len(combos[combo])
 
         top = []
         bottom = []
