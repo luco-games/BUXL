@@ -28,9 +28,6 @@ class findWordPairs:
                         self.comboPairs[t_result_combos] = []
                         self.comboPairs[t_result_combos].append(top)
                         self.comboPairs[t_result_combos].append(bottom)
-                    else:
-                        print ("nothing found with %s - %s" % (top,bottom))
-                
 
         return self.comboPairs
 
