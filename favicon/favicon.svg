@@ -10,13 +10,11 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="16mm"
-   height="16mm"
+   width="16px"
+   height="16px"
    viewBox="0 0 16 16"
    version="1.1"
-   id="svg976"
-   inkscape:version="0.92.2 2405546, 2018-03-11"
-   sodipodi:docname="favoriteicon.svg">
+   id="svg976">
   <defs
      id="defs970">
     <linearGradient

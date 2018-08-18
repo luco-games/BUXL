@@ -1,0 +1,21 @@
+{
+  "short_name": "BUXL",
+  "name": "BUXL",
+  "icons": [
+    {
+      "src": "/favicon/favicon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/favicon/favicon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/#/buxl/",
+  "background_color": "#251A60",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#251A60"
+}
