@@ -1,33 +1,21 @@
 #!/bin/env python3
+import collections, itertools
 
 class findWordPairs:
     inputWords = []
     possibleWords = set()
     comboPairs = {}
+    wordLength = -1
 
     def __init__(self, wordlist):
         self.inputWords = wordlist
+        self.wordLength = len(wordlist[0])
 
     def generatePairs(self):
         self.findPossibleWords()
         result_combos = self.findCombinations()
-        for word in result_combos:
-            if len(result_combos[word]) > 2:
-                top, bottom = self.findPair(list(result_combos[word]))
-                if len(top) == 4 and len(bottom) == 4:
-                    t_result_combos =  tuple(result_combos[word])
-                    self.comboPairs[t_result_combos] = []
-                    self.comboPairs[t_result_combos].append(top)
-                    self.comboPairs[t_result_combos].append(bottom)
-                else:
-                    wordlist = list(result_combos[word])
-                    del wordlist[-1]
-                    top, bottom = self.findPair(wordlist)
-                    if len(top) == 4 and len(bottom) == 4:
-                        t_result_combos =  tuple(wordlist)
-                        self.comboPairs[t_result_combos] = []
-                        self.comboPairs[t_result_combos].append(top)
-                        self.comboPairs[t_result_combos].append(bottom)
+        for wordlist in result_combos:
+            self.findPair(wordlist, False)
 
         return self.comboPairs
 
@@ -39,39 +27,6 @@ class findWordPairs:
 
         return result
 
-    def removeLetter(self, combos, letter):
-        if letter:
-            if letter in combos:
-                del combos[letter]
-            for combo in combos:
-                if letter in combos[combo]:
-                    combos[combo].remove(letter)
-
-    def genEmpty2DArray(self, length):
-        result = []
-
-        for i in range(0,length):
-            result.append([])
-        
-        return result
-
-    def reArange(self, combos, letter, letter2):
-        sortedList = self.genEmpty2DArray(20)
-        is_empty = True
-
-        self.removeLetter(combos, letter)
-        self.removeLetter(combos, letter2)
-
-        for combo in combos:
-            list_length = len(combos[combo])
-            if list_length > 0:
-                sortedList[list_length - 1].append({combo:combos[combo]})
-                is_empty = False
-            else:
-                is_empty = True
-
-        return sortedList, is_empty
-
 
     def is_in (self, word1, word2):
         for letter in word1:
@@ -79,16 +34,6 @@ class findWordPairs:
                 return False
         return True
     
-    def is_not_in (self, word1, word2):
-        for letter in word1:
-            if letter in word2:
-                return False
-        return True
-
-    def removePossibleWords(self, words):
-        for word in words:
-            self.possibleWords.discard(word)
-
     def findPossibleWords(self):
         letters = []
 
@@ -104,72 +49,118 @@ class findWordPairs:
                 self.possibleWords.add("".join(letters))
                 letters = []
 
-    def findCombinations(self):
-        combinations = {}
-        result_combos = {}
+    def findWordsWithTheSameLetters(self):
+        combinations = set()
         for word in self.possibleWords:
+            possible_combinations = set()
             for word2 in self.possibleWords:
-                if (not word2 in combinations):
-                    if self.is_not_in(word2, word):
-                        if word not in combinations:
-                            combinations[word] = set()
-                        combinations[word].add(word2)
+                if collections.Counter(word) == collections.Counter(word2):
+                        possible_combinations.add(word2)
+            combinations.add(frozenset(possible_combinations))
+        return combinations
 
-        for word in combinations:
-            if len(combinations[word]) > 1:
-                for compareword in combinations[word]:
-                    letters = []
-                    letters.append(word)
-                    letters.append(compareword)   
-                    comboword = "".join(letters)
-                    result_combos[comboword] = set()
-                    for word2 in self.possibleWords:
-                        if self.is_in(word2, comboword):
-                            result_combos[comboword].add(word2)
+    def extendEveryWordlistWithEveryOtherWordlist(self, combinations):
+        possible_combos = []
 
-        return result_combos
+        for wordlist in combinations:
+            if (len(wordlist) > 1):
+                for wordlist2 in combinations:
+                    combolist = list(wordlist)
+                    if wordlist is not wordlist2:
+                        combolist.extend(list(wordlist2))
+                    possible_combos.append(combolist)
 
-    def findPair(self, words):
+        return possible_combos 
+
+
+    def generateLetterset(self, wordlist):
         letterset = set()
-        combos = {}
 
-        for word in words:
-           for letter in word:
+        for word in wordlist:
+            for letter in word:
                 letterset.add(letter)
 
-        for word in words:
-           for letter in word:
+        return letterset
+
+    def findCombinations(self):
+        result_combos = [] 
+        possible_combos = []
+    
+        combinations = self.findWordsWithTheSameLetters()
+
+        possible_combos = self.extendEveryWordlistWithEveryOtherWordlist(combinations)
+
+        for wordlist in possible_combos:
+            letterset = self.generateLetterset(wordlist)
+            
+            if (len(letterset) > self.wordLength):
+                for word in self.possibleWords:
+                    if self.is_in(word, letterset):
+                        if word not in wordlist:
+                            wordlist.append(word)
+                            if not self.findPair(wordlist, True):
+                                wordlist.remove(word)
+                result_combos.append(wordlist)
+                        
+        return result_combos
+
+    def sortElements(self, combos):
+        sortedList = {}
+        for k in sorted(combos, key=lambda k: len(combos[k])):
+            if (len(combos[k]) > 0):
+                sortedList[k] = combos[k]
+        return sortedList
+
+    def findPair(self, wordlist, dryrun):
+        combos = {}
+
+        letterset = self.generateLetterset(wordlist)
+
+        for word in wordlist:
+            for letter in word:
                 combos[letter] = set()
                 combos[letter].update(letterset)
 
-        for word in words:
-           for letter in word:
+        for word in wordlist:
+            for letter in word:
                 combos[letter].difference_update(self.convertStringToSet(word))
-        min_letter = words[0][0]
-        min_length = len(combos[min_letter])
+    
+        sortedList = self.sortElements(combos)
+
+        if (len(combos) != len(sortedList)):
+            return False
         
-        for combo in combos:
-            if len(combos[combo]) < min_length:
-                min_letter = combo
-                min_length = len(combos[combo])
+        front = []
+        back = []
 
-        top = []
-        bottom = []
+        while True:
+            try:
+                letter_front =  next(iter(sortedList))
+                letter_back = sortedList[letter_front].pop()
 
-        sortedList, empty = self.reArange(combos, "","")
+                for elem in sortedList:
+                    if letter_back in sortedList[elem]:
+                        sortedList[elem].remove(letter_back)
+                
+                if letter_back in sortedList:
+                    del sortedList[letter_back]
+
+                del sortedList[letter_front]
+
+                front.append(letter_front)
+                back.append(letter_back)
+
+                sortedList = self.sortElements(sortedList)
+            except StopIteration:
+                break
         
-        while (not empty):
-            letter_top = ""
-            letter_bottom = ""
-            for elem in sortedList:
-                if len(elem) > 0:
-                    for key in elem[0]:
-                        letter_top = key
-                        letter_bottom = elem[0][key].pop()
-                        top.append(letter_top)
-                        bottom.append(letter_bottom)
-                if letter_top and letter_bottom:
-                   sortedList, empty = self.reArange(combos, letter_top, letter_bottom)
-                   break
+        if len(front) == self.wordLength  and len(back) == self.wordLength:
+            if not dryrun:
+                t_result_combos =  tuple(wordlist)
+                self.comboPairs[t_result_combos] = []
+                self.comboPairs[t_result_combos].append(front)
+                self.comboPairs[t_result_combos].append(back)
+            return True
 
-        return top, bottom
+        return False
+

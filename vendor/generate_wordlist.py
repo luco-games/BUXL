@@ -4,7 +4,7 @@ wordlist_file = open("wordlist.txt")
 
 wordlist = wordlist_file.read().splitlines()
 
-fWP = findWordPairs.findWordPairs(wordlist) 
+fWP = findWordPairs.findWordPairs(wordlist)
 result = fWP.generatePairs()
 
 data = {}
