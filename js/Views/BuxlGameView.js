@@ -87,6 +87,8 @@ BuxlGameView.prototype.animateWrongWord = async function animateWrongWord (dataM
 
 BuxlGameView.prototype.animateSolved = async function animateSolved (dataModel)
 {
+    this.registerEvents(false);
+
     anime({
       targets: '.letter-solution-mass',
       duration: 500,
