@@ -51,6 +51,8 @@ BuxlGameView.prototype.setSelectedLetters = function setSelectedLetters (letters
 
 BuxlGameView.prototype.animateWrongWord = async function animateWrongWord (dataModel)
 {
+    this.registerEvents(false);
+
     this.curDataModel = dataModel;
     let _this = this;
     let targetBuxl = document.querySelector('#buxlhelp');
@@ -120,6 +122,8 @@ let funcy = function() { return anime.random(-40, 40) + 'px'; };
 
 BuxlGameView.prototype.animateGameFinished = async function animateGameFinished (solvedDataModel, newDataModel)
 {
+    this.registerEvents(false);
+
     await this.animateSolved(solvedDataModel);
 
     let _this = this;

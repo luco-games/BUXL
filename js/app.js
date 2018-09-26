@@ -5,7 +5,7 @@ let getBuxlGameEvents = function getBuxlGameEvents ()
    // Register Buttons
    let letterButtons = {
         target : ".gamewrap",
-        triggers: "click touchend",
+        triggers: "click touchend touchmove",
         f: "onSelectLetterEvent"
     };
 
@@ -17,7 +17,7 @@ let getBuxlGameEvents = function getBuxlGameEvents ()
 
     let solutionButton = {
         target : "#help",
-        triggers: "click touchend",
+        triggers: "click touchend touchmove",
         f: "onClickSolutionEvent"
     };
 
