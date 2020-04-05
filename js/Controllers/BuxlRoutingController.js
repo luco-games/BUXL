@@ -112,6 +112,10 @@ BuxlRoutingController.prototype.registerRoutes = function registerRoutes ()
     this.routes.privacy = [];
     this.routes.privacy.push(this.controllers.legal);
     this.routes.privacy.push(this.controllers.footer);
+
+    this.routes.introduction = [];
+    this.routes.introduction.push(this.controllers.legal);
+    this.routes.introduction.push(this.controllers.footer);
 };
 
 BuxlRoutingController.prototype.unregisterEvents = function unregisterEvents () 

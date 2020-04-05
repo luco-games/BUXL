@@ -1,6 +1,6 @@
 import findWordPairs, json, io, hashlib, itertools
 
-wordlist_file = open("wordlist.txt")
+wordlist_file = open("vendor/wordlist.txt")
 
 wordlist = wordlist_file.read().splitlines()
 
@@ -34,7 +34,7 @@ for key in result:
 
     data[gH] = json_arr
     
-with io.open('../data/combopairs.js', 'w', encoding='utf-8') as f:
+with io.open('data/combopairs.js', 'w', encoding='utf-8') as f:
   f.write("var data=%s;" % json.dumps(data,separators=(',', ':')))
 
 html_out = '<!doctype html>\n<html> <head> <meta charset="utf-8"> <title>BUXL</title> <meta name="description" content="Buxl, finde alle Kombinationen"> <meta name="author" content="JC"> <meta name="google" content="notranslate" /> </head> <body>\n'
@@ -58,5 +58,5 @@ for resLength in resultLength:
 for res in result:
     html_out += res
 
-with io.open('../data/tagcloud.html', 'w', encoding='utf-8') as f:
+with io.open('data/tagcloud.html', 'w', encoding='utf-8') as f:
   f.write(html_out)

@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function()
     let buxlLegalViewTmpls = [];
     buxlListViewTmpls.push("privacytmpl");
     buxlListViewTmpls.push("imprinttmpl");
+    buxlListViewTmpls.push("introductiontmpl");
 
     let buxlIntroView = new BuxlIntroView ({
            'targetView': null,
