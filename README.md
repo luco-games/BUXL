@@ -39,3 +39,7 @@ noch keine
 Lizenz
 ----
 GPLv3, siehe `LICENSE`- Datei
+
+Screenshot
+---------
+![kaputt](https://buxl.games/images/buxlExample.png)
